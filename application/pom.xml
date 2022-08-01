@@ -21,10 +21,16 @@
             <groupId>be.one16.barka</groupId>
             <artifactId>domain</artifactId>
             <version>0.0.1-SNAPSHOT</version>
-        </dependency><dependency>
+        </dependency>
+        <dependency>
             <groupId>be.one16.barka</groupId>
             <artifactId>magazijn</artifactId>
             <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <scope>runtime</scope>
         </dependency>
     </dependencies>
 
