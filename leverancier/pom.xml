@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>application</artifactId>
+    <artifactId>leverancier</artifactId>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
@@ -23,19 +23,9 @@
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
         <dependency>
-            <groupId>be.one16.barka</groupId>
-            <artifactId>magazijn</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>be.one16.barka</groupId>
-            <artifactId>leverancier</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct</artifactId>
+            <version>1.5.2.Final</version>
         </dependency>
     </dependencies>
 
