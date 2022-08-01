@@ -34,6 +34,6 @@ spring:
       hibernate.dialect: org.hibernate.dialect.SQLServer2012Dialect
   datasource:
     driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-    url: ${DATASOURCE_URL:jdbc:sqlserver://localhost;databaseName=barka_db}
+    url: ${DATASOURCE_URL:jdbc:sqlserver://localhost:1433;databaseName=barka_db;trustServerCertificate=true}
     username: ${DATASOURCE_USER:sa}
     password: ${DATASOURCE_PASS:Th1s1sMyPass_word}
