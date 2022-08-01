@@ -1,7 +1,7 @@
 server:
   port: ${PORT:8080}
   servlet:
-    context-path: /
+    context-path: /barka
 
 management:
   server:
@@ -22,31 +22,18 @@ management:
 
 
 spring:
-  security:
-    oauth2:
-      resourceserver:
-        jwt:
-          jwk-set-uri: https://one16pointhrb2c.b2clogin.com/one16pointhrb2c.onmicrosoft.com/b2c_1_signin/discovery/v2.0/keys
-          issuer-uri: https://one16pointhrb2c.b2clogin.com/37efb679-0abc-437f-9ae2-832a20f90137/v2.0
   config:
     additional-location: ${SPRING_CONFIG_ADDITIONAL_LOCATION}
   jpa:
     open-in-view: false
-    generate-ddl: false
+    generate-ddl: true
     hibernate:
-      ddl-auto: none
+      ddl-auto: create-drop
     show-sql: true
     properties:
       hibernate.dialect: org.hibernate.dialect.SQLServer2012Dialect
   datasource:
     driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-    url: ${DATASOURCE_URL:jdbc:sqlserver://localhost;databaseName=pointhr_db}
+    url: ${DATASOURCE_URL:jdbc:sqlserver://localhost;databaseName=barka_db}
     username: ${DATASOURCE_USER:sa}
     password: ${DATASOURCE_PASS:Th1s1sMyPass_word}
-
-springdoc:
-  api-docs:
-    enabled: true
-  swagger-ui:
-    enabled: true
-    path: /swagger-ui.html
