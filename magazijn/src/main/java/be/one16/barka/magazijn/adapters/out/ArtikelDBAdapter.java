@@ -2,9 +2,9 @@ package be.one16.barka.magazijn.adapters.out;
 
 import be.one16.barka.magazijn.domain.Artikel;
 import be.one16.barka.magazijn.ports.out.ArtikelCreatePort;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Component;
 
-@Repository
+@Component
 public class ArtikelDBAdapter implements ArtikelCreatePort {
 
     private final ArtikelRepository artikelRepository;
