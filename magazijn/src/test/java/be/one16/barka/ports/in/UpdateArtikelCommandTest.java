@@ -14,6 +14,7 @@ public class UpdateArtikelCommandTest {
     @Test
     public void testUpdateArtikelCommandValidWithoutAankoopPrijs() {
         UpdateArtikelCommand updateArtikelCommand = new UpdateArtikelCommand(
+                UUID.randomUUID(),
                 "ABUS URBAN-I 3.0 FIETSHELM",
                 "AUI30F",
                 "ABUS URBAN-I 3.0 FIETSHELM - Zwart - 52-58cm",
@@ -24,12 +25,13 @@ public class UpdateArtikelCommandTest {
                 BigDecimal.valueOf(89.99),
                 null);
 
-        assertEquals(updateArtikelCommand.getVerkoopPrijs(), updateArtikelCommand.getActuelePrijs());
+        assertEquals(updateArtikelCommand.verkoopPrijs(), updateArtikelCommand.actuelePrijs());
     }
 
     @Test
     public void testUpdateArtikelCommandInvalid() {
         Assertions.assertThrows(IllegalArgumentException.class, () -> new UpdateArtikelCommand(
+                UUID.randomUUID(),
                 "",
                 "AUI30F",
                 "ABUS URBAN-I 3.0 FIETSHELM - Zwart - 52-58cm",
@@ -41,6 +43,7 @@ public class UpdateArtikelCommandTest {
                 BigDecimal.valueOf(79.99)));
 
         Assertions.assertThrows(IllegalArgumentException.class, () -> new UpdateArtikelCommand(
+                UUID.randomUUID(),
                 "ABUS URBAN-I 3.0 FIETSHELM",
                 null,
                 "ABUS URBAN-I 3.0 FIETSHELM - Zwart - 52-58cm",
@@ -52,6 +55,7 @@ public class UpdateArtikelCommandTest {
                 BigDecimal.valueOf(79.99)));
 
         Assertions.assertThrows(IllegalArgumentException.class, () -> new UpdateArtikelCommand(
+                UUID.randomUUID(),
                 "ABUS URBAN-I 3.0 FIETSHELM",
                 "AUI30F",
                 "",
@@ -63,6 +67,7 @@ public class UpdateArtikelCommandTest {
                 BigDecimal.valueOf(79.99)));
 
         Assertions.assertThrows(IllegalArgumentException.class, () -> new UpdateArtikelCommand(
+                UUID.randomUUID(),
                 "ABUS URBAN-I 3.0 FIETSHELM",
                 "AUI30F",
                 "ABUS URBAN-I 3.0 FIETSHELM - Zwart - 52-58cm",
@@ -74,6 +79,7 @@ public class UpdateArtikelCommandTest {
                 BigDecimal.valueOf(79.99)));
 
         Assertions.assertThrows(IllegalArgumentException.class, () -> new UpdateArtikelCommand(
+                UUID.randomUUID(),
                 "ABUS URBAN-I 3.0 FIETSHELM",
                 "AUI30F",
                 "ABUS URBAN-I 3.0 FIETSHELM - Zwart - 52-58cm",
@@ -85,6 +91,7 @@ public class UpdateArtikelCommandTest {
                 BigDecimal.valueOf(79.99)));
 
         Assertions.assertThrows(IllegalArgumentException.class, () -> new UpdateArtikelCommand(
+                UUID.randomUUID(),
                 "ABUS URBAN-I 3.0 FIETSHELM",
                 "AUI30F",
                 "ABUS URBAN-I 3.0 FIETSHELM - Zwart - 52-58cm",
@@ -96,6 +103,7 @@ public class UpdateArtikelCommandTest {
                 BigDecimal.valueOf(79.99)));
 
         Assertions.assertThrows(IllegalArgumentException.class, () -> new UpdateArtikelCommand(
+                UUID.randomUUID(),
                 "ABUS URBAN-I 3.0 FIETSHELM",
                 "AUI30F",
                 "ABUS URBAN-I 3.0 FIETSHELM - Zwart - 52-58cm",
@@ -107,6 +115,7 @@ public class UpdateArtikelCommandTest {
                 BigDecimal.valueOf(79.99)));
 
         Assertions.assertThrows(IllegalArgumentException.class, () -> new UpdateArtikelCommand(
+                UUID.randomUUID(),
                 "ABUS URBAN-I 3.0 FIETSHELM",
                 "AUI30F",
                 "ABUS URBAN-I 3.0 FIETSHELM - Zwart - 52-58cm",
@@ -118,6 +127,7 @@ public class UpdateArtikelCommandTest {
                 BigDecimal.valueOf(79.99)));
 
         Assertions.assertThrows(IllegalArgumentException.class, () -> new UpdateArtikelCommand(
+                UUID.randomUUID(),
                 "ABUS URBAN-I 3.0 FIETSHELM",
                 "AUI30F",
                 "ABUS URBAN-I 3.0 FIETSHELM - Zwart - 52-58cm",
@@ -129,6 +139,7 @@ public class UpdateArtikelCommandTest {
                 BigDecimal.valueOf(79.99)));
 
         Assertions.assertThrows(IllegalArgumentException.class, () -> new UpdateArtikelCommand(
+                UUID.randomUUID(),
                 "ABUS URBAN-I 3.0 FIETSHELM",
                 "AUI30F",
                 "ABUS URBAN-I 3.0 FIETSHELM - Zwart - 52-58cm",

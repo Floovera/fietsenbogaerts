@@ -47,10 +47,7 @@ public class KlantController {
 
     @PutMapping("/{id}")
     void updateKlant(@PathVariable("id") UUID klantId, @RequestBody KlantDto klant) {
-        UpdateKlantCommand updateKlantCommand = klantDtoMapper.mapDtoToUpdateKlantCommand(klant);
-        updateKlantCommand.setKlantId(klantId);
-
-        updateKlantUnitOfWork.updateKlant(updateKlantCommand);
+        updateKlantUnitOfWork.updateKlant(klantDtoMapper.mapDtoToUpdateKlantCommand(klant, klantId));
     }
 
     @DeleteMapping("/{id}")

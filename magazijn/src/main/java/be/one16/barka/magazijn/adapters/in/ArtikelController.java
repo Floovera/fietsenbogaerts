@@ -50,10 +50,7 @@ public class ArtikelController {
 
     @PutMapping("/{id}")
     void updateArtikelInMagazijn(@PathVariable("id") UUID artikelId, @RequestBody ArtikelDto artikel) {
-        UpdateArtikelCommand updateArtikelCommand = artikelDtoMapper.mapDtoToUpdateArtikelCommand(artikel);
-        updateArtikelCommand.setArtikelId(artikelId);
-
-        updateArtikelInMagazijnUnitOfWork.updateArtikelInMagazijn(updateArtikelCommand);
+         updateArtikelInMagazijnUnitOfWork.updateArtikelInMagazijn(artikelDtoMapper.mapDtoToUpdateArtikelCommand(artikel, artikelId));
     }
 
     @DeleteMapping("/{id}")

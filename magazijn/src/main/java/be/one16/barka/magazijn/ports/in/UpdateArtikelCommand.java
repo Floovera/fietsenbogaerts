@@ -1,27 +1,13 @@
 package be.one16.barka.magazijn.ports.in;
 
-import lombok.Getter;
 import org.apache.commons.lang3.StringUtils;
 
 import java.math.BigDecimal;
 import java.util.UUID;
 
-@Getter
-public class UpdateArtikelCommand {
+public record UpdateArtikelCommand (UUID artikelId, String merk, String code, String omschrijving, UUID leverancierId, int aantalInStock, int minimumInStock, BigDecimal aankoopPrijs, BigDecimal verkoopPrijs, BigDecimal actuelePrijs) {
 
-    private UUID artikelId;
-
-    private final String merk;
-    private final String code;
-    private final String omschrijving;
-    private final UUID leverancierId;
-    private final int aantalInStock;
-    private final int minimumInStock;
-    private final BigDecimal aankoopPrijs;
-    private final BigDecimal verkoopPrijs;
-    private final BigDecimal actuelePrijs;
-
-    public UpdateArtikelCommand(String merk, String code, String omschrijving, UUID leverancierId, int aantalInStock, int minimumInStock, BigDecimal aankoopPrijs, BigDecimal verkoopPrijs, BigDecimal actuelePrijs) {
+    public UpdateArtikelCommand {
         if (StringUtils.isEmpty(merk) || StringUtils.isEmpty(code) || StringUtils.isEmpty(omschrijving)){
             throw new IllegalArgumentException("Value for 'merk', 'code' or 'omschrijving' can not be null or empty");
         }
@@ -45,20 +31,5 @@ public class UpdateArtikelCommand {
         if ((aankoopPrijs != null && aankoopPrijs.doubleValue() < 0) || actuelePrijs.doubleValue() < 0) {
             throw new IllegalArgumentException("Value for 'aankoopPrijs' or 'actuelePrijs' can not be less than zero");
         }
-
-        this.merk = merk;
-        this.code = code;
-        this.omschrijving = omschrijving;
-        this.leverancierId = leverancierId;
-        this.aantalInStock = aantalInStock;
-        this.minimumInStock = minimumInStock;
-        this.aankoopPrijs = aankoopPrijs;
-        this.verkoopPrijs = verkoopPrijs;
-        this.actuelePrijs = actuelePrijs;
     }
-
-    public void setArtikelId(UUID artikelId) {
-        this.artikelId = artikelId;
-    }
-
 }

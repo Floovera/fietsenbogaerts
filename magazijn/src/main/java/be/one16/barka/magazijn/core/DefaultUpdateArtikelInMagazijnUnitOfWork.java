@@ -13,8 +13,8 @@ import java.util.List;
 @Service
 public class DefaultUpdateArtikelInMagazijnUnitOfWork implements UpdateArtikelInMagazijnUnitOfWork {
 
-    private List<ArtikelUpdatePort> artikelUpdatePortList;
-    private ArtikelUniqueCodePort artikelUniqueCodePort;
+    private final List<ArtikelUpdatePort> artikelUpdatePortList;
+    private final ArtikelUniqueCodePort artikelUniqueCodePort;
 
     public DefaultUpdateArtikelInMagazijnUnitOfWork(List<ArtikelUpdatePort> artikelUpdatePortList, ArtikelUniqueCodePort artikelUniqueCodePort) {
         this.artikelUpdatePortList = artikelUpdatePortList;
@@ -24,16 +24,16 @@ public class DefaultUpdateArtikelInMagazijnUnitOfWork implements UpdateArtikelIn
     @Override
     public void updateArtikelInMagazijn(UpdateArtikelCommand updateArtikelCommand) {
         Artikel artikel = Artikel.builder()
-                .artikelId(updateArtikelCommand.getArtikelId())
-                .merk(updateArtikelCommand.getMerk())
-                .code(updateArtikelCommand.getCode())
-                .omschrijving(updateArtikelCommand.getOmschrijving())
-                .leverancier(Leverancier.builder().leverancierId(updateArtikelCommand.getLeverancierId()).build())
-                .aantalInStock(updateArtikelCommand.getAantalInStock())
-                .minimumInStock(updateArtikelCommand.getMinimumInStock())
-                .aankoopPrijs(updateArtikelCommand.getAankoopPrijs())
-                .verkoopPrijs(updateArtikelCommand.getVerkoopPrijs())
-                .actuelePrijs(updateArtikelCommand.getActuelePrijs())
+                .artikelId(updateArtikelCommand.artikelId())
+                .merk(updateArtikelCommand.merk())
+                .code(updateArtikelCommand.code())
+                .omschrijving(updateArtikelCommand.omschrijving())
+                .leverancier(Leverancier.builder().leverancierId(updateArtikelCommand.leverancierId()).build())
+                .aantalInStock(updateArtikelCommand.aantalInStock())
+                .minimumInStock(updateArtikelCommand.minimumInStock())
+                .aankoopPrijs(updateArtikelCommand.aankoopPrijs())
+                .verkoopPrijs(updateArtikelCommand.verkoopPrijs())
+                .actuelePrijs(updateArtikelCommand.actuelePrijs())
                 .build();
 
 

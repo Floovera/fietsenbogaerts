@@ -22,25 +22,25 @@ public class DefaultUpdateKlantUnitOfWork implements UpdateKlantUnitOfWork {
 
     @Override
     public void updateKlant(UpdateKlantCommand updateKlantCommand) {
-        if (StringUtils.isEmpty(updateKlantCommand.getNaam())) {
+        if (StringUtils.isEmpty(updateKlantCommand.naam())) {
             throw new IllegalArgumentException("Value for 'naam' can not be null or empty");
         }
 
         Klant klant = Klant.builder()
-                .klantId(updateKlantCommand.getKlantId())
-                .naam(updateKlantCommand.getNaam())
-                .klantType(updateKlantCommand.getKlantType() == null ? ONBEKEND : updateKlantCommand.getKlantType())
-                .straat(updateKlantCommand.getStraat())
-                .huisnummer(updateKlantCommand.getHuisnummer())
-                .bus(updateKlantCommand.getBus())
-                .postcode(updateKlantCommand.getPostcode())
-                .gemeente(updateKlantCommand.getGemeente())
-                .land(updateKlantCommand.getLand())
-                .telefoonnummer(updateKlantCommand.getTelefoonnummer())
-                .mobiel(updateKlantCommand.getMobiel())
-                .email(updateKlantCommand.getEmail())
-                .btwNummer(updateKlantCommand.getBtwNummer())
-                .opmerkingen(updateKlantCommand.getOpmerkingen())
+                .klantId(updateKlantCommand.klantId())
+                .naam(updateKlantCommand.naam())
+                .klantType(updateKlantCommand.klantType() == null ? ONBEKEND : updateKlantCommand.klantType())
+                .straat(updateKlantCommand.straat())
+                .huisnummer(updateKlantCommand.huisnummer())
+                .bus(updateKlantCommand.bus())
+                .postcode(updateKlantCommand.postcode())
+                .gemeente(updateKlantCommand.gemeente())
+                .land(updateKlantCommand.land())
+                .telefoonnummer(updateKlantCommand.telefoonnummer())
+                .mobiel(updateKlantCommand.mobiel())
+                .email(updateKlantCommand.email())
+                .btwNummer(updateKlantCommand.btwNummer())
+                .opmerkingen(updateKlantCommand.opmerkingen())
                 .build();
 
         updateKlantPorts.forEach(port -> port.updateKlant(klant));
