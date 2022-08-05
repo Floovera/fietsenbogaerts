@@ -1,7 +1,7 @@
 package be.one16.barka.magazijn.adapters.out;
 
-import be.one16.barka.domain.exceptions.EntityNotFoundException;
-import be.one16.barka.domain.exceptions.LinkedEntityNotFoundException;
+import be.one16.barka.klant.domain.exceptions.EntityNotFoundException;
+import be.one16.barka.klant.domain.exceptions.LinkedEntityNotFoundException;
 import be.one16.barka.magazijn.adapters.mapper.ArtikelJpaEntityMapper;
 import be.one16.barka.magazijn.adapters.out.repository.ArtikelRepository;
 import be.one16.barka.magazijn.adapters.out.repository.LeverancierRepository;
