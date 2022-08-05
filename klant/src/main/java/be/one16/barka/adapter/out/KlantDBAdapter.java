@@ -4,8 +4,10 @@ import be.one16.barka.adapter.mapper.KlantJpaEntityMapper;
 import be.one16.barka.adapter.out.repository.KlantRepository;
 import be.one16.barka.domain.Klant;
 import be.one16.barka.domain.exceptions.EntityNotFoundException;
-import be.one16.barka.port.out.*;
-import org.springframework.beans.factory.annotation.Autowired;
+import be.one16.barka.port.out.CreateKlantPort;
+import be.one16.barka.port.out.DeleteKlantPort;
+import be.one16.barka.port.out.LoadKlantenPort;
+import be.one16.barka.port.out.UpdateKlantPort;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.data.domain.Page;
@@ -18,13 +20,16 @@ import java.util.UUID;
 
 @Component
 @Order(Ordered.HIGHEST_PRECEDENCE)
-public class KlantDBAdapter implements RetrieveKlantByIdPort, RetrieveKlantByFilterAndSortPort, CreateKlantPort, UpdateKlantPort, DeleteKlantPort {
+public class KlantDBAdapter implements LoadKlantenPort, CreateKlantPort, UpdateKlantPort, DeleteKlantPort {
 
-    @Autowired
-    private KlantRepository klantRepository;
+    private final KlantRepository klantRepository;
 
-    @Autowired
-    private KlantJpaEntityMapper klantJpaEntityMapper;
+    private final KlantJpaEntityMapper klantJpaEntityMapper;
+
+    public KlantDBAdapter(KlantRepository klantRepository, KlantJpaEntityMapper klantJpaEntityMapper) {
+        this.klantRepository = klantRepository;
+        this.klantJpaEntityMapper = klantJpaEntityMapper;
+    }
 
     @Override
     public Klant retrieveKlantById(UUID id) {
@@ -34,7 +39,7 @@ public class KlantDBAdapter implements RetrieveKlantByIdPort, RetrieveKlantByFil
     }
 
     @Override
-    public Page<Klant> retrieveKlantByFilterAndSort(String naam, Pageable pageable) {
+    public Page<Klant> retrieveKlantenByFilterAndSort(String naam, Pageable pageable) {
         Specification<KlantJpaEntity> specification = Specification.where(naam == null ? null : (Specification<KlantJpaEntity>) ((root, query, builder) -> builder.like(root.get("naam"), "%" + naam + "%")));
         return klantRepository.findAll(specification, PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), pageable.getSort()))
                 .map(klantJpaEntityMapper::mapJpaEntityToKlant);
@@ -43,6 +48,7 @@ public class KlantDBAdapter implements RetrieveKlantByIdPort, RetrieveKlantByFil
     @Override
     public void createKlant(Klant klant) {
         KlantJpaEntity klantJpaEntity = new KlantJpaEntity();
+
         klantJpaEntity.setUuid(klant.getKlantId());
         klantJpaEntity.setNaam(klant.getNaam());
         klantJpaEntity.setKlantType(klant.getKlantType());

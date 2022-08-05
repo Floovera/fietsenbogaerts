@@ -2,7 +2,6 @@ package be.one16.barka.adapter.in;
 
 import be.one16.barka.adapter.mapper.KlantDtoMapper;
 import be.one16.barka.port.in.*;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -14,35 +13,29 @@ import java.util.UUID;
 @RequestMapping("/api/klanten")
 public class KlantController {
 
-    @Autowired
-    private RetrieveKlantByIdUnitOfWork retrieveKlantByIdUnitOfWork;
+    private final KlantenQuery klantenQuery;
+    private final CreateKlantUnitOfWork createKlantUnitOfWork;
+    private final UpdateKlantUnitOfWork updateKlantUnitOfWork;
+    private final DeleteKlantUnitOfWork deleteKlantUnitOfWork;
 
-    @Autowired
-    private RetrieveKlantByFilterAndSortUnitOfWork retrieveKlantByFilterAndSortUnitOfWork;
+    private final KlantDtoMapper klantDtoMapper;
 
-    @Autowired
-    private CreateKlantUnitOfWork createKlantUnitOfWork;
-
-    @Autowired
-    private UpdateKlantUnitOfWork updateKlantUnitOfWork;
-
-    @Autowired
-    private DeleteKlantUnitOfWork deleteKlantUnitOfWork;
-
-    @Autowired
-    private KlantDtoMapper klantDtoMapper;
+    public KlantController(KlantenQuery klantenQuery, CreateKlantUnitOfWork createKlantUnitOfWork, UpdateKlantUnitOfWork updateKlantUnitOfWork, DeleteKlantUnitOfWork deleteKlantUnitOfWork, KlantDtoMapper klantDtoMapper) {
+        this.klantenQuery = klantenQuery;
+        this.createKlantUnitOfWork = createKlantUnitOfWork;
+        this.updateKlantUnitOfWork = updateKlantUnitOfWork;
+        this.deleteKlantUnitOfWork = deleteKlantUnitOfWork;
+        this.klantDtoMapper = klantDtoMapper;
+    }
 
     @GetMapping("/{id}")
     KlantDto getKlantById(@PathVariable("id") UUID klantId) {
-        return klantDtoMapper.mapKlantToDto(retrieveKlantByIdUnitOfWork.retrieveKlantById(klantId));
+        return klantDtoMapper.mapKlantToDto(klantenQuery.retrieveKlantById(klantId));
     }
-
-    // UUID: technical
-    // ID: functional
 
     @GetMapping
     Page<KlantDto> getKlantenFiltered(@RequestParam(name = "naam", required = false) String naam, Pageable pageable) {
-        return retrieveKlantByFilterAndSortUnitOfWork.retrieveKlantByFilterAndSort(new RetrieveKlantFilterAndSortCommand(naam, pageable))
+        return klantenQuery.retrieveKlantenByFilterAndSort(new RetrieveKlantFilterAndSortCommand(naam, pageable))
                 .map(klantDtoMapper::mapKlantToDto);
     }
 

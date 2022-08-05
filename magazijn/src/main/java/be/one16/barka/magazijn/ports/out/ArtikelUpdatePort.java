@@ -2,8 +2,8 @@ package be.one16.barka.magazijn.ports.out;
 
 import be.one16.barka.magazijn.domain.Artikel;
 
-public interface ArtikelCreatePort {
+public interface ArtikelUpdatePort {
 
-    void createArtikel(Artikel artikel);
+    void updateArtikel(Artikel artikel);
 
 }

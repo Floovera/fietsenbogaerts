@@ -1,0 +1,354 @@
+{
+	"info": {
+		"_postman_id": "adc13727-be72-4282-a49b-1670bb12503e",
+		"name": "Fietsen-Bogaerts",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "22554185"
+	},
+	"item": [
+		{
+			"name": "Klanten",
+			"item": [
+				{
+					"name": "Create Klant",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"naam\": \"Geert Schreyers\",\n    \"klantType\": \"ZELFSTANDIGE\",\n    \"straat\": \"Bornemsesteenweg\",\n    \"huisnummer\": \"10\",\n    \"postcode\": \"2880\",\n    \"gemeente\": \"Bornem\",\n    \"land\": \"BE\",\n    \"telefoonnummer\": \"093455170\",\n    \"mobiel\": \"0473228980\",\n    \"email\": \"geert.schreyers@one16.be\",\n    \"opmerkingen\": \"Koopt weinig\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/barka/api/klanten",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"barka",
+								"api",
+								"klanten"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Klant",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"naam\": \"Marc De Ridder\",\n    \"klantType\": \"PARTICULIER\",\n    \"straat\": \"Begonialaan\",\n    \"huisnummer\": \"14\",\n    \"postcode\": \"9185\",\n    \"gemeente\": \"Wachtebeke\",\n    \"land\": \"BE\",\n    \"telefoonnummer\": \"093459896\",\n    \"mobiel\": \"0412457898\",\n    \"email\": \"marcderidder@hotmail.com\",\n    \"btwNummer\": \"BE987654321\",\n    \"opmerkingen\": \"Slechtste klant\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/barka/api/klanten/682598d4-fc7b-4fbe-83e9-1d26e2a58712",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"barka",
+								"api",
+								"klanten",
+								"682598d4-fc7b-4fbe-83e9-1d26e2a58712"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Klant",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/barka/api/klanten/682598d4-fc7b-4fbe-83e9-1d26e2a58712",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"barka",
+								"api",
+								"klanten",
+								"682598d4-fc7b-4fbe-83e9-1d26e2a58712"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Klanten",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/barka/api/klanten",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"barka",
+								"api",
+								"klanten"
+							],
+							"query": [
+								{
+									"key": "naam",
+									"value": "kwinten",
+									"disabled": true
+								},
+								{
+									"key": "size",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "2",
+									"disabled": true
+								},
+								{
+									"key": "sort",
+									"value": "klantType",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Klant",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/barka/api/klanten/682598d4-fc7b-4fbe-83e9-1d26e2a58712",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"barka",
+								"api",
+								"klanten",
+								"682598d4-fc7b-4fbe-83e9-1d26e2a58712"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Artikelen",
+			"item": [
+				{
+					"name": "Create Artikel",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"merk\": \"ABUS URBAN-I 3.0 FIETSHELM\",\n    \"code\": \"AUI30F\",\n    \"omschrijving\": \"ABUS URBAN-I 3.0 FIETSHELM - Zwart - 52-58cm\",\n    \"leverancierId\": \"9683c32c-13f3-11ed-861d-0242ac120002\",\n    \"aantalInStock\": \"5\",\n    \"minimumInStock\": \"3\",\n    \"aankoopPrijs\": \"40.50\",\n    \"verkoopPrijs\": \"89.99\",\n    \"actuelePrijs\": \"79.99\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/barka/api/artikels",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"barka",
+								"api",
+								"artikels"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Artikel",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/barka/api/artikels/c56a140a-bae2-4f05-9a0d-e05989997ad2",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"barka",
+								"api",
+								"artikels",
+								"c56a140a-bae2-4f05-9a0d-e05989997ad2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Artikel",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"merk\": \"DYNAMIC\",\n    \"code\": \"DYN-LL033\",\n    \"omschrijving\": \"DYNAMIC LENS LOVE\",\n    \"leverancierId\": \"85ecaf38-13f8-11ed-861d-0242ac120002\",\n    \"aantalInStock\": \"100\",\n    \"minimumInStock\": \"20\",\n    \"aankoopPrijs\": \"5.99\",\n    \"verkoopPrijs\": \"15.99\",\n    \"actuelePrijs\": \"14.99\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/barka/api/artikels/c56a140a-bae2-4f05-9a0d-e05989997ad2",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"barka",
+								"api",
+								"artikels",
+								"c56a140a-bae2-4f05-9a0d-e05989997ad2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Artikels",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/barka/api/artikels",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"barka",
+								"api",
+								"artikels"
+							],
+							"query": [
+								{
+									"key": "code",
+									"value": "30",
+									"disabled": true
+								},
+								{
+									"key": "merk",
+									"value": "fiets",
+									"disabled": true
+								},
+								{
+									"key": "omschrijving",
+									"value": "zwar",
+									"disabled": true
+								},
+								{
+									"key": "leverancier",
+									"value": "85ecaf38-13f8-11ed-861d-0242ac120002",
+									"disabled": true
+								},
+								{
+									"key": "size",
+									"value": "2",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "0",
+									"disabled": true
+								},
+								{
+									"key": "sort",
+									"value": "code,desc",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Artikel",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/barka/api/artikels/4cb1e752-f071-4f12-87ae-2041f6bb2cce",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"barka",
+								"api",
+								"artikels",
+								"4cb1e752-f071-4f12-87ae-2041f6bb2cce"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

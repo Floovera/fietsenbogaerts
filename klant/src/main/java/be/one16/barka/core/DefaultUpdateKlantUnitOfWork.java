@@ -5,7 +5,6 @@ import be.one16.barka.port.in.UpdateKlantCommand;
 import be.one16.barka.port.in.UpdateKlantUnitOfWork;
 import be.one16.barka.port.out.UpdateKlantPort;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,8 +14,11 @@ import static be.one16.barka.common.KlantType.ONBEKEND;
 @Service
 public class DefaultUpdateKlantUnitOfWork implements UpdateKlantUnitOfWork {
 
-    @Autowired
-    private List<UpdateKlantPort> updateKlantPorts;
+    private final List<UpdateKlantPort> updateKlantPorts;
+
+    public DefaultUpdateKlantUnitOfWork(List<UpdateKlantPort> updateKlantPorts) {
+        this.updateKlantPorts = updateKlantPorts;
+    }
 
     @Override
     public void updateKlant(UpdateKlantCommand updateKlantCommand) {

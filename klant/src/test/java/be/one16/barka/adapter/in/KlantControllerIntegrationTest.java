@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.MediaType;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -25,6 +24,7 @@ import java.util.UUID;
 import static org.hamcrest.Matchers.hasSize;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
@@ -50,7 +50,7 @@ public class KlantControllerIntegrationTest extends BaseIntegrationTesting {
     public void testGetKlantById() throws Exception {
         KlantJpaEntity createdKlant = klantRepository.save(TestDataBuilder.generateTestKlantJpaEntity("Baantjer"));
 
-        mockMvc.perform(MockMvcRequestBuilders.get(BASE_URL + "/" + createdKlant.getUuid()).contentType("application/json"))
+        mockMvc.perform(MockMvcRequestBuilders.get(BASE_URL + "/" + createdKlant.getUuid()).contentType(APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(jsonPath("$.klantId").value(createdKlant.getUuid().toString()))
@@ -84,35 +84,35 @@ public class KlantControllerIntegrationTest extends BaseIntegrationTesting {
         klantRepository.save(TestDataBuilder.generateTestKlantJpaEntity("Danielle"));
 
         // No filter
-        mockMvc.perform(MockMvcRequestBuilders.get(BASE_URL).contentType("application/json"))
+        mockMvc.perform(MockMvcRequestBuilders.get(BASE_URL).contentType(APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(jsonPath("$.content.*", hasSize(3)));
 
         // Filtered on name
-        mockMvc.perform(MockMvcRequestBuilders.get(BASE_URL + "?naam=err").contentType("application/json"))
+        mockMvc.perform(MockMvcRequestBuilders.get(BASE_URL + "?naam=err").contentType(APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(jsonPath("$.content.*", hasSize(1)))
                 .andExpect(jsonPath("$.content[0].naam").value("Ferry"));
 
         // Page size 2
-        mockMvc.perform(MockMvcRequestBuilders.get(BASE_URL + "?size=2").contentType("application/json"))
+        mockMvc.perform(MockMvcRequestBuilders.get(BASE_URL + "?size=2").contentType(APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(jsonPath("$.content.*", hasSize(2)))
                 .andExpect(jsonPath("$.content[0].naam").value("Baantjer"))
                 .andExpect(jsonPath("$.content[1].naam").value("Ferry"));
 
-        // Page size 2, page 2
-        mockMvc.perform(MockMvcRequestBuilders.get(BASE_URL + "?size=1&page=2").contentType("application/json"))
+        // Page size 1, page 2
+        mockMvc.perform(MockMvcRequestBuilders.get(BASE_URL + "?size=1&page=2").contentType(APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(jsonPath("$.content.*", hasSize(1)))
                 .andExpect(jsonPath("$.content[0].naam").value("Danielle"));
 
         // Sorted on name
-        mockMvc.perform(MockMvcRequestBuilders.get(BASE_URL + "?sort=naam").contentType("application/json"))
+        mockMvc.perform(MockMvcRequestBuilders.get(BASE_URL + "?sort=naam").contentType(APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(jsonPath("$.content.*", hasSize(3)))
@@ -121,7 +121,7 @@ public class KlantControllerIntegrationTest extends BaseIntegrationTesting {
                 .andExpect(jsonPath("$.content[2].naam").value("Ferry"));
 
         // Sorted on name desc
-        mockMvc.perform(MockMvcRequestBuilders.get(BASE_URL + "?sort=naam,desc").contentType("application/json"))
+        mockMvc.perform(MockMvcRequestBuilders.get(BASE_URL + "?sort=naam,desc").contentType(APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(jsonPath("$.content.*", hasSize(3)))
@@ -134,12 +134,12 @@ public class KlantControllerIntegrationTest extends BaseIntegrationTesting {
     public void testCreateKlant() throws Exception {
         KlantDto klantToCreate = TestDataBuilder.generateTestKlantDto("Jommeke");
 
-        String response = mockMvc.perform(MockMvcRequestBuilders.post(BASE_URL).contentType(MediaType.APPLICATION_JSON).content(GSON.toJson(klantToCreate)))
+        String response = mockMvc.perform(MockMvcRequestBuilders.post(BASE_URL).contentType(APPLICATION_JSON).content(GSON.toJson(klantToCreate)))
                 .andDo(print())
                 .andExpect(MockMvcResultMatchers.status().isCreated())
                 .andReturn().getResponse().getContentAsString().replace("\"", "");
 
-        Optional<KlantJpaEntity> klantJpaEntity = klantRepository.findByUuid(UUID.fromString(response.replace("\"", "")));
+        Optional<KlantJpaEntity> klantJpaEntity = klantRepository.findByUuid(UUID.fromString(response.replace("\"", ""))); //TODO: dubbel
         Assertions.assertTrue(klantJpaEntity.isPresent());
 
         validateKlantJpaToKlantDto(klantJpaEntity.get(), klantToCreate);
@@ -150,12 +150,12 @@ public class KlantControllerIntegrationTest extends BaseIntegrationTesting {
         KlantDto klantToCreate = TestDataBuilder.generateTestKlantDto("Jommeke");
 
         klantToCreate.setNaam(null);
-        mockMvc.perform(MockMvcRequestBuilders.post(BASE_URL).contentType(MediaType.APPLICATION_JSON).content(GSON.toJson(klantToCreate)))
+        mockMvc.perform(MockMvcRequestBuilders.post(BASE_URL).contentType(APPLICATION_JSON).content(GSON.toJson(klantToCreate)))
                 .andDo(print())
                 .andExpect(MockMvcResultMatchers.status().isBadRequest());
 
         klantToCreate.setNaam("");
-        mockMvc.perform(MockMvcRequestBuilders.post(BASE_URL).contentType(MediaType.APPLICATION_JSON).content(GSON.toJson(klantToCreate)))
+        mockMvc.perform(MockMvcRequestBuilders.post(BASE_URL).contentType(APPLICATION_JSON).content(GSON.toJson(klantToCreate)))
                 .andDo(print())
                 .andExpect(MockMvcResultMatchers.status().isBadRequest());
     }
@@ -165,7 +165,7 @@ public class KlantControllerIntegrationTest extends BaseIntegrationTesting {
         KlantJpaEntity createdKlant = klantRepository.save(TestDataBuilder.generateTestKlantJpaEntity("John"));
         KlantDto klantToUpdate = TestDataBuilder.generateTestKlantDto("Patrick");
 
-        mockMvc.perform(MockMvcRequestBuilders.put(BASE_URL + "/" + createdKlant.getUuid()).contentType(MediaType.APPLICATION_JSON).content(GSON.toJson(klantToUpdate)))
+        mockMvc.perform(MockMvcRequestBuilders.put(BASE_URL + "/" + createdKlant.getUuid()).contentType(APPLICATION_JSON).content(GSON.toJson(klantToUpdate)))
                 .andDo(print())
                 .andExpect(MockMvcResultMatchers.status().isOk());
 
@@ -181,12 +181,12 @@ public class KlantControllerIntegrationTest extends BaseIntegrationTesting {
         KlantDto klantToUpdate = TestDataBuilder.generateTestKlantDto("Nick");
 
         klantToUpdate.setNaam(null);
-        mockMvc.perform(MockMvcRequestBuilders.put(BASE_URL + "/" + createdKlant.getUuid()).contentType(MediaType.APPLICATION_JSON).content(GSON.toJson(klantToUpdate)))
+        mockMvc.perform(MockMvcRequestBuilders.put(BASE_URL + "/" + createdKlant.getUuid()).contentType(APPLICATION_JSON).content(GSON.toJson(klantToUpdate)))
                 .andDo(print())
                 .andExpect(MockMvcResultMatchers.status().isBadRequest());
 
         klantToUpdate.setNaam("");
-        mockMvc.perform(MockMvcRequestBuilders.put(BASE_URL + "/" + createdKlant.getUuid()).contentType(MediaType.APPLICATION_JSON).content(GSON.toJson(klantToUpdate)))
+        mockMvc.perform(MockMvcRequestBuilders.put(BASE_URL + "/" + createdKlant.getUuid()).contentType(APPLICATION_JSON).content(GSON.toJson(klantToUpdate)))
                 .andDo(print())
                 .andExpect(MockMvcResultMatchers.status().isBadRequest());
     }
@@ -195,10 +195,10 @@ public class KlantControllerIntegrationTest extends BaseIntegrationTesting {
     public void testUpdateKlantNotExisting() throws Exception {
         UUID uuidToUse = UUID.randomUUID();
 
-        KlantDto klantToCreate = TestDataBuilder.generateTestKlantDto("Jommeke");
-        klantToCreate.setKlantId(uuidToUse);
+        KlantDto klantToUpdate = TestDataBuilder.generateTestKlantDto("Jommeke");
+        klantToUpdate.setKlantId(uuidToUse);
 
-        mockMvc.perform(MockMvcRequestBuilders.put(BASE_URL + "/" + uuidToUse).contentType(MediaType.APPLICATION_JSON).content(GSON.toJson(klantToCreate)))
+        mockMvc.perform(MockMvcRequestBuilders.put(BASE_URL + "/" + uuidToUse).contentType(APPLICATION_JSON).content(GSON.toJson(klantToUpdate)))
                 .andDo(print())
                 .andExpect(MockMvcResultMatchers.status().isNotFound());
     }

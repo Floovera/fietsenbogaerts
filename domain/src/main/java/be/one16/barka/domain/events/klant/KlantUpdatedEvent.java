@@ -1,4 +1,4 @@
-package be.one16.barka.domain.events;
+package be.one16.barka.domain.events.klant;
 
 import java.util.UUID;
 

@@ -19,4 +19,7 @@ public class Artikel {
     private BigDecimal aankoopPrijs;
     private BigDecimal verkoopPrijs;
     private BigDecimal actuelePrijs;
+
+    private Leverancier leverancier;
+
 }

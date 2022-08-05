@@ -1,33 +1,64 @@
 package be.one16.barka.magazijn.adapters.in;
 
-import be.one16.barka.magazijn.adapters.mapper.ArtikelMapper;
-import be.one16.barka.magazijn.ports.in.CreateArtikelToMagazijnUnitOfWork;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import be.one16.barka.magazijn.adapters.mapper.ArtikelDtoMapper;
+import be.one16.barka.magazijn.ports.in.*;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
 
 @RestController
+@RequestMapping("api/artikels")
 public class ArtikelController {
-    private CreateArtikelToMagazijnUnitOfWork createArtikelToMagazijnUnitOfWork;
-    private ArtikelMapper artikelMapper;
 
-    public ArtikelController(CreateArtikelToMagazijnUnitOfWork createArtikelToMagazijnUnitOfWork, ArtikelMapper artikelMapper) {
-        this.createArtikelToMagazijnUnitOfWork = createArtikelToMagazijnUnitOfWork;
-        this.artikelMapper = artikelMapper;
+    private final ArtikelsInMagazijnQuery artikelsInMagazijnQuery;
+    private final CreateArtikelInMagazijnUnitOfWork createArtikelInMagazijnUnitOfWork;
+    private final UpdateArtikelInMagazijnUnitOfWork updateArtikelInMagazijnUnitOfWork;
+    private final DeleteArtikelFromMagazijnUnitOfWork deleteArtikelFromMagazijnUnitOfWork;
+
+    private final ArtikelDtoMapper artikelDtoMapper;
+
+    public ArtikelController(ArtikelsInMagazijnQuery artikelsInMagazijnQuery, CreateArtikelInMagazijnUnitOfWork createArtikelInMagazijnUnitOfWork, UpdateArtikelInMagazijnUnitOfWork updateArtikelInMagazijnUnitOfWork, DeleteArtikelFromMagazijnUnitOfWork deleteArtikelFromMagazijnUnitOfWork, ArtikelDtoMapper artikelDtoMapper) {
+        this.artikelsInMagazijnQuery = artikelsInMagazijnQuery;
+        this.createArtikelInMagazijnUnitOfWork = createArtikelInMagazijnUnitOfWork;
+        this.updateArtikelInMagazijnUnitOfWork = updateArtikelInMagazijnUnitOfWork;
+        this.deleteArtikelFromMagazijnUnitOfWork = deleteArtikelFromMagazijnUnitOfWork;
+        this.artikelDtoMapper = artikelDtoMapper;
     }
 
-    @PostMapping("/artikels")
+    @GetMapping("/{id}")
+    ArtikelDto getArtikelFromMagazijnById(@PathVariable("id") UUID artikelId) {
+        return artikelDtoMapper.mapArtikelToDto(artikelsInMagazijnQuery.retrieveArtikelFromMagazijnById(artikelId));
+    }
+
+    @GetMapping
+    Page<ArtikelDto> getArtikelsFiltered(@RequestParam(name = "code", required = false) String code,
+                                         @RequestParam(name = "merk", required = false) String merk,
+                                         @RequestParam(name = "omschrijving", required = false) String omschrijving,
+                                         @RequestParam(name = "leverancier", required = false) UUID leverancierId, Pageable pageable) {
+        return artikelsInMagazijnQuery.retrieveArtikelsByFilterAndSort(new RetrieveArtikelFilterAndSortCommand(code, merk, omschrijving, leverancierId, pageable))
+                .map(artikelDtoMapper::mapArtikelToDto);
+    }
+
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     UUID createArtikelInMagazijn(@RequestBody ArtikelDto artikel) {
-        return createArtikelToMagazijnUnitOfWork.createArtikelInMagazijn(artikelMapper.map(artikel));
-
+        return createArtikelInMagazijnUnitOfWork.createArtikelInMagazijn(artikelDtoMapper.mapDtoToCreateArtikelCommand(artikel));
     }
 
+    @PutMapping("/{id}")
+    void updateArtikelInMagazijn(@PathVariable("id") UUID artikelId, @RequestBody ArtikelDto artikel) {
+        UpdateArtikelCommand updateArtikelCommand = artikelDtoMapper.mapDtoToUpdateArtikelCommand(artikel);
+        updateArtikelCommand.setArtikelId(artikelId);
 
+        updateArtikelInMagazijnUnitOfWork.updateArtikelInMagazijn(updateArtikelCommand);
+    }
 
-
-
-
+    @DeleteMapping("/{id}")
+    void deleteArtikelFromMagazijn(@PathVariable("id") UUID artikelId) {
+        deleteArtikelFromMagazijnUnitOfWork.deleteArtikelFromMagazijn(artikelId);
+    }
 
 }

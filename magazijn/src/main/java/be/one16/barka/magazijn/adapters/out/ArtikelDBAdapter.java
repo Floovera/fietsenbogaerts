@@ -1,30 +1,103 @@
 package be.one16.barka.magazijn.adapters.out;
 
+import be.one16.barka.domain.exceptions.EntityNotFoundException;
+import be.one16.barka.domain.exceptions.LinkedEntityNotFoundException;
+import be.one16.barka.magazijn.adapters.mapper.ArtikelJpaEntityMapper;
+import be.one16.barka.magazijn.adapters.out.repository.ArtikelRepository;
+import be.one16.barka.magazijn.adapters.out.repository.LeverancierRepository;
 import be.one16.barka.magazijn.domain.Artikel;
-import be.one16.barka.magazijn.ports.out.ArtikelCreatePort;
+import be.one16.barka.magazijn.ports.out.*;
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Component;
 
+import java.util.UUID;
+
 @Component
-public class ArtikelDBAdapter implements ArtikelCreatePort {
+@Order(Ordered.HIGHEST_PRECEDENCE)
+public class ArtikelDBAdapter implements LoadArtikelsPort, ArtikelCreatePort, ArtikelUpdatePort, ArtikelDeletePort, ArtikelUniqueCodePort {
 
     private final ArtikelRepository artikelRepository;
+    private final LeverancierRepository leverancierRepository;
 
-    public ArtikelDBAdapter(ArtikelRepository artikelRepository) {
+    private final ArtikelJpaEntityMapper  artikelJpaEntityMapper;
+
+    public ArtikelDBAdapter(ArtikelRepository artikelRepository, LeverancierRepository leverancierRepository, ArtikelJpaEntityMapper artikelJpaEntityMapper) {
         this.artikelRepository = artikelRepository;
+        this.leverancierRepository = leverancierRepository;
+        this.artikelJpaEntityMapper = artikelJpaEntityMapper;
     }
 
     @Override
-    public void artikelCreated(Artikel artikel) {
+    public Artikel retrieveArtikelById(UUID id) {
+        return artikelJpaEntityMapper.mapJpaEntityToArtikel(getArtikelJpaEntityById(id));
+    }
+
+    @Override
+    public Page<Artikel> retrieveArtikelByFilterAndSort(String code, String merk, String omschrijving, UUID leverancierId, Pageable pageable) {
+        Specification<ArtikelJpaEntity> specification = Specification.where(code == null ? null : (Specification<ArtikelJpaEntity>) ((root, query, builder) -> builder.like(root.get("code"), "%" + code + "%")))
+                .and(merk == null ? null : (root, query, builder) -> builder.like(root.get("merk"), "%" + merk + "%"))
+                .and(omschrijving == null ? null : (root, query, builder) -> builder.like(root.get("omschrijving"), "%" + omschrijving + "%"))
+                .and(leverancierId == null ? null : (root, query, builder) -> builder.equal(root.get("leverancier").get("uuid"), leverancierId));
+
+        return artikelRepository.findAll(specification, PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), pageable.getSort()))
+                .map(artikelJpaEntityMapper::mapJpaEntityToArtikel);
+    }
+
+    @Override
+    public void createArtikel(Artikel artikel) {
         ArtikelJpaEntity artikelJpaEntity = new ArtikelJpaEntity();
+
         artikelJpaEntity.setUuid(artikel.getArtikelId());
+        fillJpaEntityWithArtikelData(artikelJpaEntity, artikel);
+
+        artikelRepository.save(artikelJpaEntity);
+    }
+
+    @Override
+    public void updateArtikel(Artikel artikel) {
+        ArtikelJpaEntity artikelJpaEntity = getArtikelJpaEntityById(artikel.getArtikelId());
+
+        fillJpaEntityWithArtikelData(artikelJpaEntity, artikel);
+
+        artikelRepository.save(artikelJpaEntity);
+    }
+
+    @Override
+    public void deleteArtikel(UUID id) {
+        ArtikelJpaEntity artikelJpaEntity = getArtikelJpaEntityById(id);
+        artikelRepository.delete(artikelJpaEntity);
+    }
+
+    @Override
+    public boolean checkUniqueArtikelCode(String code) {
+        return !artikelRepository.existsByCode(code);
+    }
+
+    private ArtikelJpaEntity getArtikelJpaEntityById(UUID id) {
+        return artikelRepository.findByUuid(id).orElseThrow(() -> new EntityNotFoundException(String.format("Artikel with uuid %s doesn't exist", id)));
+    }
+
+    private LeverancierJpaEntity getLeverancierJpaEntityById(UUID id) {
+        return leverancierRepository.findByUuid(id).orElseThrow(() -> new LinkedEntityNotFoundException(String.format("Leverancier with uuid %s doesn't exist", id)));
+    }
+
+    private void fillJpaEntityWithArtikelData(ArtikelJpaEntity artikelJpaEntity, Artikel artikel) {
+        artikelJpaEntity.setMerk(artikel.getMerk());
         artikelJpaEntity.setCode(artikel.getCode());
         artikelJpaEntity.setOmschrijving(artikel.getOmschrijving());
-        artikelJpaEntity.setMerk(artikel.getMerk());
         artikelJpaEntity.setAantalInStock(artikel.getAantalInStock());
         artikelJpaEntity.setMinimumInStock(artikel.getMinimumInStock());
         artikelJpaEntity.setAankoopPrijs(artikel.getAankoopPrijs());
         artikelJpaEntity.setVerkoopPrijs(artikel.getVerkoopPrijs());
         artikelJpaEntity.setActuelePrijs(artikel.getActuelePrijs());
-        artikelRepository.save(artikelJpaEntity);
+
+        LeverancierJpaEntity leverancierJpaEntity = getLeverancierJpaEntityById(artikel.getLeverancier().getLeverancierId());
+        artikelJpaEntity.setLeverancier(leverancierJpaEntity);
     }
+
 }

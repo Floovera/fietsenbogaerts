@@ -4,8 +4,6 @@ import be.one16.barka.domain.Klant;
 import be.one16.barka.port.in.CreateKlantCommand;
 import be.one16.barka.port.in.CreateKlantUnitOfWork;
 import be.one16.barka.port.out.CreateKlantPort;
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,15 +14,14 @@ import static be.one16.barka.common.KlantType.ONBEKEND;
 @Service
 public class DefaultCreateKlantUnitOfWork implements CreateKlantUnitOfWork {
 
-    @Autowired
-    private List<CreateKlantPort> createKlantPorts;
+    private final List<CreateKlantPort> createKlantPorts;
+
+    public DefaultCreateKlantUnitOfWork(List<CreateKlantPort> createKlantPorts) {
+        this.createKlantPorts = createKlantPorts;
+    }
 
     @Override
     public UUID createKlant(CreateKlantCommand createKlantCommand) {
-        if (StringUtils.isEmpty(createKlantCommand.naam())) {
-            throw new IllegalArgumentException("Value for 'naam' can not be null or empty");
-        }
-
         Klant klant = Klant.builder()
                 .klantId(UUID.randomUUID())
                 .naam(createKlantCommand.naam())

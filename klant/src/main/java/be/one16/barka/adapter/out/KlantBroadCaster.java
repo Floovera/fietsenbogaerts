@@ -1,13 +1,12 @@
 package be.one16.barka.adapter.out;
 
 import be.one16.barka.domain.Klant;
-import be.one16.barka.domain.events.KlantCreatedEvent;
-import be.one16.barka.domain.events.KlantDeletedEvent;
-import be.one16.barka.domain.events.KlantUpdatedEvent;
+import be.one16.barka.domain.events.klant.KlantCreatedEvent;
+import be.one16.barka.domain.events.klant.KlantDeletedEvent;
+import be.one16.barka.domain.events.klant.KlantUpdatedEvent;
 import be.one16.barka.port.out.CreateKlantPort;
 import be.one16.barka.port.out.DeleteKlantPort;
 import be.one16.barka.port.out.UpdateKlantPort;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
@@ -18,8 +17,11 @@ import java.util.UUID;
 @Order
 public class KlantBroadCaster implements CreateKlantPort, UpdateKlantPort, DeleteKlantPort {
 
-    @Autowired
-    private ApplicationEventPublisher applicationEventPublisher;
+    private final ApplicationEventPublisher applicationEventPublisher;
+
+    public KlantBroadCaster(ApplicationEventPublisher applicationEventPublisher) {
+        this.applicationEventPublisher = applicationEventPublisher;
+    }
 
     @Override
     public void createKlant(Klant klant) {
