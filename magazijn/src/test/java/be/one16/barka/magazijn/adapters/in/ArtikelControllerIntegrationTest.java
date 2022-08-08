@@ -1,5 +1,6 @@
 package be.one16.barka.magazijn.adapters.in;
 
+import be.one16.barka.magazijn.BarkaMagazijnApplication;
 import be.one16.barka.magazijn.BaseIntegrationTesting;
 import be.one16.barka.magazijn.adapters.out.ArtikelJpaEntity;
 import be.one16.barka.magazijn.adapters.out.ArtikelLeverancierJpaEntity;
@@ -36,7 +37,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @WebAppConfiguration
 @EnableAutoConfiguration
-@SpringBootTest(classes = ArtikelController.class)
+@SpringBootTest(classes = BarkaMagazijnApplication.class)
 @Transactional
 public class ArtikelControllerIntegrationTest extends BaseIntegrationTesting {
 
