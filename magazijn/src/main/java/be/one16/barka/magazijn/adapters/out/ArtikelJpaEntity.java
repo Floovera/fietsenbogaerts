@@ -40,6 +40,6 @@ public class ArtikelJpaEntity {
 
     @ManyToOne
     @JoinColumn(name = "leverancier_id")
-    private LeverancierJpaEntity leverancier;
+    private ArtikelLeverancierJpaEntity leverancier;
 
 }

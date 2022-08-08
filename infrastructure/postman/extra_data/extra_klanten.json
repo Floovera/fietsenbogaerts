@@ -1,0 +1,55 @@
+[
+  {
+    "naam": "Kwinten De Ridder",
+    "klantType": "PARTICULIER",
+    "straat": "Walderdonk",
+    "huisnummer": "17",
+    "postcode": "9185",
+    "gemeente": "Wachtebeke",
+    "land": "BE",
+    "telefoonnummer": "093455168",
+    "mobiel": "0473228954",
+    "email": "kwintenderidder@hotmail.com",
+    "opmerkingen": "Beste klant"
+  },
+  {
+    "naam": "Arno Maddelein",
+    "klantType": "ONBEKEND",
+    "straat": "Korterijksesteenweg",
+    "huisnummer": "2",
+    "postcode": "8500",
+    "gemeente": "Kortrijk",
+    "land": "BE",
+    "telefoonnummer": "093455169",
+    "mobiel": "0473228955",
+    "email": "arno.maddelein@one16.be",
+    "opmerkingen": "Koopt veel"
+  },
+  {
+    "naam": "Kevin Smeyers",
+    "klantType": "ZELFSTANDIGE",
+    "straat": "Antwerpsesteenweg",
+    "huisnummer": "5",
+    "postcode": "8900",
+    "gemeente": "Genk",
+    "land": "BE",
+    "telefoonnummer": "093455179",
+    "mobiel": "0473228956",
+    "email": "kevin.smeyers@one16.be",
+    "btwNummer": "BE123456789",
+    "opmerkingen": "Nog niet gereageerd op de offerte"
+  },
+  {
+    "naam": "Geert Schreyers",
+    "klantType": "ZELFSTANDIGE",
+    "straat": "Bornemsesteenweg",
+    "huisnummer": "10",
+    "postcode": "2880",
+    "gemeente": "Bornem",
+    "land": "BE",
+    "telefoonnummer": "093455170",
+    "mobiel": "0473228980",
+    "email": "geert.schreyers@one16.be",
+    "opmerkingen": "Koopt weinig"
+  }
+]

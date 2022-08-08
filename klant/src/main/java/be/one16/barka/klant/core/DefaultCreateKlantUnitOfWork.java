@@ -1,17 +1,17 @@
 package be.one16.barka.klant.core;
 
+import be.one16.barka.domain.annotations.UnitOfWork;
 import be.one16.barka.klant.domain.Klant;
 import be.one16.barka.klant.port.in.CreateKlantCommand;
 import be.one16.barka.klant.port.in.CreateKlantUnitOfWork;
 import be.one16.barka.klant.port.out.CreateKlantPort;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.UUID;
 
 import static be.one16.barka.klant.common.KlantType.ONBEKEND;
 
-@Service
+@UnitOfWork
 public class DefaultCreateKlantUnitOfWork implements CreateKlantUnitOfWork {
 
     private final List<CreateKlantPort> createKlantPorts;

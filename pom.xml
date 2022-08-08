@@ -8,6 +8,7 @@
         <module>domain</module>
         <module>klant</module>
         <module>magazijn</module>
+        <module>leverancier</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>

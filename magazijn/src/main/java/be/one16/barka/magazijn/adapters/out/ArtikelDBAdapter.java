@@ -1,10 +1,10 @@
 package be.one16.barka.magazijn.adapters.out;
 
-import be.one16.barka.klant.domain.exceptions.EntityNotFoundException;
-import be.one16.barka.klant.domain.exceptions.LinkedEntityNotFoundException;
+import be.one16.barka.domain.exceptions.EntityNotFoundException;
+import be.one16.barka.domain.exceptions.LinkedEntityNotFoundException;
 import be.one16.barka.magazijn.adapters.mapper.ArtikelJpaEntityMapper;
+import be.one16.barka.magazijn.adapters.out.repository.ArtikelLeverancierRepository;
 import be.one16.barka.magazijn.adapters.out.repository.ArtikelRepository;
-import be.one16.barka.magazijn.adapters.out.repository.LeverancierRepository;
 import be.one16.barka.magazijn.domain.Artikel;
 import be.one16.barka.magazijn.ports.out.*;
 import org.springframework.core.Ordered;
@@ -22,13 +22,13 @@ import java.util.UUID;
 public class ArtikelDBAdapter implements LoadArtikelsPort, ArtikelCreatePort, ArtikelUpdatePort, ArtikelDeletePort, ArtikelUniqueCodePort {
 
     private final ArtikelRepository artikelRepository;
-    private final LeverancierRepository leverancierRepository;
+    private final ArtikelLeverancierRepository artikelLeverancierRepository;
 
     private final ArtikelJpaEntityMapper  artikelJpaEntityMapper;
 
-    public ArtikelDBAdapter(ArtikelRepository artikelRepository, LeverancierRepository leverancierRepository, ArtikelJpaEntityMapper artikelJpaEntityMapper) {
+    public ArtikelDBAdapter(ArtikelRepository artikelRepository, ArtikelLeverancierRepository artikelLeverancierRepository, ArtikelJpaEntityMapper artikelJpaEntityMapper) {
         this.artikelRepository = artikelRepository;
-        this.leverancierRepository = leverancierRepository;
+        this.artikelLeverancierRepository = artikelLeverancierRepository;
         this.artikelJpaEntityMapper = artikelJpaEntityMapper;
     }
 
@@ -82,8 +82,8 @@ public class ArtikelDBAdapter implements LoadArtikelsPort, ArtikelCreatePort, Ar
         return artikelRepository.findByUuid(id).orElseThrow(() -> new EntityNotFoundException(String.format("Artikel with uuid %s doesn't exist", id)));
     }
 
-    private LeverancierJpaEntity getLeverancierJpaEntityById(UUID id) {
-        return leverancierRepository.findByUuid(id).orElseThrow(() -> new LinkedEntityNotFoundException(String.format("Leverancier with uuid %s doesn't exist", id)));
+    private ArtikelLeverancierJpaEntity getLeverancierJpaEntityById(UUID id) {
+        return artikelLeverancierRepository.findByUuid(id).orElseThrow(() -> new LinkedEntityNotFoundException(String.format("Leverancier with uuid %s doesn't exist", id)));
     }
 
     private void fillJpaEntityWithArtikelData(ArtikelJpaEntity artikelJpaEntity, Artikel artikel) {
@@ -96,8 +96,8 @@ public class ArtikelDBAdapter implements LoadArtikelsPort, ArtikelCreatePort, Ar
         artikelJpaEntity.setVerkoopPrijs(artikel.getVerkoopPrijs());
         artikelJpaEntity.setActuelePrijs(artikel.getActuelePrijs());
 
-        LeverancierJpaEntity leverancierJpaEntity = getLeverancierJpaEntityById(artikel.getLeverancier().getLeverancierId());
-        artikelJpaEntity.setLeverancier(leverancierJpaEntity);
+        ArtikelLeverancierJpaEntity artikelLeverancierJpaEntity = getLeverancierJpaEntityById(artikel.getLeverancier().getLeverancierId());
+        artikelJpaEntity.setLeverancier(artikelLeverancierJpaEntity);
     }
 
 }

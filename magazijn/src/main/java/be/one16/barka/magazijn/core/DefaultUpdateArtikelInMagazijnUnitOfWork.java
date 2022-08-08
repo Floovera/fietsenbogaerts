@@ -1,16 +1,16 @@
 package be.one16.barka.magazijn.core;
 
+import be.one16.barka.domain.annotations.UnitOfWork;
 import be.one16.barka.magazijn.domain.Artikel;
 import be.one16.barka.magazijn.domain.Leverancier;
 import be.one16.barka.magazijn.ports.in.UpdateArtikelCommand;
 import be.one16.barka.magazijn.ports.in.UpdateArtikelInMagazijnUnitOfWork;
 import be.one16.barka.magazijn.ports.out.ArtikelUniqueCodePort;
 import be.one16.barka.magazijn.ports.out.ArtikelUpdatePort;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
+@UnitOfWork
 public class DefaultUpdateArtikelInMagazijnUnitOfWork implements UpdateArtikelInMagazijnUnitOfWork {
 
     private final List<ArtikelUpdatePort> artikelUpdatePortList;

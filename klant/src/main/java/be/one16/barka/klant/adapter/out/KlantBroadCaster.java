@@ -1,9 +1,9 @@
 package be.one16.barka.klant.adapter.out;
 
+import be.one16.barka.domain.events.klant.KlantCreatedEvent;
+import be.one16.barka.domain.events.klant.KlantDeletedEvent;
+import be.one16.barka.domain.events.klant.KlantUpdatedEvent;
 import be.one16.barka.klant.domain.Klant;
-import be.one16.barka.klant.domain.events.klant.KlantCreatedEvent;
-import be.one16.barka.klant.domain.events.klant.KlantDeletedEvent;
-import be.one16.barka.klant.domain.events.klant.KlantUpdatedEvent;
 import be.one16.barka.klant.port.out.CreateKlantPort;
 import be.one16.barka.klant.port.out.DeleteKlantPort;
 import be.one16.barka.klant.port.out.UpdateKlantPort;
