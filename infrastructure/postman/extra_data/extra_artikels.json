@@ -1,0 +1,35 @@
+[
+  {
+    "merk": "ABUS URBAN-I 3.0 FIETSHELM",
+    "code": "AUI30F",
+    "omschrijving": "ABUS URBAN-I 3.0 FIETSHELM - Zwart - 52-58cm",
+    "leverancierId": "9683c32c-13f3-11ed-861d-0242ac120002",
+    "aantalInStock": "5",
+    "minimumInStock": "3",
+    "aankoopPrijs": "40.50",
+    "verkoopPrijs": "89.99",
+    "actuelePrijs": "79.99"
+  },
+  {
+    "merk": "ABUS GAMECHANGER FIETSHELM",
+    "code": "AGF",
+    "omschrijving": "ABUS GAMECHANGER FIETSHELM - Zwart - 52-58cm",
+    "leverancierId": "9683c32c-13f3-11ed-861d-0242ac120002",
+    "aantalInStock": "2",
+    "minimumInStock": "2",
+    "aankoopPrijs": "99.99",
+    "verkoopPrijs": "199.99",
+    "actuelePrijs": "162.00"
+  },
+  {
+    "merk": "BRIL OAKLEY OJECTOR",
+    "code": "BOOB-PG",
+    "omschrijving": "OAKLEY OJECTOR FIETSBRIL BLACK - PRIZM GREY",
+    "leverancierId": "85ecaf38-13f8-11ed-861d-0242ac120002",
+    "aantalInStock": "10",
+    "minimumInStock": "5",
+    "aankoopPrijs": "69.99",
+    "verkoopPrijs": "135.00",
+    "actuelePrijs": "111.60"
+  }
+]

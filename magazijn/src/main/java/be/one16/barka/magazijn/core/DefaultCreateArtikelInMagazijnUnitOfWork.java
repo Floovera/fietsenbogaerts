@@ -1,17 +1,17 @@
 package be.one16.barka.magazijn.core;
 
+import be.one16.barka.domain.annotations.UnitOfWork;
 import be.one16.barka.magazijn.domain.Artikel;
 import be.one16.barka.magazijn.domain.Leverancier;
 import be.one16.barka.magazijn.ports.in.CreateArtikelCommand;
 import be.one16.barka.magazijn.ports.in.CreateArtikelInMagazijnUnitOfWork;
 import be.one16.barka.magazijn.ports.out.ArtikelCreatePort;
 import be.one16.barka.magazijn.ports.out.ArtikelUniqueCodePort;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.UUID;
 
-@Service
+@UnitOfWork
 public class DefaultCreateArtikelInMagazijnUnitOfWork implements CreateArtikelInMagazijnUnitOfWork {
 
     private final List<ArtikelCreatePort> artikelCreatePorts;

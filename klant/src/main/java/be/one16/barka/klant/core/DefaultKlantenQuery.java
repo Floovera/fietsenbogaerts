@@ -1,15 +1,15 @@
 package be.one16.barka.klant.core;
 
+import be.one16.barka.domain.annotations.UnitOfWork;
 import be.one16.barka.klant.domain.Klant;
 import be.one16.barka.klant.port.in.KlantenQuery;
 import be.one16.barka.klant.port.in.RetrieveKlantFilterAndSortCommand;
 import be.one16.barka.klant.port.out.LoadKlantenPort;
 import org.springframework.data.domain.Page;
-import org.springframework.stereotype.Service;
 
 import java.util.UUID;
 
-@Service
+@UnitOfWork
 public class DefaultKlantenQuery implements KlantenQuery {
 
     private final LoadKlantenPort loadKlantenPort;

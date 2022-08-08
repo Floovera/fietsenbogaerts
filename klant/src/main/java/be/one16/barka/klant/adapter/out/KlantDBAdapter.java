@@ -1,9 +1,9 @@
 package be.one16.barka.klant.adapter.out;
 
+import be.one16.barka.domain.exceptions.EntityNotFoundException;
 import be.one16.barka.klant.adapter.mapper.KlantJpaEntityMapper;
 import be.one16.barka.klant.adapter.out.repository.KlantRepository;
 import be.one16.barka.klant.domain.Klant;
-import be.one16.barka.klant.domain.exceptions.EntityNotFoundException;
 import be.one16.barka.klant.port.out.CreateKlantPort;
 import be.one16.barka.klant.port.out.DeleteKlantPort;
 import be.one16.barka.klant.port.out.LoadKlantenPort;

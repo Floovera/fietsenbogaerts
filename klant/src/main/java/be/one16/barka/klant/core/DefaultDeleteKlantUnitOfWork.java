@@ -1,13 +1,13 @@
 package be.one16.barka.klant.core;
 
+import be.one16.barka.domain.annotations.UnitOfWork;
 import be.one16.barka.klant.port.in.DeleteKlantUnitOfWork;
 import be.one16.barka.klant.port.out.DeleteKlantPort;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.UUID;
 
-@Service
+@UnitOfWork
 public class DefaultDeleteKlantUnitOfWork implements DeleteKlantUnitOfWork {
 
     private final List<DeleteKlantPort> deleteKlantPorts;

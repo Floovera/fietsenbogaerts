@@ -1,8 +1,8 @@
 package be.one16.barka.magazijn.adapters.out;
 
-import be.one16.barka.klant.domain.events.artikel.ArtikelCreatedEvent;
-import be.one16.barka.klant.domain.events.artikel.ArtikelDeletedEvent;
-import be.one16.barka.klant.domain.events.artikel.ArtikelUpdatedEvent;
+import be.one16.barka.domain.events.artikel.ArtikelCreatedEvent;
+import be.one16.barka.domain.events.artikel.ArtikelDeletedEvent;
+import be.one16.barka.domain.events.artikel.ArtikelUpdatedEvent;
 import be.one16.barka.magazijn.domain.Artikel;
 import be.one16.barka.magazijn.ports.out.ArtikelCreatePort;
 import be.one16.barka.magazijn.ports.out.ArtikelDeletePort;

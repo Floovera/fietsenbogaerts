@@ -53,7 +53,7 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8080/barka/api/klanten/682598d4-fc7b-4fbe-83e9-1d26e2a58712",
+							"raw": "localhost:8080/barka/api/klanten/4ef21c6a-8b58-4f33-adfa-bbee83086f21",
 							"host": [
 								"localhost"
 							],
@@ -62,7 +62,7 @@
 								"barka",
 								"api",
 								"klanten",
-								"682598d4-fc7b-4fbe-83e9-1d26e2a58712"
+								"4ef21c6a-8b58-4f33-adfa-bbee83086f21"
 							]
 						}
 					},
@@ -74,7 +74,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/barka/api/klanten/682598d4-fc7b-4fbe-83e9-1d26e2a58712",
+							"raw": "localhost:8080/barka/api/klanten/4ef21c6a-8b58-4f33-adfa-bbee83086f21",
 							"host": [
 								"localhost"
 							],
@@ -83,7 +83,7 @@
 								"barka",
 								"api",
 								"klanten",
-								"682598d4-fc7b-4fbe-83e9-1d26e2a58712"
+								"4ef21c6a-8b58-4f33-adfa-bbee83086f21"
 							]
 						}
 					},
@@ -137,7 +137,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/barka/api/klanten/682598d4-fc7b-4fbe-83e9-1d26e2a58712",
+							"raw": "localhost:8080/barka/api/klanten/4ef21c6a-8b58-4f33-adfa-bbee83086f21",
 							"host": [
 								"localhost"
 							],
@@ -146,7 +146,7 @@
 								"barka",
 								"api",
 								"klanten",
-								"682598d4-fc7b-4fbe-83e9-1d26e2a58712"
+								"4ef21c6a-8b58-4f33-adfa-bbee83086f21"
 							]
 						}
 					},
@@ -204,7 +204,7 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8080/barka/api/artikels/c56a140a-bae2-4f05-9a0d-e05989997ad2",
+							"raw": "localhost:8080/barka/api/artikels/13a0a787-b0f2-417d-ae39-1fc8e58011e3",
 							"host": [
 								"localhost"
 							],
@@ -213,7 +213,7 @@
 								"barka",
 								"api",
 								"artikels",
-								"c56a140a-bae2-4f05-9a0d-e05989997ad2"
+								"13a0a787-b0f2-417d-ae39-1fc8e58011e3"
 							]
 						}
 					},
@@ -234,7 +234,7 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8080/barka/api/artikels/c56a140a-bae2-4f05-9a0d-e05989997ad2",
+							"raw": "localhost:8080/barka/api/artikels/13a0a787-b0f2-417d-ae39-1fc8e58011e3",
 							"host": [
 								"localhost"
 							],
@@ -243,7 +243,7 @@
 								"barka",
 								"api",
 								"artikels",
-								"c56a140a-bae2-4f05-9a0d-e05989997ad2"
+								"13a0a787-b0f2-417d-ae39-1fc8e58011e3"
 							]
 						}
 					},
@@ -333,7 +333,7 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8080/barka/api/artikels/4cb1e752-f071-4f12-87ae-2041f6bb2cce",
+							"raw": "localhost:8080/barka/api/artikels/13a0a787-b0f2-417d-ae39-1fc8e58011e3",
 							"host": [
 								"localhost"
 							],
@@ -342,7 +342,160 @@
 								"barka",
 								"api",
 								"artikels",
-								"4cb1e752-f071-4f12-87ae-2041f6bb2cce"
+								"13a0a787-b0f2-417d-ae39-1fc8e58011e3"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Leveranciers",
+			"item": [
+				{
+					"name": "Create Leverancier",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"naam\": \"AGU\",\n    \"straat\": \"Koraalstraat\",\n    \"huisnummer\": \"1\",\n    \"bus\": \"A\",\n    \"postcode\": \"1812 RK\",\n    \"gemeente\": \"Alkmaar\",\n    \"land\": \"NL\",\n    \"telefoonnummer\": \"0725411511\",\n    \"mobiel\": \"04123456\",\n    \"fax\": \"44-208-1234567\",\n    \"email\": \"info@agu.nl\",\n    \"btwNummer\": \"NL006531271B01\",\n    \"opmerkingen\": \"Koerskleding\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/barka/api/leveranciers",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"barka",
+								"api",
+								"leveranciers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Leverancier",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/barka/api/leveranciers/87c16bff-7952-4dd5-abd3-d095793e671d",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"barka",
+								"api",
+								"leveranciers",
+								"87c16bff-7952-4dd5-abd3-d095793e671d"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Leveranciers",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/barka/api/leveranciers",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"barka",
+								"api",
+								"leveranciers"
+							],
+							"query": [
+								{
+									"key": "naam",
+									"value": "g",
+									"disabled": true
+								},
+								{
+									"key": "size",
+									"value": "2",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "sort",
+									"value": "gemeente",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Leverancier",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"naam\": \"KOGA Europe N.V.\",\n    \"straat\": \"Antwerpsesteenweg\",\n    \"huisnummer\": \"3\",\n    \"bus\": \"B\",\n    \"postcode\": \"9080\",\n    \"gemeente\": \"Lochristi\",\n    \"land\": \"BE\",\n    \"telefoonnummer\": \"093459896\",\n    \"mobiel\": \"0472332245\",\n    \"fax\": \"44-0472-332245\",\n    \"email\": \"info@koga.be\",\n    \"btwNummer\": \"BE006531271B03\",\n    \"opmerkingen\": \"Pedalen\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/barka/api/leveranciers/87c16bff-7952-4dd5-abd3-d095793e671d",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"barka",
+								"api",
+								"leveranciers",
+								"87c16bff-7952-4dd5-abd3-d095793e671d"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Leverancier",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/barka/api/leveranciers/87c16bff-7952-4dd5-abd3-d095793e671d",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"barka",
+								"api",
+								"leveranciers",
+								"87c16bff-7952-4dd5-abd3-d095793e671d"
 							]
 						}
 					},

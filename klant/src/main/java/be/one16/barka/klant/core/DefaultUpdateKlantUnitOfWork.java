@@ -1,17 +1,17 @@
 package be.one16.barka.klant.core;
 
+import be.one16.barka.domain.annotations.UnitOfWork;
 import be.one16.barka.klant.domain.Klant;
 import be.one16.barka.klant.port.in.UpdateKlantCommand;
 import be.one16.barka.klant.port.in.UpdateKlantUnitOfWork;
 import be.one16.barka.klant.port.out.UpdateKlantPort;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 import static be.one16.barka.klant.common.KlantType.ONBEKEND;
 
-@Service
+@UnitOfWork
 public class DefaultUpdateKlantUnitOfWork implements UpdateKlantUnitOfWork {
 
     private final List<UpdateKlantPort> updateKlantPorts;

@@ -1,13 +1,13 @@
 package be.one16.barka.magazijn.core;
 
+import be.one16.barka.domain.annotations.UnitOfWork;
 import be.one16.barka.magazijn.ports.in.DeleteArtikelFromMagazijnUnitOfWork;
 import be.one16.barka.magazijn.ports.out.ArtikelDeletePort;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.UUID;
 
-@Service
+@UnitOfWork
 public class DefaultDeleteArtikelFromMagazijnUnitOfWork implements DeleteArtikelFromMagazijnUnitOfWork {
 
     private final List<ArtikelDeletePort> artikelDeletePorts;

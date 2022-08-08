@@ -1,0 +1,47 @@
+[
+  {
+    "naam": "AGU",
+    "straat": "Koraalstraat",
+    "huisnummer": "1",
+    "bus": "A",
+    "postcode": "1812 RK",
+    "gemeente": "Alkmaar",
+    "land": "NL",
+    "telefoonnummer": "0725411511",
+    "mobiel": "04123456",
+    "fax": "44-208-1234567",
+    "email": "info@agu.nl",
+    "btwNummer": "NL006531271B01",
+    "opmerkingen": "Koerskleding"
+  },
+  {
+    "naam": "Specialized Europe B.V.",
+    "straat": "Utrechtseweg",
+    "huisnummer": "310",
+    "bus": "BO1",
+    "postcode": "6812 AR",
+    "gemeente": "Arnhem",
+    "land": "NL",
+    "telefoonnummer": "0800-0230946",
+    "mobiel": "04123457",
+    "fax": "44-208-1234568",
+    "email": "info@specialized.nl",
+    "btwNummer": "NL006531271B02",
+    "opmerkingen": "Fietsen"
+  },
+  {
+    "naam": "KOGA Europe B.V.",
+    "straat": "Akulaan",
+    "huisnummer": "2",
+    "bus": "A",
+    "postcode": "6717 XN",
+    "gemeente": "Ede",
+    "land": "NL",
+    "telefoonnummer": "0800-0230947",
+    "mobiel": "04123458",
+    "fax": "44-208-1234569",
+    "email": "info@koga.nl",
+    "btwNummer": "NL006531271B03",
+    "opmerkingen": "Fietsen en kleding"
+  }
+]

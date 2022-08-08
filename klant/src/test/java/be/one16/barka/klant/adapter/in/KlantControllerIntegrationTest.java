@@ -140,7 +140,7 @@ public class KlantControllerIntegrationTest extends BaseIntegrationTesting {
                 .andExpect(MockMvcResultMatchers.status().isCreated())
                 .andReturn().getResponse().getContentAsString().replace("\"", "");
 
-        Optional<KlantJpaEntity> klantJpaEntity = klantRepository.findByUuid(UUID.fromString(response.replace("\"", ""))); //TODO: dubbel
+        Optional<KlantJpaEntity> klantJpaEntity = klantRepository.findByUuid(UUID.fromString(response));
         Assertions.assertTrue(klantJpaEntity.isPresent());
 
         validateKlantJpaToKlantDto(klantJpaEntity.get(), klantToCreate);

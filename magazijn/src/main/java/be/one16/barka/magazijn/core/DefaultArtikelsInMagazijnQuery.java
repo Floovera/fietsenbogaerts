@@ -1,15 +1,15 @@
 package be.one16.barka.magazijn.core;
 
+import be.one16.barka.domain.annotations.UnitOfWork;
 import be.one16.barka.magazijn.domain.Artikel;
 import be.one16.barka.magazijn.ports.in.ArtikelsInMagazijnQuery;
 import be.one16.barka.magazijn.ports.in.RetrieveArtikelFilterAndSortCommand;
 import be.one16.barka.magazijn.ports.out.LoadArtikelsPort;
 import org.springframework.data.domain.Page;
-import org.springframework.stereotype.Service;
 
 import java.util.UUID;
 
-@Service
+@UnitOfWork
 public class DefaultArtikelsInMagazijnQuery implements ArtikelsInMagazijnQuery {
 
     private final LoadArtikelsPort loadArtikelsPort;
