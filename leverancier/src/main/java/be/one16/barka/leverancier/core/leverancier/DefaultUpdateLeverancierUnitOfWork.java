@@ -1,10 +1,10 @@
-package be.one16.barka.leverancier.core;
+package be.one16.barka.leverancier.core.leverancier;
 
 import be.one16.barka.domain.annotations.UnitOfWork;
 import be.one16.barka.leverancier.domain.Leverancier;
-import be.one16.barka.leverancier.ports.in.UpdateLeverancierCommand;
-import be.one16.barka.leverancier.ports.in.UpdateLeverancierUnitOfWork;
-import be.one16.barka.leverancier.ports.out.LeverancierUpdatePort;
+import be.one16.barka.leverancier.ports.in.leverancier.UpdateLeverancierCommand;
+import be.one16.barka.leverancier.ports.in.leverancier.UpdateLeverancierUnitOfWork;
+import be.one16.barka.leverancier.ports.out.leverancier.LeverancierUpdatePort;
 
 import java.util.List;
 

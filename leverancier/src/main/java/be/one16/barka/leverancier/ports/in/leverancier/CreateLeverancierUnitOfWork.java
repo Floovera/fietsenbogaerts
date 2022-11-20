@@ -1,4 +1,4 @@
-package be.one16.barka.leverancier.ports.in;
+package be.one16.barka.leverancier.ports.in.leverancier;
 
 import org.springframework.transaction.annotation.Transactional;
 

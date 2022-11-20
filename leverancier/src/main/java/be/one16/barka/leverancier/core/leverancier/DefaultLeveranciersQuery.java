@@ -1,10 +1,10 @@
-package be.one16.barka.leverancier.core;
+package be.one16.barka.leverancier.core.leverancier;
 
 import be.one16.barka.domain.annotations.UnitOfWork;
 import be.one16.barka.leverancier.domain.Leverancier;
-import be.one16.barka.leverancier.ports.in.LeveranciersQuery;
-import be.one16.barka.leverancier.ports.in.RetrieveLeveranciersFilterAndSortCommand;
-import be.one16.barka.leverancier.ports.out.LoadLeveranciersPort;
+import be.one16.barka.leverancier.ports.in.leverancier.LeveranciersQuery;
+import be.one16.barka.leverancier.ports.in.leverancier.RetrieveLeveranciersFilterAndSortCommand;
+import be.one16.barka.leverancier.ports.out.leverancier.LoadLeveranciersPort;
 import org.springframework.data.domain.Page;
 
 import java.util.UUID;

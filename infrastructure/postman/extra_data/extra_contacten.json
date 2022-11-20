@@ -1,0 +1,20 @@
+[
+  {
+    "naam": "Frits De Fietser",
+    "onderwerp": "Magazijn",
+    "contactMethode": "EMAIL",
+    "gegevens": "frits.defietser@koga.nl"
+  },
+  {
+    "naam": "Bart De Jonge",
+    "onderwerp": "Sales",
+    "contactMethode": "NUMMER",
+    "gegevens": "09123456789"
+  },
+  {
+    "naam": "Jos De Pedaleur",
+    "onderwerp": "R&D",
+    "contactMethode": "EMAIL",
+    "gegevens": "jos.depedaleur@koga.nl"
+  }
+]
