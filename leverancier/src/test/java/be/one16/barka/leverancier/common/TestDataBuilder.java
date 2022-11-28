@@ -1,6 +1,8 @@
 package be.one16.barka.leverancier.common;
 
+import be.one16.barka.leverancier.adapter.in.ContactDto;
 import be.one16.barka.leverancier.adapter.in.LeverancierDto;
+import be.one16.barka.leverancier.adapter.out.ContactJpaEntity;
 import be.one16.barka.leverancier.adapter.out.LeverancierJpaEntity;
 
 import static java.util.UUID.randomUUID;
@@ -46,6 +48,30 @@ public final class TestDataBuilder {
         leverancierJpaEntity.setOpmerkingen("Levert kleding");
 
         return leverancierJpaEntity;
+    }
+
+    public static ContactDto generateTestContactDto(String naam, String onderwerp, ContactMethode contactMethode, String gegevens) {
+        ContactDto contactDto = new ContactDto();
+
+        contactDto.setNaam(naam);
+        contactDto.setOnderwerp(onderwerp);
+        contactDto.setContactMethode(contactMethode);
+        contactDto.setGegevens(gegevens);
+
+        return contactDto;
+    }
+
+    public static ContactJpaEntity generateTestContactJpaEntity(String naam, String onderwerp, ContactMethode contactMethode, String gegevens, LeverancierJpaEntity leverancier) {
+        ContactJpaEntity contactJpaEntity = new ContactJpaEntity();
+
+        contactJpaEntity.setUuid(randomUUID());
+        contactJpaEntity.setNaam(naam);
+        contactJpaEntity.setOnderwerp(onderwerp);
+        contactJpaEntity.setContactMethode(contactMethode);
+        contactJpaEntity.setGegevens(gegevens);
+        contactJpaEntity.setLeverancier(leverancier);
+
+        return contactJpaEntity;
     }
 
 }

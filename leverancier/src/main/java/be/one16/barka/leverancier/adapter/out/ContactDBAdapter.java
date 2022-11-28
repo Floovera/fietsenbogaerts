@@ -75,6 +75,10 @@ public class ContactDBAdapter implements LoadContactenPort, ContactCreatePort, C
     public void deleteContact(UUID contactId, UUID leverancierId) {
         ContactJpaEntity contactJpaEntity = getContactJpaEntityById(contactId);
 
+        if (!contactJpaEntity.getLeverancier().getUuid().equals(leverancierId)) {
+            throw new IllegalArgumentException(String.format("Contact with uuid %s doesn't belong to the Leverancier with uuid %s", contactJpaEntity.getUuid(), leverancierId));
+        }
+
         contactRepository.delete(contactJpaEntity);
     }
 
