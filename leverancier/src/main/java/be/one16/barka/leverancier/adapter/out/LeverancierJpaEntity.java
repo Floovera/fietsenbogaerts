@@ -6,6 +6,7 @@ import org.hibernate.annotations.NaturalId;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -35,5 +36,8 @@ public class LeverancierJpaEntity {
     private String email;
     private String btwNummer;
     private String opmerkingen;
+
+    @OneToMany(mappedBy = "leverancier", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ContactJpaEntity> contacten;
 
 }

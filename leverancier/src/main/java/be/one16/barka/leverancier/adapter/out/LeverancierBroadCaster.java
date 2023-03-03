@@ -4,9 +4,9 @@ import be.one16.barka.domain.events.leverancier.LeverancierCreatedEvent;
 import be.one16.barka.domain.events.leverancier.LeverancierDeletedEvent;
 import be.one16.barka.domain.events.leverancier.LeverancierUpdatedEvent;
 import be.one16.barka.leverancier.domain.Leverancier;
-import be.one16.barka.leverancier.ports.out.LeverancierCreatePort;
-import be.one16.barka.leverancier.ports.out.LeverancierDeletePort;
-import be.one16.barka.leverancier.ports.out.LeverancierUpdatePort;
+import be.one16.barka.leverancier.ports.out.leverancier.LeverancierCreatePort;
+import be.one16.barka.leverancier.ports.out.leverancier.LeverancierDeletePort;
+import be.one16.barka.leverancier.ports.out.leverancier.LeverancierUpdatePort;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Component;
 

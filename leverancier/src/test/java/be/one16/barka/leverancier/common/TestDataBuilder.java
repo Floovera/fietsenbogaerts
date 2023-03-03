@@ -1,11 +1,36 @@
 package be.one16.barka.leverancier.common;
 
+import be.one16.barka.leverancier.adapter.in.ContactDto;
 import be.one16.barka.leverancier.adapter.in.LeverancierDto;
+import be.one16.barka.leverancier.adapter.out.ContactJpaEntity;
 import be.one16.barka.leverancier.adapter.out.LeverancierJpaEntity;
+import be.one16.barka.leverancier.domain.Contact;
+import be.one16.barka.leverancier.domain.Leverancier;
+
+import java.util.UUID;
 
 import static java.util.UUID.randomUUID;
 
 public final class TestDataBuilder {
+
+    public static Leverancier generateTestLeverancier(UUID leverancierId, String naam) {
+        return Leverancier.builder()
+                .leverancierId(leverancierId)
+                .naam(naam)
+                .straat("Hemelstraat")
+                .huisnummer("12")
+                .bus("A")
+                .postcode("3200")
+                .gemeente("Zonnedorp")
+                .land("BE")
+                .telefoonnummer("091111111")
+                .mobiel("0411111111")
+                .fax("44-208-1234569")
+                .email(naam + "@info.com")
+                .btwNummer("BE123456789")
+                .opmerkingen("Levert fietsen")
+                .build();
+    }
 
     public static LeverancierDto generateTestLeverancierDto(String naam) {
         LeverancierDto leverancierDto = new LeverancierDto();
@@ -46,6 +71,41 @@ public final class TestDataBuilder {
         leverancierJpaEntity.setOpmerkingen("Levert kleding");
 
         return leverancierJpaEntity;
+    }
+
+    public static Contact generateTestContact(UUID contactId, String naam, String onderwerp, ContactMethode contactMethode, String gegevens, UUID leverancierId) {
+        return Contact.builder()
+                .contactId(contactId)
+                .naam(naam)
+                .onderwerp(onderwerp)
+                .contactMethode(contactMethode)
+                .gegevens(gegevens)
+                .leverancierId(leverancierId)
+                .build();
+    }
+
+    public static ContactDto generateTestContactDto(String naam, String onderwerp, ContactMethode contactMethode, String gegevens) {
+        ContactDto contactDto = new ContactDto();
+
+        contactDto.setNaam(naam);
+        contactDto.setOnderwerp(onderwerp);
+        contactDto.setContactMethode(contactMethode);
+        contactDto.setGegevens(gegevens);
+
+        return contactDto;
+    }
+
+    public static ContactJpaEntity generateTestContactJpaEntity(String naam, String onderwerp, ContactMethode contactMethode, String gegevens, LeverancierJpaEntity leverancier) {
+        ContactJpaEntity contactJpaEntity = new ContactJpaEntity();
+
+        contactJpaEntity.setUuid(randomUUID());
+        contactJpaEntity.setNaam(naam);
+        contactJpaEntity.setOnderwerp(onderwerp);
+        contactJpaEntity.setContactMethode(contactMethode);
+        contactJpaEntity.setGegevens(gegevens);
+        contactJpaEntity.setLeverancier(leverancier);
+
+        return contactJpaEntity;
     }
 
 }

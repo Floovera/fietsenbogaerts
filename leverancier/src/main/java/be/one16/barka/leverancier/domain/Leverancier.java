@@ -24,5 +24,4 @@ public class Leverancier {
     private String btwNummer;
     private String opmerkingen;
 
-    // TODO: collection of contacts (onderwerp - naam - methode (email of nummer)
 }
