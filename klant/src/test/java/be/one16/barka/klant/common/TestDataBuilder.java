@@ -1,7 +1,9 @@
 package be.one16.barka.klant.common;
 
-import be.one16.barka.klant.adapter.in.KlantDto;
-import be.one16.barka.klant.adapter.out.KlantJpaEntity;
+import be.one16.barka.klant.adapter.in.klant.KlantDto;
+import be.one16.barka.klant.adapter.in.verkoop.VerkoopDto;
+import be.one16.barka.klant.adapter.out.klant.KlantJpaEntity;
+import be.one16.barka.klant.adapter.out.verkoop.VerkoopJpaEntity;
 
 import static be.one16.barka.klant.common.KlantType.ONBEKEND;
 import static be.one16.barka.klant.common.KlantType.ZELFSTANDIGE;
@@ -49,5 +51,24 @@ public final class TestDataBuilder {
 
         return klantJpaEntity;
     }
+    public static VerkoopDto generateTestVerkoopDto(String naam) {
+        VerkoopDto verkoopDto = new VerkoopDto();
+
+        verkoopDto.setNaam(naam);
+        verkoopDto.setOpmerkingen("Inclusief installatie op stuur");
+
+        return verkoopDto;
+    }
+
+    public static VerkoopJpaEntity generateTestVerkoopJpaEntity(String naam) {
+        VerkoopJpaEntity verkoopJpaEntity = new VerkoopJpaEntity();
+
+        verkoopJpaEntity.setUuid(randomUUID());
+        verkoopJpaEntity.setNaam(naam);
+        verkoopJpaEntity.setOpmerkingen("Super kwaliteit");
+
+        return verkoopJpaEntity;
+    }
+
 
 }
