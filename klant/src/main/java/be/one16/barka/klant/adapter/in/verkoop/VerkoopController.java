@@ -1,6 +1,7 @@
 package be.one16.barka.klant.adapter.in.verkoop;
 
 import be.one16.barka.klant.adapter.mapper.verkoop.VerkoopDtoMapper;
+import be.one16.barka.klant.common.exceptions.KlantNotFoundException;
 import be.one16.barka.klant.port.in.verkoop.*;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -40,12 +41,13 @@ public class VerkoopController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    UUID createVerkoop(@RequestBody VerkoopDto verkoop) {
-        return createVerkoopUnitOfWork.createVerkoop(verkoopDtoMapper.mapDtoToCreateVerkoopCommand(verkoop));
+    UUID createVerkoop(@RequestBody VerkoopDto verkoop) throws KlantNotFoundException {
+        CreateVerkoopCommand createVerkoopCommand = verkoopDtoMapper.mapDtoToCreateVerkoopCommand(verkoop);
+        return createVerkoopUnitOfWork.createVerkoop(createVerkoopCommand);
     }
 
     @PutMapping("/{id}")
-    void updateVerkoop(@PathVariable("id") UUID verkoopId, @RequestBody VerkoopDto verkoop) {
+    void updateVerkoop(@PathVariable("id") UUID verkoopId, @RequestBody VerkoopDto verkoop) throws KlantNotFoundException {
         updateVerkoopUnitOfWork.updateVerkoop(verkoopDtoMapper.mapDtoToUpdateVerkoopCommand(verkoop,verkoopId));
     }
 

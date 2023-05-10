@@ -24,8 +24,7 @@ public class VerkoopJpaEntity {
     private UUID uuid;
     private String naam;
     private String opmerkingen;
-    @ManyToOne
-    @JoinColumn(name = "klant_id")
-    private KlantJpaEntity klant;
+    @Type(type = "uuid-char")
+    private UUID klantId;
 
 }

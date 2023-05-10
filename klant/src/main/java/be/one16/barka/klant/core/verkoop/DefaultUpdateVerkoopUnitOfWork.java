@@ -1,42 +1,61 @@
 package be.one16.barka.klant.core.verkoop;
 
 import be.one16.barka.domain.annotations.UnitOfWork;
+import be.one16.barka.domain.exceptions.EntityNotFoundException;
+import be.one16.barka.klant.common.exceptions.KlantNotFoundException;
 import be.one16.barka.klant.domain.Klant;
 import be.one16.barka.klant.domain.Verkoop;
-import be.one16.barka.klant.port.in.klant.UpdateKlantCommand;
-import be.one16.barka.klant.port.in.klant.UpdateKlantUnitOfWork;
+import be.one16.barka.klant.port.in.klant.KlantenQuery;
 import be.one16.barka.klant.port.in.verkoop.UpdateVerkoopCommand;
 import be.one16.barka.klant.port.in.verkoop.UpdateVerkoopUnitOfWork;
-import be.one16.barka.klant.port.out.klant.UpdateKlantPort;
 import be.one16.barka.klant.port.out.verkoop.UpdateVerkoopPort;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-
-import static be.one16.barka.klant.common.KlantType.ONBEKEND;
+import java.util.UUID;
 
 @UnitOfWork
 public class DefaultUpdateVerkoopUnitOfWork implements UpdateVerkoopUnitOfWork {
 
     private final List<UpdateVerkoopPort> updateVerkoopPorts;
+    private final KlantenQuery klantenquery;
 
-    public DefaultUpdateVerkoopUnitOfWork(List<UpdateVerkoopPort> updateVerkoopPorts) {
+    public DefaultUpdateVerkoopUnitOfWork(List<UpdateVerkoopPort> updateVerkoopPorts, KlantenQuery klantenquery) {
         this.updateVerkoopPorts = updateVerkoopPorts;
+        this.klantenquery = klantenquery;
     }
 
     @Override
-    public void updateVerkoop(UpdateVerkoopCommand updateVerkoopCommand) {
+    @Transactional
+    public void updateVerkoop(UpdateVerkoopCommand updateVerkoopCommand) throws KlantNotFoundException {
         if (StringUtils.isEmpty(updateVerkoopCommand.naam())) {
             throw new IllegalArgumentException("Value for 'naam' can not be null or empty");
+        }
+
+        UUID calculatedKlantId = null;
+
+        if (updateVerkoopCommand.klantId() != null) {
+            try {
+                Klant klantRetrieved = getKlant(updateVerkoopCommand.klantId());
+                calculatedKlantId = klantRetrieved.getKlantId();
+            } catch (EntityNotFoundException e) {
+                throw new KlantNotFoundException(String.format("Did not find the klant for the provided UUID: %s", updateVerkoopCommand.klantId()));
+            }
         }
 
         Verkoop verkoop = Verkoop.builder()
                 .verkoopId(updateVerkoopCommand.verkoopId())
                 .naam(updateVerkoopCommand.naam())
                 .opmerkingen(updateVerkoopCommand.opmerkingen())
-                .klantId(updateVerkoopCommand.klantId())
+                .klantId(calculatedKlantId)
                 .build();
 
         updateVerkoopPorts.forEach(port -> port.updateVerkoop(verkoop));
+
+    }
+
+    private Klant getKlant(UUID klantID) {
+        return klantenquery.retrieveKlantById(klantID);
     }
 }

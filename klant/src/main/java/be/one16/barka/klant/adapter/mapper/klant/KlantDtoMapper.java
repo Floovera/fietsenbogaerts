@@ -15,7 +15,6 @@ public interface KlantDtoMapper {
     CreateKlantCommand mapDtoToCreateKlantCommand(KlantDto klant);
     @Mapping(source = "klantId", target = "klantId")
     UpdateKlantCommand mapDtoToUpdateKlantCommand(KlantDto klant, UUID klantId);
-
     KlantDto mapKlantToDto(Klant klant);
 
 }

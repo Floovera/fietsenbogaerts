@@ -2,6 +2,7 @@ package be.one16.barka.klant.adapter.out.verkoop;
 
 import be.one16.barka.domain.exceptions.EntityNotFoundException;
 import be.one16.barka.klant.adapter.mapper.verkoop.VerkoopJpaEntityMapper;
+import be.one16.barka.klant.adapter.out.repository.KlantRepository;
 import be.one16.barka.klant.adapter.out.repository.VerkoopRepository;
 import be.one16.barka.klant.domain.Verkoop;
 import be.one16.barka.klant.port.out.verkoop.CreateVerkoopPort;
@@ -52,7 +53,7 @@ public class VerkoopDBAdapter implements LoadVerkopenPort, CreateVerkoopPort, Up
         verkoopJpaEntity.setUuid(verkoop.getVerkoopId());
         verkoopJpaEntity.setNaam(verkoop.getNaam());
         verkoopJpaEntity.setOpmerkingen(verkoop.getOpmerkingen());
-
+        verkoopJpaEntity.setKlantId(verkoop.getKlantId());
         verkoopRepository.save(verkoopJpaEntity);
     }
 
@@ -62,6 +63,7 @@ public class VerkoopDBAdapter implements LoadVerkopenPort, CreateVerkoopPort, Up
 
         verkoopJpaEntity.setNaam(verkoop.getNaam());
         verkoopJpaEntity.setOpmerkingen(verkoop.getOpmerkingen());
+        verkoopJpaEntity.setKlantId(verkoop.getKlantId());
 
         verkoopRepository.save(verkoopJpaEntity);
     }

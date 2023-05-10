@@ -10,5 +10,6 @@ public class VerkoopDto {
     private UUID verkoopId;
     private String naam;
     private String opmerkingen;
+    private UUID klantId;
 
 }
