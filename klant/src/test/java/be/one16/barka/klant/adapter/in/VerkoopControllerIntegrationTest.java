@@ -140,6 +140,24 @@ public class VerkoopControllerIntegrationTest extends BaseIntegrationTesting {
     }
 
     @Test
+    public void testCreateVerkoopWithClient() throws Exception {
+        KlantDto klant = TestDataBuilder.generateTestKlantDto("Floo");
+        UUID klantUUID = klant.getKlantId();
+        VerkoopDto verkoopToCreate = TestDataBuilder.generateTestVerkoopWithClientDto("Drink fles houder",klantUUID);
+
+
+        String response = mockMvc.perform(MockMvcRequestBuilders.post(BASE_URL).contentType(APPLICATION_JSON).content(GSON.toJson(verkoopToCreate)))
+                .andDo(print())
+                .andExpect(MockMvcResultMatchers.status().isCreated())
+                .andReturn().getResponse().getContentAsString().replace("\"", "");
+
+        Optional<VerkoopJpaEntity> verkoopJpaEntity = verkoopRepository.findByUuid(UUID.fromString(response));
+        Assertions.assertTrue(verkoopJpaEntity.isPresent());
+
+        validateVerkoopJpaToVerkoopDto(verkoopJpaEntity.get(), verkoopToCreate);
+    }
+
+    @Test
     public void testCreateVerkoopInvalid() throws Exception {
         VerkoopDto verkoopToCreate = TestDataBuilder.generateTestVerkoopDto("Band");
 
