@@ -38,3 +38,4 @@ spring:
     password: ${DATASOURCE_PASS:password}
   flyway:
     baseline-on-migrate: true
+    locations: classpath:db/migration/
