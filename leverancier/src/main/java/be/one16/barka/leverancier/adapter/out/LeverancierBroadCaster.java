@@ -3,6 +3,7 @@ package be.one16.barka.leverancier.adapter.out;
 import be.one16.barka.domain.events.leverancier.LeverancierCreatedEvent;
 import be.one16.barka.domain.events.leverancier.LeverancierDeletedEvent;
 import be.one16.barka.domain.events.leverancier.LeverancierUpdatedEvent;
+import be.one16.barka.leverancier.adapter.mapper.LeverancierDtoMapper;
 import be.one16.barka.leverancier.domain.Leverancier;
 import be.one16.barka.leverancier.ports.out.leverancier.LeverancierCreatePort;
 import be.one16.barka.leverancier.ports.out.leverancier.LeverancierDeletePort;
@@ -16,14 +17,16 @@ import java.util.UUID;
 public class LeverancierBroadCaster implements LeverancierCreatePort, LeverancierUpdatePort, LeverancierDeletePort {
 
     private final ApplicationEventPublisher applicationEventPublisher;
+    private final LeverancierDtoMapper leverancierDtoMapper;
 
-    public LeverancierBroadCaster(ApplicationEventPublisher applicationEventPublisher) {
+    public LeverancierBroadCaster(ApplicationEventPublisher applicationEventPublisher, LeverancierDtoMapper leverancierDtoMapper) {
         this.applicationEventPublisher = applicationEventPublisher;
+        this.leverancierDtoMapper = leverancierDtoMapper;
     }
 
     @Override
     public void createLeverancier(Leverancier leverancier) {
-        applicationEventPublisher.publishEvent(new LeverancierCreatedEvent(leverancier.getLeverancierId(), leverancier.getNaam()));
+        applicationEventPublisher.publishEvent(new LeverancierCreatedEvent(leverancierDtoMapper.mapLeverancierToMessage(leverancier)));
     }
 
     @Override

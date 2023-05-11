@@ -22,7 +22,6 @@ public class ArtikelLeverancierJpaEntity {
     @NaturalId
     @Type(type = "uuid-char")
     private UUID uuid;
-
     private String naam;
 
     @OneToMany(mappedBy = "leverancier")

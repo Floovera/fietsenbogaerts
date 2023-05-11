@@ -13,6 +13,7 @@ import java.util.UUID;
 public interface ArtikelDtoMapper {
 
     CreateArtikelCommand mapDtoToCreateArtikelCommand(ArtikelDto artikel);
+
     @Mapping(source = "artikelId", target = "artikelId")
     UpdateArtikelCommand mapDtoToUpdateArtikelCommand(ArtikelDto artikel, UUID artikelId);
 
