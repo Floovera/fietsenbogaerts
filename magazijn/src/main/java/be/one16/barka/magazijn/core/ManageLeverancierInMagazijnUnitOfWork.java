@@ -2,24 +2,24 @@ package be.one16.barka.magazijn.core;
 
 import be.one16.barka.domain.annotations.UnitOfWork;
 import be.one16.barka.magazijn.domain.Leverancier;
-import be.one16.barka.magazijn.ports.in.CreateArtikelLeverancierCommand;
-import be.one16.barka.magazijn.ports.in.CreateArtikelLeverancierInMagazijnUnitOfWork;
-import be.one16.barka.magazijn.ports.in.UpdateArtikelLeverancierCommand;
-import be.one16.barka.magazijn.ports.in.UpdateArtikelLeverancierInMagazijnUnitOfWork;
+import be.one16.barka.magazijn.ports.in.*;
 import be.one16.barka.magazijn.ports.out.ArtikelLeverancierCreatePort;
+import be.one16.barka.magazijn.ports.out.ArtikelLeverancierDeletePort;
 import be.one16.barka.magazijn.ports.out.ArtikelLeverancierUpdatePort;
 
 import java.util.List;
 import java.util.UUID;
 
 @UnitOfWork
-public class ManageLeverancierInMagazijnUnitOfWork implements CreateArtikelLeverancierInMagazijnUnitOfWork, UpdateArtikelLeverancierInMagazijnUnitOfWork {
+public class ManageLeverancierInMagazijnUnitOfWork implements CreateArtikelLeverancierInMagazijnUnitOfWork, UpdateArtikelLeverancierInMagazijnUnitOfWork, DeleteArtikelLeverancierInMagazijnUnitOfWork {
 
     private final List<ArtikelLeverancierCreatePort> artikelLeverancierCreatePorts;
     private final List<ArtikelLeverancierUpdatePort> artikelLeverancierUpdatePorts;
-    public ManageLeverancierInMagazijnUnitOfWork(List<ArtikelLeverancierCreatePort> artikelLeverancierCreatePorts, List<ArtikelLeverancierUpdatePort> artikelLeverancierUpdatePorts) {
+    private final List<ArtikelLeverancierDeletePort> artikelLeverancierDeletePorts;
+    public ManageLeverancierInMagazijnUnitOfWork(List<ArtikelLeverancierCreatePort> artikelLeverancierCreatePorts, List<ArtikelLeverancierUpdatePort> artikelLeverancierUpdatePorts, List<ArtikelLeverancierDeletePort> artikelLeverancierDeletePorts) {
         this.artikelLeverancierCreatePorts = artikelLeverancierCreatePorts;
         this.artikelLeverancierUpdatePorts = artikelLeverancierUpdatePorts;
+        this.artikelLeverancierDeletePorts = artikelLeverancierDeletePorts;
     }
 
     @Override
@@ -45,5 +45,8 @@ public class ManageLeverancierInMagazijnUnitOfWork implements CreateArtikelLever
         artikelLeverancierUpdatePorts.forEach(port -> port.updateArtikelLeverancier(leverancier));
     }
 
-
+    @Override
+    public void deleteArtikelLeverancierInMagazijn(UUID LeverancierId) {
+        artikelLeverancierDeletePorts.forEach(port -> port.deleteArtikelLeverancier(LeverancierId));
+    }
 }

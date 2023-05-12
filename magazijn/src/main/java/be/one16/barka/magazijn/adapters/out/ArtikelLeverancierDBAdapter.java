@@ -21,7 +21,7 @@ import java.util.UUID;
 @Component
 @Log4j2
 @Order(Ordered.HIGHEST_PRECEDENCE)
-public class ArtikelLeverancierDBAdapter implements ArtikelLeverancierCreatePort, ArtikelLeverancierUpdatePort{
+public class ArtikelLeverancierDBAdapter implements ArtikelLeverancierCreatePort, ArtikelLeverancierUpdatePort, ArtikelLeverancierDeletePort{
 
     private final ArtikelLeverancierRepository artikelLeverancierRepository;
 
@@ -57,13 +57,12 @@ public class ArtikelLeverancierDBAdapter implements ArtikelLeverancierCreatePort
         artikelLeverancierRepository.save(artikelLeverancierJpaEntity);
     }
 
-/*
 
-    public void deleteArtikel(UUID id) {
-        ArtikelJpaEntity artikelJpaEntity = getArtikelJpaEntityById(id);
-        artikelRepository.delete(artikelJpaEntity);
+    public void deleteArtikelLeverancier(UUID leverancierId) {
+        ArtikelLeverancierJpaEntity artikelLeverancierJpaEntity = getArtikelLeverancierJpaEntityById(leverancierId);
+        artikelLeverancierRepository.delete(artikelLeverancierJpaEntity);
+
     }
-*/
 
 
 

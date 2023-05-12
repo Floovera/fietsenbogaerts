@@ -1,4 +1,5 @@
 package be.one16.barka.magazijn.adapters.in;
+import be.one16.barka.domain.events.leverancier.LeverancierDeletedEvent;
 import be.one16.barka.domain.events.leverancier.LeverancierUpdatedEvent;
 import be.one16.barka.magazijn.core.ManageLeverancierInMagazijnUnitOfWork;
 import be.one16.barka.magazijn.ports.in.CreateArtikelLeverancierCommand;
@@ -9,6 +10,8 @@ import be.one16.barka.domain.events.leverancier.LeverancierMessage;
 import org.hibernate.sql.Update;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
+
+import java.util.UUID;
 
 @Component
 @Log4j2
@@ -32,4 +35,11 @@ public class LeverancierEventListener {
         LeverancierMessage message = (LeverancierMessage)event.getSource();
         log.info("Received update leverancier - " + (message.getNaam()));
         manageLeverancierInMagazijnUnitOfWork.updateArtikelLeverancierInMagazijn(new UpdateArtikelLeverancierCommand(message.getLeverancierId(), message.getNaam()));
+    }
+
+    @EventListener
+    public void onApplicationEvent(LeverancierDeletedEvent event) {
+        UUID leverancierId = (UUID)event.getSource();
+        log.info("Received delete leverancier - " + leverancierId);
+        manageLeverancierInMagazijnUnitOfWork.deleteArtikelLeverancierInMagazijn(leverancierId);;
     }}
