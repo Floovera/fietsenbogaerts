@@ -2,12 +2,12 @@ package be.one16.barka.magazijn.adapters.out;
 
 import be.one16.barka.domain.exceptions.EntityNotFoundException;
 import be.one16.barka.domain.exceptions.LinkedEntityNotFoundException;
-import be.one16.barka.leverancier.adapter.out.LeverancierJpaEntity;
 import be.one16.barka.magazijn.adapters.mapper.ArtikelLeverancierJpaEntityMapper;
 import be.one16.barka.magazijn.adapters.out.repository.ArtikelLeverancierRepository;
 import be.one16.barka.magazijn.domain.Artikel;
 import be.one16.barka.magazijn.domain.Leverancier;
 import be.one16.barka.magazijn.ports.out.*;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.data.domain.Page;
@@ -19,8 +19,9 @@ import org.springframework.stereotype.Component;
 import java.util.UUID;
 
 @Component
+@Log4j2
 @Order(Ordered.HIGHEST_PRECEDENCE)
-public class ArtikelLeverancierDBAdapter implements ArtikelLeverancierCreatePort{
+public class ArtikelLeverancierDBAdapter implements ArtikelLeverancierCreatePort, ArtikelLeverancierUpdatePort{
 
     private final ArtikelLeverancierRepository artikelLeverancierRepository;
 
@@ -48,19 +49,21 @@ public class ArtikelLeverancierDBAdapter implements ArtikelLeverancierCreatePort
     }
 
 
-   /* public void updateArtikel(Artikel artikel) {
-        ArtikelJpaEntity artikelJpaEntity = getArtikelJpaEntityById(artikel.getArtikelId());
+    public void updateArtikelLeverancier(Leverancier leverancier) {
+        log.info("UUID die we  in updateartikelleverancier - " + leverancier.getLeverancierId());
+        ArtikelLeverancierJpaEntity artikelLeverancierJpaEntity = getArtikelLeverancierJpaEntityById(leverancier.getLeverancierId());
+        artikelLeverancierJpaEntity.setNaam(leverancier.getNaam());
 
-        fillJpaEntityWithArtikelData(artikelJpaEntity, artikel);
-
-        artikelRepository.save(artikelJpaEntity);
+        artikelLeverancierRepository.save(artikelLeverancierJpaEntity);
     }
 
+/*
 
     public void deleteArtikel(UUID id) {
         ArtikelJpaEntity artikelJpaEntity = getArtikelJpaEntityById(id);
         artikelRepository.delete(artikelJpaEntity);
-    }*/
+    }
+*/
 
 
 

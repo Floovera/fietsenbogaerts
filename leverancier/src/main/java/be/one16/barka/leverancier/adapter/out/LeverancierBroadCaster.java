@@ -31,7 +31,7 @@ public class LeverancierBroadCaster implements LeverancierCreatePort, Leverancie
 
     @Override
     public void updateLeverancier(Leverancier leverancier) {
-        applicationEventPublisher.publishEvent(new LeverancierUpdatedEvent(leverancier.getLeverancierId(), leverancier.getNaam()));
+        applicationEventPublisher.publishEvent(new LeverancierUpdatedEvent(leverancierDtoMapper.mapLeverancierToMessage(leverancier)));
     }
 
     @Override
