@@ -47,15 +47,21 @@ public class ManageLeverancierInMagazijnUnitOfWork implements CreateArtikelLever
 
         Optional<Leverancier> leverancierRetrieved =  retrieveArtikelLeverancierFromMagazijnById(leverancier.getLeverancierId());
         if(leverancierRetrieved.isEmpty()){
-            throw new RuntimeException("Bestaat niet");
+            throw new IllegalArgumentException("Dit leverancierId werd niet terug gevonden.");
         }else{
             artikelLeverancierUpdatePorts.forEach(port -> port.updateArtikelLeverancier(leverancier));
         }
     }
 
     @Override
-    public void deleteArtikelLeverancierInMagazijn(UUID LeverancierId) {
-        artikelLeverancierDeletePorts.forEach(port -> port.deleteArtikelLeverancier(LeverancierId));
+    public void deleteArtikelLeverancierInMagazijn(UUID leverancierId) {
+
+        Optional<Leverancier> leverancierRetrieved =  retrieveArtikelLeverancierFromMagazijnById(leverancierId);
+        if(leverancierRetrieved.isEmpty()){
+            throw new IllegalArgumentException("Dit leverancierId werd niet terug gevonden.");
+        }else{
+            artikelLeverancierDeletePorts.forEach(port -> port.deleteArtikelLeverancier(leverancierId));
+        }
     }
 
     @Override

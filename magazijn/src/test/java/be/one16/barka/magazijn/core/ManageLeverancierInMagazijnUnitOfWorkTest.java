@@ -53,7 +53,7 @@ class ManageLeverancierInMagazijnUnitOfWorkTest{
         LoadArtikelLeveranciersPort loadArtikelLeveranciersPort = Mockito.mock(LoadArtikelLeveranciersPort.class);
         ManageLeverancierInMagazijnUnitOfWork manageLeverancierInMagazijnUnitOfWork = new ManageLeverancierInMagazijnUnitOfWork(List.of(artikelLeverancierCreatePort),null,null,loadArtikelLeveranciersPort);
         Mockito.when(loadArtikelLeveranciersPort.retrieveArtikelLeverancierById(any(UUID.class))).thenReturn(Optional.empty());
-        assertThrows(RuntimeException.class, () -> manageLeverancierInMagazijnUnitOfWork.updateArtikelLeverancierInMagazijn(new UpdateArtikelLeverancierCommand(UUID.randomUUID(),"GVA")));
+        assertThrows(IllegalArgumentException.class, () -> manageLeverancierInMagazijnUnitOfWork.updateArtikelLeverancierInMagazijn(new UpdateArtikelLeverancierCommand(UUID.randomUUID(),"GVA")));
 
     }
 
@@ -77,19 +77,37 @@ class ManageLeverancierInMagazijnUnitOfWorkTest{
     }
 
     @Test
-    void deleteArtikelLeverancierInMagazijn() {
+    void deleteArtikelLeverancierInMagazijnWhenLeverancierIsNonExisting() {
 
         //Arrange
         ArtikelLeverancierDeletePort artikelLeverancierDeletePort = Mockito.mock(ArtikelLeverancierDeletePort.class);
+        LoadArtikelLeveranciersPort loadArtikelLeveranciersPort = Mockito.mock(LoadArtikelLeveranciersPort.class);
         UUID leverancierId = UUID.randomUUID();
-        ManageLeverancierInMagazijnUnitOfWork manageLeverancierInMagazijnUnitOfWork = new ManageLeverancierInMagazijnUnitOfWork(null,null,List.of(artikelLeverancierDeletePort),null);
+        ManageLeverancierInMagazijnUnitOfWork manageLeverancierInMagazijnUnitOfWork = new ManageLeverancierInMagazijnUnitOfWork(null,null,List.of(artikelLeverancierDeletePort),loadArtikelLeveranciersPort);
+        Mockito.when(loadArtikelLeveranciersPort.retrieveArtikelLeverancierById(any(UUID.class))).thenReturn(Optional.empty());
 
+        //Act and assert
+        assertThrows(IllegalArgumentException.class, () -> manageLeverancierInMagazijnUnitOfWork.deleteArtikelLeverancierInMagazijn(leverancierId));
+
+    }
+
+    @Test
+    void deleteArtikelLeverancierInMagazijnWhenLeverancierIsExisting() {
+
+        //Arrange
+        ArtikelLeverancierDeletePort artikelLeverancierDeletePort = Mockito.mock(ArtikelLeverancierDeletePort.class);
+        LoadArtikelLeveranciersPort loadArtikelLeveranciersPort = Mockito.mock(LoadArtikelLeveranciersPort.class);
+        Leverancier leverancier = Leverancier.builder().leverancierId(UUID.randomUUID()).naam("Sinalco").build();
+        ManageLeverancierInMagazijnUnitOfWork manageLeverancierInMagazijnUnitOfWork = new ManageLeverancierInMagazijnUnitOfWork(null,null,List.of(artikelLeverancierDeletePort),loadArtikelLeveranciersPort);
+        Mockito.when(loadArtikelLeveranciersPort.retrieveArtikelLeverancierById(any(UUID.class))).thenReturn(Optional.of(leverancier));
         //Act
-        manageLeverancierInMagazijnUnitOfWork.deleteArtikelLeverancierInMagazijn(leverancierId);
+        manageLeverancierInMagazijnUnitOfWork.deleteArtikelLeverancierInMagazijn(leverancier.getLeverancierId());
 
         //Assert
         Mockito.verify(artikelLeverancierDeletePort).deleteArtikelLeverancier(leverancierUUIDCaptor.capture());
         UUID leverancierUUID = leverancierUUIDCaptor.getValue();
-        assertEquals(leverancierId,leverancierUUID);
+        assertEquals(leverancier.getLeverancierId(),leverancierUUID);
     }
+
+
 }
