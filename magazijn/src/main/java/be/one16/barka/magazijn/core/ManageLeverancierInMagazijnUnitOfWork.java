@@ -20,7 +20,6 @@ public class ManageLeverancierInMagazijnUnitOfWork implements CreateArtikelLever
     private final List<ArtikelLeverancierUpdatePort> artikelLeverancierUpdatePorts;
     private final List<ArtikelLeverancierDeletePort> artikelLeverancierDeletePorts;
     private final LoadArtikelLeveranciersPort loadArtikelLeveranciersPort;
-
     private final LoadArtikelsPort loadArtikelsPort;
 
     public ManageLeverancierInMagazijnUnitOfWork(List<ArtikelLeverancierCreatePort> artikelLeverancierCreatePorts, List<ArtikelLeverancierUpdatePort> artikelLeverancierUpdatePorts, List<ArtikelLeverancierDeletePort> artikelLeverancierDeletePorts, LoadArtikelLeveranciersPort loadArtikelLeveranciersPort, LoadArtikelsPort loadArtikelsPort) {
@@ -55,9 +54,9 @@ public class ManageLeverancierInMagazijnUnitOfWork implements CreateArtikelLever
         Optional<Leverancier> leverancierRetrieved =  retrieveArtikelLeverancierFromMagazijnById(leverancier.getLeverancierId());
         if(leverancierRetrieved.isEmpty()){
             throw new IllegalArgumentException("Dit leverancierId werd niet terug gevonden.");
-        }else{
-            artikelLeverancierUpdatePorts.forEach(port -> port.updateArtikelLeverancier(leverancier));
         }
+
+        artikelLeverancierUpdatePorts.forEach(port -> port.updateArtikelLeverancier(leverancier));
     }
 
     @Override
