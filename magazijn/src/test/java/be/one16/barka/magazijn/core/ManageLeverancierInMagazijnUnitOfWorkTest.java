@@ -29,8 +29,6 @@ import static org.mockito.ArgumentMatchers.any;
 @ExtendWith(MockitoExtension.class)
 class ManageLeverancierInMagazijnUnitOfWorkTest{
 
-    TestDataBuilder testDataBuilder;
-
     @Captor
     ArgumentCaptor<Leverancier> leverancierCaptor;
 
