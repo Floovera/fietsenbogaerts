@@ -29,9 +29,6 @@ public class DefaultUpdateVerkoopUnitOfWork implements UpdateVerkoopUnitOfWork {
     @Override
     @Transactional
     public void updateVerkoop(UpdateVerkoopCommand updateVerkoopCommand) throws KlantNotFoundException {
-        if (StringUtils.isEmpty(updateVerkoopCommand.naam())) {
-            throw new IllegalArgumentException("Value for 'naam' can not be null or empty");
-        }
 
         UUID calculatedKlantId = null;
 

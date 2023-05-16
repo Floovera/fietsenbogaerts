@@ -22,9 +22,6 @@ public class DefaultUpdateKlantUnitOfWork implements UpdateKlantUnitOfWork {
 
     @Override
     public void updateKlant(UpdateKlantCommand updateKlantCommand) {
-        if (StringUtils.isEmpty(updateKlantCommand.naam())) {
-            throw new IllegalArgumentException("Value for 'naam' can not be null or empty");
-        }
 
         Klant klant = Klant.builder()
                 .klantId(updateKlantCommand.klantId())
