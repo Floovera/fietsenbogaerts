@@ -47,7 +47,6 @@ public class ArtikelLeverancierDBAdapter implements ArtikelLeverancierCreatePort
 
 
     public void updateArtikelLeverancier(Leverancier leverancier) {
-        log.info("UUID die we  in updateartikelleverancier - " + leverancier.getLeverancierId());
         ArtikelLeverancierJpaEntity artikelLeverancierJpaEntity = getArtikelLeverancierJpaEntityById(leverancier.getLeverancierId());
         artikelLeverancierJpaEntity.setNaam(leverancier.getNaam());
         artikelLeverancierJpaEntity.setStatus(leverancier.getStatus());
