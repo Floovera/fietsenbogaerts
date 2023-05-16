@@ -1,7 +1,11 @@
 package be.one16.barka.klant.common;
 
-import be.one16.barka.klant.adapter.in.KlantDto;
-import be.one16.barka.klant.adapter.out.KlantJpaEntity;
+import be.one16.barka.klant.adapter.in.klant.KlantDto;
+import be.one16.barka.klant.adapter.in.verkoop.VerkoopDto;
+import be.one16.barka.klant.adapter.out.klant.KlantJpaEntity;
+import be.one16.barka.klant.adapter.out.verkoop.VerkoopJpaEntity;
+
+import java.util.UUID;
 
 import static be.one16.barka.klant.common.KlantType.ONBEKEND;
 import static be.one16.barka.klant.common.KlantType.ZELFSTANDIGE;
@@ -49,5 +53,45 @@ public final class TestDataBuilder {
 
         return klantJpaEntity;
     }
+    public static VerkoopDto generateTestVerkoopDto(String naam) {
+        VerkoopDto verkoopDto = new VerkoopDto();
+
+        verkoopDto.setNaam(naam);
+        verkoopDto.setOpmerkingen("Inclusief installatie op stuur");
+
+        return verkoopDto;
+    }
+
+    public static VerkoopDto generateTestVerkoopWithClientDto(String naam, UUID klant) {
+        VerkoopDto verkoopDto = new VerkoopDto();
+
+        verkoopDto.setNaam(naam);
+        verkoopDto.setOpmerkingen("Inclusief installatie op stuur");
+        verkoopDto.setKlantId(klant);
+
+        return verkoopDto;
+    }
+
+    public static VerkoopJpaEntity generateTestVerkoopJpaEntity(String naam) {
+        VerkoopJpaEntity verkoopJpaEntity = new VerkoopJpaEntity();
+
+        verkoopJpaEntity.setUuid(randomUUID());
+        verkoopJpaEntity.setNaam(naam);
+        verkoopJpaEntity.setOpmerkingen("Super kwaliteit");
+
+        return verkoopJpaEntity;
+    }
+
+    public static VerkoopJpaEntity generateTestVerkoopWithClientJpaEntity(String naam, UUID klant){
+        VerkoopJpaEntity verkoopJpaEntity = new VerkoopJpaEntity();
+
+        verkoopJpaEntity.setUuid(randomUUID());
+        verkoopJpaEntity.setNaam(naam);
+        verkoopJpaEntity.setOpmerkingen("Super kwaliteit");
+        verkoopJpaEntity.setKlantId(klant);
+
+        return verkoopJpaEntity;
+    }
+
 
 }

@@ -2,7 +2,8 @@ package be.one16.barka.klant.adapter.in;
 
 import be.one16.barka.klant.BarkaKlantenApplication;
 import be.one16.barka.klant.BaseIntegrationTesting;
-import be.one16.barka.klant.adapter.out.KlantJpaEntity;
+import be.one16.barka.klant.adapter.in.klant.KlantDto;
+import be.one16.barka.klant.adapter.out.klant.KlantJpaEntity;
 import be.one16.barka.klant.adapter.out.repository.KlantRepository;
 import be.one16.barka.klant.common.TestDataBuilder;
 import com.google.gson.Gson;
