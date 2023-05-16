@@ -7,6 +7,6 @@ import java.util.UUID;
 public interface DeleteArtikelLeverancierInMagazijnUnitOfWork {
 
     @Transactional
-    void deleteArtikelLeverancierInMagazijn(UUID LeverancierId);
+    void deleteArtikelLeverancierInMagazijn(DeleteArtikelLeverancierCommand deleteArtikelLeverancierCommand);
 
 }

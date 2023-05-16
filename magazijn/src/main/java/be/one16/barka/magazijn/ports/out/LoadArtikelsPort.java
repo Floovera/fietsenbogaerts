@@ -4,6 +4,7 @@ import be.one16.barka.magazijn.domain.Artikel;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
 import java.util.UUID;
 
 public interface LoadArtikelsPort {
@@ -12,4 +13,5 @@ public interface LoadArtikelsPort {
 
     Page<Artikel> retrieveArtikelByFilterAndSort(String code, String merk, String omschrijving, UUID leverancierId, Pageable pageable);
 
+    boolean leverancierHasArticles(UUID leverancierId);
 }

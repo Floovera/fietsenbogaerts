@@ -1,5 +1,6 @@
 package be.one16.barka.magazijn.domain;
 
+import be.one16.barka.magazijn.common.StatusLeverancier;
 import lombok.Builder;
 import lombok.Data;
 
@@ -11,5 +12,6 @@ public class Leverancier {
 
     private UUID leverancierId;
     private String naam;
+    private StatusLeverancier status;
 
 }

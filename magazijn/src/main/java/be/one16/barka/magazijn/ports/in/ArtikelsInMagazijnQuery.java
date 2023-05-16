@@ -4,6 +4,7 @@ import be.one16.barka.magazijn.domain.Artikel;
 import org.springframework.data.domain.Page;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.UUID;
 
 public interface ArtikelsInMagazijnQuery {

@@ -40,6 +40,7 @@ public class ArtikelLeverancierDBAdapter implements ArtikelLeverancierCreatePort
         ArtikelLeverancierJpaEntity artikelLeverancierJpaEntity = new ArtikelLeverancierJpaEntity();
         artikelLeverancierJpaEntity.setUuid(leverancier.getLeverancierId());
         artikelLeverancierJpaEntity.setNaam(leverancier.getNaam());
+        artikelLeverancierJpaEntity.setStatus(leverancier.getStatus());
 
         artikelLeverancierRepository.save(artikelLeverancierJpaEntity);
     }
@@ -49,13 +50,14 @@ public class ArtikelLeverancierDBAdapter implements ArtikelLeverancierCreatePort
         log.info("UUID die we  in updateartikelleverancier - " + leverancier.getLeverancierId());
         ArtikelLeverancierJpaEntity artikelLeverancierJpaEntity = getArtikelLeverancierJpaEntityById(leverancier.getLeverancierId());
         artikelLeverancierJpaEntity.setNaam(leverancier.getNaam());
+        artikelLeverancierJpaEntity.setStatus(leverancier.getStatus());
 
         artikelLeverancierRepository.save(artikelLeverancierJpaEntity);
     }
 
 
-    public void deleteArtikelLeverancier(UUID leverancierId) {
-        ArtikelLeverancierJpaEntity artikelLeverancierJpaEntity = getArtikelLeverancierJpaEntityById(leverancierId);
+    public void deleteArtikelLeverancier(UUID uuid) {
+        ArtikelLeverancierJpaEntity artikelLeverancierJpaEntity = getArtikelLeverancierJpaEntityById(uuid);
         artikelLeverancierRepository.delete(artikelLeverancierJpaEntity);
 
     }
