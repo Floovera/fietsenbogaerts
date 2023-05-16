@@ -32,8 +32,4 @@ public class DefaultArtikelsInMagazijnQuery implements ArtikelsInMagazijnQuery {
                 retrieveArtikelFilterAndSortCommand.leverancierId(),
                 retrieveArtikelFilterAndSortCommand.pageable());
     }
-
-
-
-
 }
