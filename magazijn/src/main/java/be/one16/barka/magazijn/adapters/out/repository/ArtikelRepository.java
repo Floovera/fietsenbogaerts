@@ -21,6 +21,6 @@ public interface ArtikelRepository extends JpaRepository<ArtikelJpaEntity, Long>
     boolean existsByCode(@Param("code") String code);
 
     @Query("SELECT a FROM ArtikelJpaEntity a JOIN ArtikelLeverancierJpaEntity b on a.leverancier.id = b.id WHERE b.uuid = :leverancierId")
-    List<ArtikelJpaEntity> findAllByLeverancier_Id(UUID leverancierId);
+    List<ArtikelJpaEntity> findAllByLeverancierId(UUID leverancierId);
 
 }

@@ -52,7 +52,7 @@ public class ArtikelDBAdapter implements LoadArtikelsPort, ArtikelCreatePort, Ar
 
     @Override
     public boolean leverancierHasArticles(UUID leverancierId) {
-        List<ArtikelJpaEntity> artikels = artikelRepository.findAllByLeverancier_Id(leverancierId);
+        List<ArtikelJpaEntity> artikels = artikelRepository.findAllByLeverancierId(leverancierId);
         return !artikels.isEmpty();
     }
 
