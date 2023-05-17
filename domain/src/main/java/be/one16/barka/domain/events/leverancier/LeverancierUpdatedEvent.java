@@ -1,7 +1,10 @@
 package be.one16.barka.domain.events.leverancier;
+import org.springframework.context.ApplicationEvent;
 
-import java.util.UUID;
+public class LeverancierUpdatedEvent extends ApplicationEvent {
 
-public record LeverancierUpdatedEvent(UUID leverancierId, String naam){
+    public LeverancierUpdatedEvent(Object leveranciermessage) {
+        super(leveranciermessage);
+    }
 
 }

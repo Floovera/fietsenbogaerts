@@ -1,6 +1,7 @@
 package be.one16.barka.leverancier.core.leverancier;
 
 import be.one16.barka.domain.annotations.UnitOfWork;
+import be.one16.barka.leverancier.domain.Leverancier;
 import be.one16.barka.leverancier.ports.in.leverancier.DeleteLeverancierUnitOfWork;
 import be.one16.barka.leverancier.ports.out.leverancier.LeverancierDeletePort;
 
@@ -17,7 +18,7 @@ public class DefaultDeleteLeverancierUnitOfWork implements DeleteLeverancierUnit
     }
 
     @Override
-    public void deleteLeverancier(UUID id) {
-        leverancierDeletePorts.forEach(port -> port.deleteLeverancier(id));
+    public void deleteLeverancier(Leverancier leverancier) {
+        leverancierDeletePorts.forEach(port -> port.deleteLeverancier(leverancier));
     }
 }

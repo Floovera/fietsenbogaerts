@@ -1,15 +1,20 @@
 package be.one16.barka.magazijn.adapters.in;
 
+import be.one16.barka.domain.events.leverancier.LeverancierCreatedEvent;
+import be.one16.barka.domain.events.leverancier.LeverancierMessage;
 import be.one16.barka.magazijn.adapters.mapper.ArtikelDtoMapper;
 import be.one16.barka.magazijn.ports.in.*;
+import org.springframework.context.ApplicationListener;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
 
 @RestController
+
 @RequestMapping("api/artikels")
 public class ArtikelController {
 

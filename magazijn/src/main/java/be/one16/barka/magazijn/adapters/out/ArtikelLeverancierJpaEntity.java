@@ -1,5 +1,6 @@
 package be.one16.barka.magazijn.adapters.out;
 
+import be.one16.barka.magazijn.common.StatusLeverancier;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.NaturalId;
@@ -22,8 +23,9 @@ public class ArtikelLeverancierJpaEntity {
     @NaturalId
     @Type(type = "uuid-char")
     private UUID uuid;
-
     private String naam;
+    @Enumerated(EnumType.STRING)
+    private StatusLeverancier status;
 
     @OneToMany(mappedBy = "leverancier")
     private Set<ArtikelJpaEntity> artikels;

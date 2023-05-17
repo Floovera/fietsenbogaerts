@@ -15,6 +15,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Component
@@ -46,6 +48,12 @@ public class ArtikelDBAdapter implements LoadArtikelsPort, ArtikelCreatePort, Ar
 
         return artikelRepository.findAll(specification, PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), pageable.getSort()))
                 .map(artikelJpaEntityMapper::mapJpaEntityToArtikel);
+    }
+
+    @Override
+    public boolean leverancierHasArticles(UUID leverancierId) {
+        List<ArtikelJpaEntity> artikels = artikelRepository.findAllByLeverancierId(leverancierId);
+        return !artikels.isEmpty();
     }
 
     @Override

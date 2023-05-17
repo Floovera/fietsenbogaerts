@@ -63,8 +63,8 @@ public class LeverancierDBAdapter implements LoadLeveranciersPort, LeverancierCr
     }
 
     @Override
-    public void deleteLeverancier(UUID id) {
-        LeverancierJpaEntity leverancierJpaEntity = getLeverancierJpaEntityById(id);
+    public void deleteLeverancier(Leverancier leverancier) {
+        LeverancierJpaEntity leverancierJpaEntity = getLeverancierJpaEntityById(leverancier.getLeverancierId());
         leverancierRepository.delete(leverancierJpaEntity);
     }
 

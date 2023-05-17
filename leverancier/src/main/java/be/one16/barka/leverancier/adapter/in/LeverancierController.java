@@ -2,6 +2,7 @@ package be.one16.barka.leverancier.adapter.in;
 
 import be.one16.barka.leverancier.adapter.mapper.ContactDtoMapper;
 import be.one16.barka.leverancier.adapter.mapper.LeverancierDtoMapper;
+import be.one16.barka.leverancier.domain.Leverancier;
 import be.one16.barka.leverancier.ports.in.contact.*;
 import be.one16.barka.leverancier.ports.in.leverancier.*;
 import org.springframework.data.domain.Page;
@@ -87,7 +88,8 @@ public class LeverancierController {
 
     @DeleteMapping("/{id}")
     void deleteLeverancier(@PathVariable("id") UUID leverancierId){
-        deleteLeverancierUnitOfWork.deleteLeverancier(leverancierId);
+        Leverancier leverancier = leveranciersQuery.retrieveLeverancierById(leverancierId);
+        deleteLeverancierUnitOfWork.deleteLeverancier(leverancier);
     }
 
     @DeleteMapping("/{id}/contacten/{contactId}")

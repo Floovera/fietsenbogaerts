@@ -1,5 +1,6 @@
 package be.one16.barka.leverancier.adapter.mapper;
 
+import be.one16.barka.domain.events.leverancier.LeverancierMessage;
 import be.one16.barka.leverancier.adapter.in.LeverancierDto;
 import be.one16.barka.leverancier.domain.Leverancier;
 import be.one16.barka.leverancier.ports.in.leverancier.CreateLeverancierCommand;
@@ -17,5 +18,5 @@ public interface LeverancierDtoMapper {
         UpdateLeverancierCommand mapDtoToUpdateLeverancierCommand(LeverancierDto leverancier, UUID leverancierId);
 
         LeverancierDto mapLeverancierToDto(Leverancier leverancier);
-
+        LeverancierMessage mapLeverancierToMessage(Leverancier leverancier);
 }
