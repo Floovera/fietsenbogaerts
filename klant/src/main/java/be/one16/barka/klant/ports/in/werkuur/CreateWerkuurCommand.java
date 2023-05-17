@@ -1,9 +1,10 @@
 package be.one16.barka.klant.ports.in.werkuur;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.UUID;
 
-public record CreateWerkuurCommand(Date datum, double aantalUren, double uurTarief, int btwPerc, double totaalExclusBtw, double totaalInclusBtw, double btwBedrag, UUID verkoopId){
+public record CreateWerkuurCommand(LocalDate datum, double aantalUren, double uurTarief, int btwPerc, double totaalExclusBtw, double totaalInclusBtw, double btwBedrag, UUID verkoopId){
 
     public CreateWerkuurCommand {
 

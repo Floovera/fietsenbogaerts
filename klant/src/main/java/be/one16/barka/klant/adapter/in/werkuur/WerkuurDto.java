@@ -12,10 +12,9 @@ import java.util.UUID;
 public class WerkuurDto {
 
     private UUID werkuurId;
-    // to do: LocalDate van maken
     // als je dit object probeert te creeeren uit json gebruik je deze deserializer om het object op te bouwen
-    // @JsonDeserialize(using = LocalDateDeserializer.class)
-    private Date datum;
+    @JsonDeserialize(using = LocalDateDeserializer.class)
+    private LocalDate datum;
     private double aantalUren;
     private double uurTarief;
     private int btwPerc;

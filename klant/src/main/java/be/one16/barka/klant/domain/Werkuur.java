@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.UUID;
 
@@ -13,7 +14,7 @@ import java.util.UUID;
 public class Werkuur {
 
     private UUID werkuurId;
-    private Date datum;
+    private LocalDate datum;
     private double aantalUren;
     private double uurTarief;
     private int btwPerc;

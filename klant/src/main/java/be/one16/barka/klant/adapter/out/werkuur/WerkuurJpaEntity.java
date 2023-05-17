@@ -6,6 +6,7 @@ import org.hibernate.annotations.NaturalId;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.UUID;
 
@@ -22,7 +23,7 @@ public class WerkuurJpaEntity {
     @NaturalId
     @Type(type = "uuid-char")
     private UUID uuid;
-    private Date datum;
+    private LocalDate datum;
     private double aantalUren;
     private double uurTarief;
     private int btwPerc;
