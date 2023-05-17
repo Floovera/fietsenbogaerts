@@ -2,10 +2,9 @@ package be.one16.barka.klant.core.klant;
 
 import be.one16.barka.domain.annotations.UnitOfWork;
 import be.one16.barka.klant.domain.Klant;
-import be.one16.barka.klant.port.in.klant.UpdateKlantCommand;
-import be.one16.barka.klant.port.in.klant.UpdateKlantUnitOfWork;
-import be.one16.barka.klant.port.out.klant.UpdateKlantPort;
-import org.apache.commons.lang3.StringUtils;
+import be.one16.barka.klant.ports.in.klant.UpdateKlantCommand;
+import be.one16.barka.klant.ports.in.klant.UpdateKlantUnitOfWork;
+import be.one16.barka.klant.ports.out.klant.UpdateKlantPort;
 
 import java.util.List;
 

@@ -1,14 +1,10 @@
 package be.one16.barka.klant.core.verkoop;
 
 import be.one16.barka.domain.annotations.UnitOfWork;
-import be.one16.barka.klant.domain.Klant;
 import be.one16.barka.klant.domain.Verkoop;
-import be.one16.barka.klant.port.in.klant.KlantenQuery;
-import be.one16.barka.klant.port.in.klant.RetrieveKlantFilterAndSortCommand;
-import be.one16.barka.klant.port.in.verkoop.RetrieveVerkoopFilterAndSortCommand;
-import be.one16.barka.klant.port.in.verkoop.VerkopenQuery;
-import be.one16.barka.klant.port.out.klant.LoadKlantenPort;
-import be.one16.barka.klant.port.out.verkoop.LoadVerkopenPort;
+import be.one16.barka.klant.ports.in.verkoop.RetrieveVerkoopFilterAndSortCommand;
+import be.one16.barka.klant.ports.in.verkoop.VerkopenQuery;
+import be.one16.barka.klant.ports.out.verkoop.LoadVerkopenPort;
 import org.springframework.data.domain.Page;
 
 import java.util.UUID;
