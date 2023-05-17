@@ -20,21 +20,48 @@ public class DefaultCreateWerkuurUnitOfWork implements CreateWerkuurUnitOfWork {
 
     @Override
     public UUID createWerkuur(CreateWerkuurCommand createWerkuurCommand) {
+
+        double aantalUren = createWerkuurCommand.aantalUren();
+        double uurTarief = createWerkuurCommand.uurTarief();
+        int btwPerc = createWerkuurCommand.btwPerc();
+        double totaalInclusBtw = calculateTotaalInclusBtw(aantalUren,uurTarief);
+        double totaalExclusBtw = calculateTotaalExclusBtw(totaalInclusBtw,btwPerc);
+        double btwBedrag = calculateBtwBedrag(totaalInclusBtw,totaalExclusBtw);
+
+
+
         Werkuur werkuur = Werkuur.builder()
                 .werkuurId(UUID.randomUUID())
                 .datum(createWerkuurCommand.datum())
                 .aantalUren(createWerkuurCommand.aantalUren())
                 .uurTarief(createWerkuurCommand.uurTarief())
                 .btwPerc(createWerkuurCommand.btwPerc())
-                .totaalExclusBtw(createWerkuurCommand.totaalExclusBtw())
-                .totaalInclusBtw(createWerkuurCommand.totaalInclusBtw())
-                .btwBedrag(createWerkuurCommand.btwBedrag())
+                .totaalExclusBtw(totaalExclusBtw)
+                .totaalInclusBtw(totaalInclusBtw)
+                .btwBedrag(btwBedrag)
                 .verkoopId(createWerkuurCommand.verkoopId())
                 .build();
 
         werkuurCreatePorts.forEach(port -> port.createWerkuur(werkuur));
 
         return werkuur.getWerkuurId();
+    }
+
+    private double calculateTotaalInclusBtw(double aantalUren, double uurTarief){
+
+        double totaalInclus =  aantalUren * uurTarief;
+        return totaalInclus;
+    }
+
+    private double calculateTotaalExclusBtw(double totaalInclusBtw, int btwPerc){
+        double totaalExclus =  totaalInclusBtw / (1+(btwPerc/100.0));
+        return totaalExclus;
+    }
+
+    private double calculateBtwBedrag(double totaalInclusBtw, double totaalExlcusBtw){
+
+        double btwBedrag =  totaalInclusBtw - totaalExlcusBtw;
+        return btwBedrag;
     }
 
 }
