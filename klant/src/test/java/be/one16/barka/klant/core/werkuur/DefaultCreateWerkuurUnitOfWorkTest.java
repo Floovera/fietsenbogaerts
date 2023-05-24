@@ -15,10 +15,12 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
 
 @ExtendWith(MockitoExtension.class)
 class DefaultCreateWerkuurUnitOfWorkTest {
@@ -56,6 +58,19 @@ class DefaultCreateWerkuurUnitOfWorkTest {
                 Arguments.of(0.3,50,21,15,12.4,2.6),
                 Arguments.of(1,100,21,100,82.64,17.36)
         );
+    }
+
+    @Test
+    void createWerkuurWhenBtwPercIs0() {
+
+        //Arrange
+        WerkuurCreatePort werkuurCreatePort = Mockito.mock(WerkuurCreatePort.class);
+        DefaultCreateWerkuurUnitOfWork createWerkuurUnitOfWork = new DefaultCreateWerkuurUnitOfWork(List.of(werkuurCreatePort));
+        LocalDate date = LocalDate.of(2023, 1, 8);
+
+        //Act and assert
+        assertThrows(IllegalArgumentException.class, () -> createWerkuurUnitOfWork.createWerkuur(new CreateWerkuurCommand(date,0.3,50,0,0.0,0.0,0.0,UUID.randomUUID())));
+
     }
 
 
