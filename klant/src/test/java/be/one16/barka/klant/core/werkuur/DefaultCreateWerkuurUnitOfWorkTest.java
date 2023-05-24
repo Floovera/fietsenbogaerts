@@ -69,11 +69,45 @@ class DefaultCreateWerkuurUnitOfWorkTest {
         LocalDate date = LocalDate.of(2023, 1, 8);
 
         //Act and assert
-        assertThrows(IllegalArgumentException.class, () -> createWerkuurUnitOfWork.createWerkuur(new CreateWerkuurCommand(date,0.3,50,0,UUID.randomUUID())));
-
+        IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class, () -> createWerkuurUnitOfWork.createWerkuur(new CreateWerkuurCommand(date, 0.3, 50, 0, UUID.randomUUID())));
+        assertEquals("Value for 'btw perc' should be 6 or 21",illegalArgumentException.getMessage());
     }
 
+    @Test
+    void createWerkuurWhenValueForDateIsNull() {
 
+        //Arrange
+        WerkuurCreatePort werkuurCreatePort = Mockito.mock(WerkuurCreatePort.class);
+        DefaultCreateWerkuurUnitOfWork createWerkuurUnitOfWork = new DefaultCreateWerkuurUnitOfWork(List.of(werkuurCreatePort));
+
+        //Act and assert
+        IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class, () -> createWerkuurUnitOfWork.createWerkuur(new CreateWerkuurCommand(null, 0.3, 50, 6, UUID.randomUUID())));
+        assertEquals("Value for 'datum' can not be null",illegalArgumentException.getMessage());
+    }
+
+    @Test
+    void createWerkuurWhenUurTariefIs0() {
+
+        //Arrange
+        WerkuurCreatePort werkuurCreatePort = Mockito.mock(WerkuurCreatePort.class);
+        DefaultCreateWerkuurUnitOfWork createWerkuurUnitOfWork = new DefaultCreateWerkuurUnitOfWork(List.of(werkuurCreatePort));
+        LocalDate date = LocalDate.of(2023, 1, 8);
+        //Act and assert
+        IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class, () -> createWerkuurUnitOfWork.createWerkuur(new CreateWerkuurCommand(date, 0.3, 0, 6, UUID.randomUUID())));
+        assertEquals("Value for 'uur tarief' can not be 0.0",illegalArgumentException.getMessage());
+    }
+
+    @Test
+    void createWerkuurWhenAantalUrenIs0() {
+
+        //Arrange
+        WerkuurCreatePort werkuurCreatePort = Mockito.mock(WerkuurCreatePort.class);
+        DefaultCreateWerkuurUnitOfWork createWerkuurUnitOfWork = new DefaultCreateWerkuurUnitOfWork(List.of(werkuurCreatePort));
+        LocalDate date = LocalDate.of(2023, 1, 8);
+        //Act and assert
+        IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class, () -> createWerkuurUnitOfWork.createWerkuur(new CreateWerkuurCommand(date, 0, 50, 6, UUID.randomUUID())));
+        assertEquals("Value for 'aantal uren' can not be 0.0",illegalArgumentException.getMessage());
+    }
 
 
 

@@ -5,6 +5,7 @@ import be.one16.barka.klant.ports.in.werkuur.CreateWerkuurCommand;
 import be.one16.barka.klant.ports.in.werkuur.UpdateWerkuurCommand;
 import be.one16.barka.klant.ports.out.werkuur.WerkuurCreatePort;
 import be.one16.barka.klant.ports.out.werkuur.WerkuurUpdatePort;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -60,6 +61,62 @@ class DefaultUpdateWerkuurUnitOfWorkTest {
                 Arguments.of(0.3,50,21,15,12.4,2.6),
                 Arguments.of(1,100,21,100,82.64,17.36)
         );
+    }
+
+    @Test
+    void updateWerkuurWhenBtwPercIs0() {
+
+        //Arrange
+        WerkuurUpdatePort werkuurUpdatePort = Mockito.mock(WerkuurUpdatePort.class);
+        DefaultUpdateWerkuurUnitOfWork updateWerkuurUnitOfWork = new DefaultUpdateWerkuurUnitOfWork(List.of(werkuurUpdatePort));
+        LocalDate date = LocalDate.of(2023, 1, 8);
+        Werkuur werkuurToUpdate = new Werkuur(UUID.randomUUID(),date,0.3,50,21,15,12.4,2.6,UUID.randomUUID());
+
+        //Act and assert
+        IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class, () -> updateWerkuurUnitOfWork.updateWerkuur(new UpdateWerkuurCommand(werkuurToUpdate.getWerkuurId(),date, 0.3, 50, 0, UUID.randomUUID())));
+        assertEquals("Value for 'btw perc' should be 6 or 21",illegalArgumentException.getMessage());
+    }
+
+    @Test
+    void updateWerkuurWhenValueForDateIsNull() {
+
+        //Arrange
+        WerkuurUpdatePort werkuurUpdatePort = Mockito.mock(WerkuurUpdatePort.class);
+        DefaultUpdateWerkuurUnitOfWork updateWerkuurUnitOfWork = new DefaultUpdateWerkuurUnitOfWork(List.of(werkuurUpdatePort));
+        LocalDate date = LocalDate.of(2023, 1, 8);
+        Werkuur werkuurToUpdate = new Werkuur(UUID.randomUUID(),date,0.3,50,21,15,12.4,2.6,UUID.randomUUID());
+
+        //Act and assert
+        IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class, () -> updateWerkuurUnitOfWork.updateWerkuur(new UpdateWerkuurCommand(werkuurToUpdate.getWerkuurId(),null, 0.3, 50, 6, UUID.randomUUID())));
+        assertEquals("Value for 'datum' can not be null",illegalArgumentException.getMessage());
+    }
+
+    @Test
+    void updateWerkuurWhenUurTariefIs0() {
+
+        //Arrange
+        WerkuurUpdatePort werkuurUpdatePort = Mockito.mock(WerkuurUpdatePort.class);
+        DefaultUpdateWerkuurUnitOfWork updateWerkuurUnitOfWork = new DefaultUpdateWerkuurUnitOfWork(List.of(werkuurUpdatePort));
+        LocalDate date = LocalDate.of(2023, 1, 8);
+        Werkuur werkuurToUpdate = new Werkuur(UUID.randomUUID(),date,0.3,50,21,15,12.4,2.6,UUID.randomUUID());
+
+        //Act and assert
+        IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class, () -> updateWerkuurUnitOfWork.updateWerkuur(new UpdateWerkuurCommand(werkuurToUpdate.getWerkuurId(),date, 0.3, 0, 21, UUID.randomUUID())));
+        assertEquals("Value for 'uur tarief' can not be 0.0",illegalArgumentException.getMessage());
+    }
+
+    @Test
+    void updateWerkuurWhenAantalUrenIs0() {
+
+        //Arrange
+        WerkuurUpdatePort werkuurUpdatePort = Mockito.mock(WerkuurUpdatePort.class);
+        DefaultUpdateWerkuurUnitOfWork updateWerkuurUnitOfWork = new DefaultUpdateWerkuurUnitOfWork(List.of(werkuurUpdatePort));
+        LocalDate date = LocalDate.of(2023, 1, 8);
+        Werkuur werkuurToUpdate = new Werkuur(UUID.randomUUID(),date,0.3,50,21,15,12.4,2.6,UUID.randomUUID());
+
+        //Act and assert
+        IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class, () -> updateWerkuurUnitOfWork.updateWerkuur(new UpdateWerkuurCommand(werkuurToUpdate.getWerkuurId(),date, 0, 50, 21, UUID.randomUUID())));
+        assertEquals("Value for 'aantal uren' can not be 0.0",illegalArgumentException.getMessage());
     }
 
 }

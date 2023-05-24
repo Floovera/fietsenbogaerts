@@ -17,7 +17,7 @@ public record CreateWerkuurCommand(LocalDate datum, double aantalUren, double uu
         }
 
         if (uurTarief == 0.0) {
-            throw new IllegalArgumentException("Value for 'uur tarief' can not be null");
+            throw new IllegalArgumentException("Value for 'uur tarief' can not be 0.0");
         }
 
         if (btwPerc != 6 && btwPerc != 21) {
