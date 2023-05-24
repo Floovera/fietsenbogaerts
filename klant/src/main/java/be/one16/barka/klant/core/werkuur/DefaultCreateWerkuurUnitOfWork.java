@@ -50,18 +50,27 @@ public class DefaultCreateWerkuurUnitOfWork implements CreateWerkuurUnitOfWork {
     private double calculateTotaalInclusBtw(double aantalUren, double uurTarief){
 
         double totaalInclus =  aantalUren * uurTarief;
-        return totaalInclus;
+        double totaalInclusRounded = round(totaalInclus);
+        return totaalInclusRounded;
     }
 
     private double calculateTotaalExclusBtw(double totaalInclusBtw, int btwPerc){
         double totaalExclus =  totaalInclusBtw / (1+(btwPerc/100.0));
-        return totaalExclus;
+        double totaalExlcusRounded = round(totaalExclus);
+        return totaalExlcusRounded;
     }
 
     private double calculateBtwBedrag(double totaalInclusBtw, double totaalExlcusBtw){
 
         double btwBedrag =  totaalInclusBtw - totaalExlcusBtw;
-        return btwBedrag;
+        double btwBedragRounded = round(btwBedrag);
+        return btwBedragRounded;
+    }
+
+    private double round(double amountToRound){
+
+        double roundOff = Math.round(amountToRound * 100.0) / 100.0;
+        return roundOff;
     }
 
 }
