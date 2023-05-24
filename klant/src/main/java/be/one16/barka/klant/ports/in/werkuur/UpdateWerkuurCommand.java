@@ -3,10 +3,13 @@ import java.time.LocalDate;
 import java.util.Date;
 import java.util.UUID;
 
-public record UpdateWerkuurCommand(UUID werkuurId, LocalDate datum, double aantalUren, double uurTarief, int btwPerc, double totaalExclusBtw, double totaalInclusBtw, double btwBedrag, UUID verkoopId){
+public record UpdateWerkuurCommand(UUID werkuurId, LocalDate datum, double aantalUren, double uurTarief, int btwPerc,UUID verkoopId){
 
     public UpdateWerkuurCommand {
 
+        if(datum == null){
+            throw new IllegalArgumentException("Value for 'datum' can not be null");
+        }
 
         if (aantalUren == 0.0) {
             throw new IllegalArgumentException("Value for 'aantal uren' can not be 0.0");

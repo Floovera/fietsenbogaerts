@@ -35,7 +35,7 @@ class DefaultCreateWerkuurUnitOfWorkTest {
         WerkuurCreatePort werkuurCreatePort = Mockito.mock(WerkuurCreatePort.class);
         DefaultCreateWerkuurUnitOfWork createWerkuurUnitOfWork = new DefaultCreateWerkuurUnitOfWork(List.of(werkuurCreatePort));
         LocalDate date = LocalDate.of(2023, 1, 8);
-        CreateWerkuurCommand createWerkuurCommand = new CreateWerkuurCommand(date,aantalUren,uurTarief,btwPerc,0.0,0.0,0.0, UUID.randomUUID());
+        CreateWerkuurCommand createWerkuurCommand = new CreateWerkuurCommand(date,aantalUren,uurTarief,btwPerc, UUID.randomUUID());
 
         //Act
         createWerkuurUnitOfWork.createWerkuur(createWerkuurCommand);
@@ -69,7 +69,7 @@ class DefaultCreateWerkuurUnitOfWorkTest {
         LocalDate date = LocalDate.of(2023, 1, 8);
 
         //Act and assert
-        assertThrows(IllegalArgumentException.class, () -> createWerkuurUnitOfWork.createWerkuur(new CreateWerkuurCommand(date,0.3,50,0,0.0,0.0,0.0,UUID.randomUUID())));
+        assertThrows(IllegalArgumentException.class, () -> createWerkuurUnitOfWork.createWerkuur(new CreateWerkuurCommand(date,0.3,50,0,UUID.randomUUID())));
 
     }
 

@@ -36,7 +36,7 @@ class DefaultUpdateWerkuurUnitOfWorkTest {
         DefaultUpdateWerkuurUnitOfWork updateWerkuurUnitOfWork = new DefaultUpdateWerkuurUnitOfWork(List.of(werkuurUpdatePort));
         LocalDate date = LocalDate.of(2023, 1, 8);
         Werkuur werkuurToUpdate = new Werkuur(UUID.randomUUID(),date,0.3,50,21,15,12.4,2.6,UUID.randomUUID());
-        UpdateWerkuurCommand updateWerkuurCommand = new UpdateWerkuurCommand(werkuurToUpdate.getWerkuurId(),date,aantalUren,uurTarief,btwPerc,werkuurToUpdate.getTotaalExclusBtw(),werkuurToUpdate.getTotaalInclusBtw(),werkuurToUpdate.getBtwBedrag(),werkuurToUpdate.getVerkoopId());
+        UpdateWerkuurCommand updateWerkuurCommand = new UpdateWerkuurCommand(werkuurToUpdate.getWerkuurId(),date,aantalUren,uurTarief,btwPerc,werkuurToUpdate.getVerkoopId());
 
 
         //Act
