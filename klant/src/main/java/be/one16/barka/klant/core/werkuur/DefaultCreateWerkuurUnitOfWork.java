@@ -9,6 +9,8 @@ import be.one16.barka.klant.ports.out.werkuur.WerkuurCreatePort;
 import java.util.List;
 import java.util.UUID;
 
+import static be.one16.barka.klant.core.werkuur.WerkuurUtil.*;
+
 @UnitOfWork
 public class DefaultCreateWerkuurUnitOfWork implements CreateWerkuurUnitOfWork {
 
@@ -47,30 +49,5 @@ public class DefaultCreateWerkuurUnitOfWork implements CreateWerkuurUnitOfWork {
         return werkuur.getWerkuurId();
     }
 
-    private double calculateTotaalInclusBtw(double aantalUren, double uurTarief){
-
-        double totaalInclus =  aantalUren * uurTarief;
-        double totaalInclusRounded = round(totaalInclus);
-        return totaalInclusRounded;
-    }
-
-    private double calculateTotaalExclusBtw(double totaalInclusBtw, int btwPerc){
-        double totaalExclus =  totaalInclusBtw / (1+(btwPerc/100.0));
-        double totaalExlcusRounded = round(totaalExclus);
-        return totaalExlcusRounded;
-    }
-
-    private double calculateBtwBedrag(double totaalInclusBtw, double totaalExlcusBtw){
-
-        double btwBedrag =  totaalInclusBtw - totaalExlcusBtw;
-        double btwBedragRounded = round(btwBedrag);
-        return btwBedragRounded;
-    }
-
-    private double round(double amountToRound){
-
-        double roundOff = Math.round(amountToRound * 100.0) / 100.0;
-        return roundOff;
-    }
 
 }

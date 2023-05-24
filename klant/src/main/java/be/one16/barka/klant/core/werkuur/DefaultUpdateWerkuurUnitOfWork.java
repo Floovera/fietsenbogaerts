@@ -7,6 +7,8 @@ import be.one16.barka.klant.ports.in.werkuur.UpdateWerkuurUnitOfWork;
 import be.one16.barka.klant.ports.out.werkuur.WerkuurUpdatePort;
 import java.util.List;
 
+import static be.one16.barka.klant.core.werkuur.WerkuurUtil.*;
+
 @UnitOfWork
 public class DefaultUpdateWerkuurUnitOfWork implements UpdateWerkuurUnitOfWork {
 
@@ -18,15 +20,23 @@ public class DefaultUpdateWerkuurUnitOfWork implements UpdateWerkuurUnitOfWork {
 
     @Override
     public void updateWerkuur(UpdateWerkuurCommand updateWerkuurCommand) {
+
+        double aantalUren = updateWerkuurCommand.aantalUren();
+        double uurTarief = updateWerkuurCommand.uurTarief();
+        int btwPerc = updateWerkuurCommand.btwPerc();
+        double totaalInclusBtw = calculateTotaalInclusBtw(aantalUren,uurTarief);
+        double totaalExclusBtw = calculateTotaalExclusBtw(totaalInclusBtw,btwPerc);
+        double btwBedrag = calculateBtwBedrag(totaalInclusBtw,totaalExclusBtw);
+
         Werkuur werkuur = Werkuur.builder()
                 .werkuurId(updateWerkuurCommand.werkuurId())
                 .datum(updateWerkuurCommand.datum())
-                .aantalUren(updateWerkuurCommand.aantalUren())
-                .uurTarief(updateWerkuurCommand.uurTarief())
-                .btwPerc(updateWerkuurCommand.btwPerc())
-                .totaalExclusBtw(updateWerkuurCommand.totaalExclusBtw())
-                .totaalInclusBtw(updateWerkuurCommand.totaalInclusBtw())
-                .btwBedrag(updateWerkuurCommand.btwBedrag())
+                .aantalUren(aantalUren)
+                .uurTarief(uurTarief)
+                .btwPerc(btwPerc)
+                .totaalExclusBtw(totaalExclusBtw)
+                .totaalInclusBtw(totaalInclusBtw)
+                .btwBedrag(btwBedrag)
                 .verkoopId(updateWerkuurCommand.verkoopId())
                 .build();
 
