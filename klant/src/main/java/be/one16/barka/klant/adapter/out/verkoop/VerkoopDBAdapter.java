@@ -2,13 +2,12 @@ package be.one16.barka.klant.adapter.out.verkoop;
 
 import be.one16.barka.domain.exceptions.EntityNotFoundException;
 import be.one16.barka.klant.adapter.mapper.verkoop.VerkoopJpaEntityMapper;
-import be.one16.barka.klant.adapter.out.repository.KlantRepository;
 import be.one16.barka.klant.adapter.out.repository.VerkoopRepository;
 import be.one16.barka.klant.domain.Verkoop;
-import be.one16.barka.klant.port.out.verkoop.CreateVerkoopPort;
-import be.one16.barka.klant.port.out.verkoop.DeleteVerkoopPort;
-import be.one16.barka.klant.port.out.verkoop.LoadVerkopenPort;
-import be.one16.barka.klant.port.out.verkoop.UpdateVerkoopPort;
+import be.one16.barka.klant.ports.out.verkoop.CreateVerkoopPort;
+import be.one16.barka.klant.ports.out.verkoop.DeleteVerkoopPort;
+import be.one16.barka.klant.ports.out.verkoop.LoadVerkopenPort;
+import be.one16.barka.klant.ports.out.verkoop.UpdateVerkoopPort;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.data.domain.Page;
