@@ -21,6 +21,8 @@ public class MateriaalJpaEntity {
     @NaturalId
     @Type(type = "uuid-char")
     private UUID uuid;
+    @Type(type = "uuid-char")
+    private UUID artikeluuid;
     private String artikelMerk;
     private String artikelCode;
     private String artikelOmschrijving;

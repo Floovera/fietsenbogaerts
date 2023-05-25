@@ -33,6 +33,7 @@ public class DefaultCreateMateriaalUnitOfWork implements CreateMateriaalUnitOfWo
 
         Materiaal materiaal = Materiaal.builder()
                 .materiaalId(UUID.randomUUID())
+                .artikelId(createMateriaalCommand.artikelId())
                 .artikelMerk(createMateriaalCommand.artikelMerk())
                 .artikelCode(createMateriaalCommand.artikelCode())
                 .artikelOmschrijving(createMateriaalCommand.artikelOmschrijving())

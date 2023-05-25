@@ -9,6 +9,7 @@ import java.util.UUID;
 public class Materiaal {
 
     private UUID materiaalId;
+    private UUID artikelId;
     private String artikelMerk;
     private String artikelCode;
     private String artikelOmschrijving;

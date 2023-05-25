@@ -6,6 +6,7 @@ import java.util.UUID;
 public class MateriaalDto {
 
     private UUID materiaalId;
+    private UUID artikelId;
     private String artikelMerk;
     private String artikelCode;
     private String artikelOmschrijving;
@@ -16,6 +17,5 @@ public class MateriaalDto {
     private double totaalExclusBtw;
     private double totaalInclusBtw;
     private double btwBedrag;
-    private UUID verkoopId;
 
 }

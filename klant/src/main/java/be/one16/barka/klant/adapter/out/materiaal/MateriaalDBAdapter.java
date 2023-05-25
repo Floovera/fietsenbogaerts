@@ -21,19 +21,19 @@ import java.util.UUID;
 public class MateriaalDBAdapter implements LoadMaterialenPort, MateriaalCreatePort, MateriaalUpdatePort, MateriaalDeletePort {
 
     private final MateriaalRepository materiaalRepository;
-    private final VerkoopRepository verkoopRepository;
+
     private final MateriaalJpaEntityMapper materiaalJpaEntityMapper;
 
-    public MateriaalDBAdapter(MateriaalRepository materiaalRepository, VerkoopRepository verkoopRepository, MateriaalJpaEntityMapper materiaalJpaEntityMapper) {
+    public MateriaalDBAdapter(MateriaalRepository materiaalRepository, MateriaalJpaEntityMapper materiaalJpaEntityMapper) {
 
         this.materiaalRepository = materiaalRepository;
-        this.verkoopRepository = verkoopRepository;
         this.materiaalJpaEntityMapper = materiaalJpaEntityMapper;
     }
 
     private MateriaalJpaEntity getMateriaalJpaEntityById(UUID id) {
         return materiaalRepository.findByUuid(id).orElseThrow(() -> new EntityNotFoundException(String.format("Materiaal with uuid %s doesn't exist", id)));
     }
+
     @Override
     public Materiaal retrieveMateriaalOfVerkoop(UUID id, UUID verkoopId) {
         MateriaalJpaEntity materiaalJpaEntity = getMateriaalJpaEntityById(id);
@@ -51,17 +51,20 @@ public class MateriaalDBAdapter implements LoadMaterialenPort, MateriaalCreatePo
     }
 
     private void fillJpaEntityWithMateriaalData(MateriaalJpaEntity materiaalJpaEntity, Materiaal materiaal) {
-       materiaalJpaEntity.setArtikelMerk(materiaal.getArtikelMerk());
-       materiaalJpaEntity.setArtikelCode(materiaal.getArtikelCode());
-       materiaalJpaEntity.setArtikelOmschrijving(materiaal.getArtikelOmschrijving());
-       materiaalJpaEntity.setAantalArtikels(materiaal.getAantalArtikels());
-       materiaalJpaEntity.setVerkoopPrijsArtikel(materiaal.getVerkoopPrijsArtikel());
-       materiaalJpaEntity.setKorting(materiaal.getKorting());
-       materiaalJpaEntity.setBtwPerc(materiaal.getBtwPerc());  ;
-       materiaalJpaEntity.setTotaalExclusBtw(materiaal.getTotaalExclusBtw());
-       materiaalJpaEntity.setTotaalInclusBtw(materiaal.getTotaalInclusBtw());  ;
-       materiaalJpaEntity.setBtwBedrag(materiaal.getBtwBedrag());
+        materiaalJpaEntity.setArtikeluuid(materiaal.getArtikelId());
+        materiaalJpaEntity.setArtikelMerk(materiaal.getArtikelMerk());
+        materiaalJpaEntity.setArtikelCode(materiaal.getArtikelCode());
+        materiaalJpaEntity.setArtikelOmschrijving(materiaal.getArtikelOmschrijving());
+        materiaalJpaEntity.setAantalArtikels(materiaal.getAantalArtikels());
+        materiaalJpaEntity.setVerkoopPrijsArtikel(materiaal.getVerkoopPrijsArtikel());
+        materiaalJpaEntity.setKorting(materiaal.getKorting());
+        materiaalJpaEntity.setBtwPerc(materiaal.getBtwPerc());
+        materiaalJpaEntity.setTotaalExclusBtw(materiaal.getTotaalExclusBtw());
+        materiaalJpaEntity.setTotaalInclusBtw(materiaal.getTotaalInclusBtw());
+        materiaalJpaEntity.setBtwBedrag(materiaal.getBtwBedrag());
+
     }
+
     @Override
     public void createMateriaal(Materiaal materiaal) {
         MateriaalJpaEntity materiaalJpaEntity = new MateriaalJpaEntity();

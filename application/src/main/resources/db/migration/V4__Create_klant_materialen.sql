@@ -6,6 +6,7 @@ create table klant_materialen
     artikel_code          varchar(255) null,
     artikel_merk          varchar(255) null,
     artikel_omschrijving  varchar(255) null,
+    artikeluuid           varchar(255) null,
     btw_bedrag            double       not null,
     btw_perc              int          not null,
     korting               int          not null,

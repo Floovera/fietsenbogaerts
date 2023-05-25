@@ -1,6 +1,4 @@
 package be.one16.barka.klant.core.materiaal;
-
-import be.one16.barka.klant.adapter.in.materiaal.MateriaalDto;
 import be.one16.barka.klant.domain.Materiaal;
 import be.one16.barka.klant.ports.in.materiaal.CreateMateriaalCommand;
 import be.one16.barka.klant.ports.out.materiaal.MateriaalCreatePort;
@@ -33,7 +31,7 @@ class DefaultCreateMateriaalUnitOfWorkTest {
         //Arrange
         MateriaalCreatePort materiaalCreatePort = Mockito.mock(MateriaalCreatePort.class);
         DefaultCreateMateriaalUnitOfWork createMateriaalUnitOfWork = new DefaultCreateMateriaalUnitOfWork(List.of(materiaalCreatePort));
-        CreateMateriaalCommand createMateriaalCommand = new CreateMateriaalCommand(artikelMerk,artikelCode,artikelOmschrijving,aantalArtikels,verkoopPrijsArtikel,korting,btwPerc,UUID.randomUUID());
+        CreateMateriaalCommand createMateriaalCommand = new CreateMateriaalCommand(UUID.randomUUID(),artikelMerk,artikelCode,artikelOmschrijving,aantalArtikels,verkoopPrijsArtikel,korting,btwPerc,UUID.randomUUID());
 
         //Act
         createMateriaalUnitOfWork.createMateriaal(createMateriaalCommand);
@@ -68,7 +66,7 @@ class DefaultCreateMateriaalUnitOfWorkTest {
         DefaultCreateMateriaalUnitOfWork createMateriaalUnitOfWork = new DefaultCreateMateriaalUnitOfWork(List.of(materiaalCreatePort));
 
         //Act and assert
-        IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class, () -> createMateriaalUnitOfWork.createMateriaal(new CreateMateriaalCommand("","123456","Binnenband",2,50,10,6,UUID.randomUUID())));
+        IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class, () -> createMateriaalUnitOfWork.createMateriaal(new CreateMateriaalCommand(UUID.randomUUID(),"","123456","Binnenband",2,50,10,6,UUID.randomUUID())));
         assertEquals("Value for 'artikelMerk' can not be null or empty",illegalArgumentException.getMessage());
     }
     @Test
@@ -79,7 +77,7 @@ class DefaultCreateMateriaalUnitOfWorkTest {
         DefaultCreateMateriaalUnitOfWork createMateriaalUnitOfWork = new DefaultCreateMateriaalUnitOfWork(List.of(materiaalCreatePort));
 
         //Act and assert
-        IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class, () -> createMateriaalUnitOfWork.createMateriaal(new CreateMateriaalCommand("Bib","","Binnenband",2,50,10,6,UUID.randomUUID())));
+        IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class, () -> createMateriaalUnitOfWork.createMateriaal(new CreateMateriaalCommand(UUID.randomUUID(),"Bib","","Binnenband",2,50,10,6,UUID.randomUUID())));
         assertEquals("Value for 'artikelCode' can not be null or empty",illegalArgumentException.getMessage());
     }
     @Test
@@ -90,7 +88,7 @@ class DefaultCreateMateriaalUnitOfWorkTest {
         DefaultCreateMateriaalUnitOfWork createMateriaalUnitOfWork = new DefaultCreateMateriaalUnitOfWork(List.of(materiaalCreatePort));
 
         //Act and assert
-        IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class, () -> createMateriaalUnitOfWork.createMateriaal(new CreateMateriaalCommand("Bib","123456","",2,50,10,6,UUID.randomUUID())));
+        IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class, () -> createMateriaalUnitOfWork.createMateriaal(new CreateMateriaalCommand(UUID.randomUUID(),"Bib","123456","",2,50,10,6,UUID.randomUUID())));
         assertEquals("Value for 'artikelOmschrijving' can not be null or empty",illegalArgumentException.getMessage());
     }
     @Test
@@ -101,7 +99,7 @@ class DefaultCreateMateriaalUnitOfWorkTest {
         DefaultCreateMateriaalUnitOfWork createMateriaalUnitOfWork = new DefaultCreateMateriaalUnitOfWork(List.of(materiaalCreatePort));
 
         //Act and assert
-        IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class, () -> createMateriaalUnitOfWork.createMateriaal(new CreateMateriaalCommand("Bib","123456","Binnenband",0,50,10,6,UUID.randomUUID())));
+        IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class, () -> createMateriaalUnitOfWork.createMateriaal(new CreateMateriaalCommand(UUID.randomUUID(),"Bib","123456","Binnenband",0,50,10,6,UUID.randomUUID())));
         assertEquals("Value for 'aantalArtikels' can not be 0",illegalArgumentException.getMessage());
     }
     @Test
@@ -112,7 +110,7 @@ class DefaultCreateMateriaalUnitOfWorkTest {
         DefaultCreateMateriaalUnitOfWork createMateriaalUnitOfWork = new DefaultCreateMateriaalUnitOfWork(List.of(materiaalCreatePort));
 
         //Act and assert
-        IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class, () -> createMateriaalUnitOfWork.createMateriaal(new CreateMateriaalCommand("Bib","123456","Binnenband",2,0,10,6,UUID.randomUUID())));
+        IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class, () -> createMateriaalUnitOfWork.createMateriaal(new CreateMateriaalCommand(UUID.randomUUID(),"Bib","123456","Binnenband",2,0,10,6,UUID.randomUUID())));
         assertEquals("Value for 'verkoopPrijsArtikel' can not be 0.0",illegalArgumentException.getMessage());
     }
     @Test
@@ -123,7 +121,7 @@ class DefaultCreateMateriaalUnitOfWorkTest {
         DefaultCreateMateriaalUnitOfWork createMateriaalUnitOfWork = new DefaultCreateMateriaalUnitOfWork(List.of(materiaalCreatePort));
 
         //Act and assert
-        IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class, () -> createMateriaalUnitOfWork.createMateriaal(new CreateMateriaalCommand("Bib","123456","Binnenband",2,50,10,0,UUID.randomUUID())));
+        IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class, () -> createMateriaalUnitOfWork.createMateriaal(new CreateMateriaalCommand(UUID.randomUUID(),"Bib","123456","Binnenband",2,50,10,0,UUID.randomUUID())));
         assertEquals("Value for 'btw perc' should be 6 or 21",illegalArgumentException.getMessage());
     }
 

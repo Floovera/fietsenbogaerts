@@ -32,6 +32,7 @@ public class DefaultUpdateMateriaalUnitOfWork implements UpdateMateriaalUnitOfWo
 
         Materiaal materiaal = Materiaal.builder()
                 .materiaalId(updateMateriaalCommand.materiaalId())
+                .artikelId(updateMateriaalCommand.artikelId())
                 .artikelMerk(updateMateriaalCommand.artikelMerk())
                 .artikelCode(updateMateriaalCommand.artikelCode())
                 .artikelOmschrijving(updateMateriaalCommand.artikelOmschrijving())
