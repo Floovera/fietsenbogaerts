@@ -45,6 +45,7 @@ public class DefaultUpdateVerkoopUnitOfWork implements UpdateVerkoopUnitOfWork {
                 .verkoopId(updateVerkoopCommand.verkoopId())
                 .naam(updateVerkoopCommand.naam())
                 .opmerkingen(updateVerkoopCommand.opmerkingen())
+                .datum(updateVerkoopCommand.datum())
                 .klantId(calculatedKlantId)
                 .build();
 

@@ -5,6 +5,7 @@ import be.one16.barka.klant.adapter.in.verkoop.VerkoopDto;
 import be.one16.barka.klant.adapter.out.klant.KlantJpaEntity;
 import be.one16.barka.klant.adapter.out.verkoop.VerkoopJpaEntity;
 
+import java.time.LocalDate;
 import java.util.UUID;
 
 import static be.one16.barka.klant.common.KlantType.ONBEKEND;
@@ -55,18 +56,22 @@ public final class TestDataBuilder {
     }
     public static VerkoopDto generateTestVerkoopDto(String naam) {
         VerkoopDto verkoopDto = new VerkoopDto();
+        LocalDate date = LocalDate.of(2023, 1, 8);
 
         verkoopDto.setNaam(naam);
         verkoopDto.setOpmerkingen("Inclusief installatie op stuur");
+        verkoopDto.setDatum(date);
 
         return verkoopDto;
     }
 
     public static VerkoopDto generateTestVerkoopWithClientDto(String naam, UUID klant) {
         VerkoopDto verkoopDto = new VerkoopDto();
+        LocalDate date = LocalDate.of(2023, 1, 8);
 
         verkoopDto.setNaam(naam);
         verkoopDto.setOpmerkingen("Inclusief installatie op stuur");
+        verkoopDto.setDatum(date);
         verkoopDto.setKlantId(klant);
 
         return verkoopDto;
@@ -74,20 +79,24 @@ public final class TestDataBuilder {
 
     public static VerkoopJpaEntity generateTestVerkoopJpaEntity(String naam) {
         VerkoopJpaEntity verkoopJpaEntity = new VerkoopJpaEntity();
+        LocalDate date = LocalDate.of(2023, 1, 8);
 
         verkoopJpaEntity.setUuid(randomUUID());
         verkoopJpaEntity.setNaam(naam);
         verkoopJpaEntity.setOpmerkingen("Super kwaliteit");
+        verkoopJpaEntity.setDatum(date);
 
         return verkoopJpaEntity;
     }
 
     public static VerkoopJpaEntity generateTestVerkoopWithClientJpaEntity(String naam, UUID klant){
         VerkoopJpaEntity verkoopJpaEntity = new VerkoopJpaEntity();
+        LocalDate date = LocalDate.of(2023, 1, 8);
 
         verkoopJpaEntity.setUuid(randomUUID());
         verkoopJpaEntity.setNaam(naam);
         verkoopJpaEntity.setOpmerkingen("Super kwaliteit");
+        verkoopJpaEntity.setDatum(date);
         verkoopJpaEntity.setKlantId(klant);
 
         return verkoopJpaEntity;

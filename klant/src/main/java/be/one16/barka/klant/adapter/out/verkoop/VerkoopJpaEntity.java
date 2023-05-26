@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.NaturalId;
 import org.hibernate.annotations.Type;
-
+import java.time.LocalDate;
 import javax.persistence.*;
 import java.util.UUID;
 
@@ -24,6 +24,7 @@ public class VerkoopJpaEntity {
     private UUID uuid;
     private String naam;
     private String opmerkingen;
+    private LocalDate datum;
     @Type(type = "uuid-char")
     private UUID klantId;
 

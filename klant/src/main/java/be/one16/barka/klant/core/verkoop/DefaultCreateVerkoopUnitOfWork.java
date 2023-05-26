@@ -45,6 +45,7 @@ public class DefaultCreateVerkoopUnitOfWork implements CreateVerkoopUnitOfWork {
                 .verkoopId(UUID.randomUUID())
                 .naam(createVerkoopCommand.naam())
                 .opmerkingen(createVerkoopCommand.opmerkingen())
+                .datum(createVerkoopCommand.datum())
                 .klantId(calculatedKlantId)
                 .build();
 
