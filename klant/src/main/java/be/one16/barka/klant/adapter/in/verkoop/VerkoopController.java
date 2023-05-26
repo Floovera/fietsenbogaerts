@@ -1,5 +1,8 @@
 package be.one16.barka.klant.adapter.in.verkoop;
 
+import be.one16.barka.klant.adapter.in.materiaal.MateriaalDto;
+import be.one16.barka.klant.adapter.in.werkuur.WerkuurDto;
+import be.one16.barka.klant.adapter.mapper.materiaal.MateriaalDtoMapper;
 import be.one16.barka.klant.adapter.mapper.verkoop.VerkoopDtoMapper;
 import be.one16.barka.klant.adapter.mapper.werkuur.WerkuurDtoMapper;
 import be.one16.barka.klant.common.exceptions.KlantNotFoundException;
@@ -33,15 +36,13 @@ public class VerkoopController {
     private final UpdateWerkuurUnitOfWork updateWerkuurUnitOfWork;
     private final DeleteWerkuurUnitOfWork deleteWerkuurUnitOfWork;
 
-    public VerkoopController(VerkopenQuery verkopenQuery, CreateVerkoopUnitOfWork createVerkoopUnitOfWork, UpdateVerkoopUnitOfWork updateVerkoopUnitOfWork, DeleteVerkoopUnitOfWork deleteVerkoopUnitOfWork, VerkoopDtoMapper verkoopDtoMapper, WerkurenQuery werkurenQuery, WerkuurDtoMapper werkuurDtoMapper, CreateWerkuurUnitOfWork createWerkuurUnitOfWork, UpdateWerkuurUnitOfWork updateWerkuurUnitOfWork, DeleteWerkuurUnitOfWork deleteWerkuurUnitOfWork) {
-
     private final MaterialenQuery materialenQuery;
     private final MateriaalDtoMapper materiaalDtoMapper;
     private final CreateMateriaalUnitOfWork createMateriaalUnitOfWork;
     private final UpdateMateriaalUnitOfWork updateMateriaalUnitOfWork;
     private final DeleteMateriaalUnitOfWork deleteMateriaalUnitOfWork;
 
-    public VerkoopController(VerkopenQuery verkopenQuery, CreateVerkoopUnitOfWork createVerkoopUnitOfWork, UpdateVerkoopUnitOfWork updateVerkoopUnitOfWork, DeleteVerkoopUnitOfWork deleteVerkoopUnitOfWork, VerkoopDtoMapper verkoopDtoMapper, MaterialenQuery materialenQuery, MateriaalDtoMapper materiaalDtoMapper, CreateMateriaalUnitOfWork createMateriaalUnitOfWork, UpdateMateriaalUnitOfWork updateMateriaalUnitOfWork, DeleteMateriaalUnitOfWork deleteMateriaalUnitOfWork) {
+    public VerkoopController(VerkopenQuery verkopenQuery, CreateVerkoopUnitOfWork createVerkoopUnitOfWork, UpdateVerkoopUnitOfWork updateVerkoopUnitOfWork, DeleteVerkoopUnitOfWork deleteVerkoopUnitOfWork, VerkoopDtoMapper verkoopDtoMapper, WerkurenQuery werkurenQuery, WerkuurDtoMapper werkuurDtoMapper, CreateWerkuurUnitOfWork createWerkuurUnitOfWork, UpdateWerkuurUnitOfWork updateWerkuurUnitOfWork, DeleteWerkuurUnitOfWork deleteWerkuurUnitOfWork, MaterialenQuery materialenQuery, MateriaalDtoMapper materiaalDtoMapper, CreateMateriaalUnitOfWork createMateriaalUnitOfWork, UpdateMateriaalUnitOfWork updateMateriaalUnitOfWork, DeleteMateriaalUnitOfWork deleteMateriaalUnitOfWork) {
         this.verkopenQuery = verkopenQuery;
         this.createVerkoopUnitOfWork = createVerkoopUnitOfWork;
         this.updateVerkoopUnitOfWork = updateVerkoopUnitOfWork;
