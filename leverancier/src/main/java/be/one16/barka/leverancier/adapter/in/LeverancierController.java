@@ -48,6 +48,30 @@ public class LeverancierController {
         return leverancierDtoMapper.mapLeverancierToDto(leveranciersQuery.retrieveLeverancierById(leverancierId));
     }
 
+    @GetMapping
+    Page<LeverancierDto> getLeveranciersFiltered(@RequestParam(name = "naam", required = false) String naaam, Pageable pageable) {
+        return leveranciersQuery.retrieveLeverancierByFilterAndSort(new RetrieveLeveranciersFilterAndSortCommand(naaam, pageable))
+                .map(leverancierDtoMapper::mapLeverancierToDto);
+    }
+
+
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    UUID createLeverancier(@RequestBody LeverancierDto leverancier) {
+        return createLeverancierUnitOfWork.createLeverancier(leverancierDtoMapper.mapDtoToCreateLeverancierCommand(leverancier));
+    }
+
+    @PutMapping("/{id}")
+    void updateLeverancier(@PathVariable("id") UUID leverancierId, @RequestBody LeverancierDto leverancier) {
+        updateLeverancierUnitOfWork.updateLeverancier(leverancierDtoMapper.mapDtoToUpdateLeverancierCommand(leverancier, leverancierId));
+    }
+
+    @DeleteMapping("/{id}")
+    void deleteLeverancier(@PathVariable("id") UUID leverancierId){
+        Leverancier leverancier = leveranciersQuery.retrieveLeverancierById(leverancierId);
+        deleteLeverancierUnitOfWork.deleteLeverancier(leverancier);
+    }
+
     @GetMapping("/{id}/contacten")
     List<ContactDto> getContactenOfLeverancier(@PathVariable("id") UUID leverancierId) {
         return contactenQuery.retrieveContactenOfLeverancier(leverancierId).stream().map(contactDtoMapper::mapContactToDto).toList();
@@ -58,17 +82,6 @@ public class LeverancierController {
         return contactDtoMapper.mapContactToDto(contactenQuery.retrieveContactById(contactId, leverancierId));
     }
 
-    @GetMapping
-    Page<LeverancierDto> getLeveranciersFiltered(@RequestParam(name = "naam", required = false) String naaam, Pageable pageable) {
-        return leveranciersQuery.retrieveLeverancierByFilterAndSort(new RetrieveLeveranciersFilterAndSortCommand(naaam, pageable))
-                .map(leverancierDtoMapper::mapLeverancierToDto);
-    }
-
-    @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    UUID createLeverancier(@RequestBody LeverancierDto leverancier) {
-        return createLeverancierUnitOfWork.createLeverancier(leverancierDtoMapper.mapDtoToCreateLeverancierCommand(leverancier));
-    }
 
     @PostMapping("/{id}/contacten")
     @ResponseStatus(HttpStatus.CREATED)
@@ -76,20 +89,9 @@ public class LeverancierController {
         return createContactUnitOfWork.createContact(contactDtoMapper.mapDtoToCreateContactCommand(contact, leverancierId));
     }
 
-    @PutMapping("/{id}")
-    void updateLeverancier(@PathVariable("id") UUID leverancierId, @RequestBody LeverancierDto leverancier) {
-        updateLeverancierUnitOfWork.updateLeverancier(leverancierDtoMapper.mapDtoToUpdateLeverancierCommand(leverancier, leverancierId));
-    }
-
     @PutMapping("/{id}/contacten/{contactId}")
     void updateContactOfLeverancier(@PathVariable("id") UUID leverancierId, @PathVariable("contactId") UUID contactId, @RequestBody ContactDto contact) {
         updateContactUnitOfWork.updateContact(contactDtoMapper.mapDtoToUpdateContactCommand(contact, contactId, leverancierId));
-    }
-
-    @DeleteMapping("/{id}")
-    void deleteLeverancier(@PathVariable("id") UUID leverancierId){
-        Leverancier leverancier = leveranciersQuery.retrieveLeverancierById(leverancierId);
-        deleteLeverancierUnitOfWork.deleteLeverancier(leverancier);
     }
 
     @DeleteMapping("/{id}/contacten/{contactId}")
