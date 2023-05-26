@@ -48,6 +48,8 @@ public class DefaultCreateVerkoopUnitOfWork implements CreateVerkoopUnitOfWork {
                 .opmerkingen(createVerkoopCommand.opmerkingen())
                 .datum(createVerkoopCommand.datum())
                 .klantId(calculatedKlantId)
+                .reparatieNummer(createVerkoopCommand.reparatieNummer())
+                .orderNummer(createVerkoopCommand.orderNummer())
                 .build();
 
         createVerkoopPorts.forEach(port -> port.createVerkoop(verkoop));

@@ -6,7 +6,7 @@ import org.apache.commons.lang3.StringUtils;
 import java.time.LocalDate;
 import java.util.UUID;
 
-public record CreateVerkoopCommand(OrderType orderType, String naam, String opmerkingen, LocalDate datum, UUID klantId) {
+public record CreateVerkoopCommand(OrderType orderType, String naam, String opmerkingen, LocalDate datum, UUID klantId,String reparatieNummer,String orderNummer) {
 
     public CreateVerkoopCommand {
 
@@ -20,6 +20,14 @@ public record CreateVerkoopCommand(OrderType orderType, String naam, String opme
 
         if (StringUtils.isEmpty(naam)) {
             throw new IllegalArgumentException("Value for 'naam' can not be null or empty");
+        }
+
+        if (orderType != OrderType.VERKOOPP && reparatieNummer == null) {
+            throw new IllegalArgumentException("Value for 'reparatieNummer' can not be null");
+        }
+
+        if(orderType == OrderType.FACTUUR && orderNummer == null){
+            throw new IllegalArgumentException("Value for 'orderNummer' can not be null");
         }
     }
 }

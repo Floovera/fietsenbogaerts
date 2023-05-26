@@ -21,4 +21,7 @@ public class Verkoop {
     private LocalDate datum;
     private UUID klantId;
 
+    private String reparatieNummer;
+    private String orderNummer;
+
 }

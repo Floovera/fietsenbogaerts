@@ -31,4 +31,7 @@ public class VerkoopJpaEntity {
     @Type(type = "uuid-char")
     private UUID klantId;
 
+    private String reparatieNummer;
+    private String orderNummer;
+
 }

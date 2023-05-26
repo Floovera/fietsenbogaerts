@@ -7,7 +7,7 @@ import org.apache.commons.lang3.StringUtils;
 import java.time.LocalDate;
 import java.util.UUID;
 
-public record UpdateVerkoopCommand(UUID verkoopId, OrderType orderType, String naam, String opmerkingen, LocalDate datum, UUID klantId) {
+public record UpdateVerkoopCommand(UUID verkoopId, OrderType orderType, String naam, String opmerkingen, LocalDate datum, UUID klantId,String reparatieNummer,String orderNummer) {
 
     public UpdateVerkoopCommand {
 
@@ -21,6 +21,14 @@ public record UpdateVerkoopCommand(UUID verkoopId, OrderType orderType, String n
 
         if (StringUtils.isEmpty(naam)) {
             throw new IllegalArgumentException("Value for 'naam' can not be null or empty");
+        }
+
+        if (orderType == OrderType.VERKOOPP && reparatieNummer == null) {
+            throw new IllegalArgumentException("Value for 'reparatieNummer' can not be null");
+        }
+
+        if(orderType == OrderType.FACTUUR && orderNummer == null){
+            throw new IllegalArgumentException("Value for 'orderNummer' can not be null");
         }
     }
 }

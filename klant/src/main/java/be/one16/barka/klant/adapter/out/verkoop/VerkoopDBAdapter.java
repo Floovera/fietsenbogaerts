@@ -56,6 +56,8 @@ public class VerkoopDBAdapter implements LoadVerkopenPort, CreateVerkoopPort, Up
         verkoopJpaEntity.setOpmerkingen(verkoop.getOpmerkingen());
         verkoopJpaEntity.setDatum(verkoop.getDatum());
         verkoopJpaEntity.setKlantId(verkoop.getKlantId());
+        verkoopJpaEntity.setReparatieNummer(verkoop.getReparatieNummer());
+        verkoopJpaEntity.setOrderNummer(verkoop.getOrderNummer());
         verkoopRepository.save(verkoopJpaEntity);
     }
 
@@ -67,6 +69,8 @@ public class VerkoopDBAdapter implements LoadVerkopenPort, CreateVerkoopPort, Up
         verkoopJpaEntity.setOpmerkingen(verkoop.getOpmerkingen());
         verkoopJpaEntity.setDatum(verkoop.getDatum());
         verkoopJpaEntity.setKlantId(verkoop.getKlantId());
+        verkoopJpaEntity.setReparatieNummer(verkoop.getReparatieNummer());
+        verkoopJpaEntity.setOrderNummer(verkoop.getOrderNummer());
 
         verkoopRepository.save(verkoopJpaEntity);
     }
