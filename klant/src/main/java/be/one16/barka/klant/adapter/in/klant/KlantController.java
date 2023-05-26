@@ -1,7 +1,7 @@
 package be.one16.barka.klant.adapter.in.klant;
 
 import be.one16.barka.klant.adapter.mapper.klant.KlantDtoMapper;
-import be.one16.barka.klant.port.in.klant.*;
+import be.one16.barka.klant.ports.in.klant.*;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
