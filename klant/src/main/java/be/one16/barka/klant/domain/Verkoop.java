@@ -1,5 +1,7 @@
 package be.one16.barka.klant.domain;
 
+import be.one16.barka.klant.common.KlantType;
+import be.one16.barka.klant.common.OrderType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,6 +15,7 @@ import java.util.UUID;
 public class Verkoop {
 
     private UUID verkoopId;
+    private OrderType orderType;
     private String naam;
     private String opmerkingen;
     private LocalDate datum;

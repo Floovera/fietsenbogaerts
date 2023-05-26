@@ -58,6 +58,7 @@ public final class TestDataBuilder {
         VerkoopDto verkoopDto = new VerkoopDto();
         LocalDate date = LocalDate.of(2023, 1, 8);
 
+        verkoopDto.setOrderType(OrderType.VERKOOPP);
         verkoopDto.setNaam(naam);
         verkoopDto.setOpmerkingen("Inclusief installatie op stuur");
         verkoopDto.setDatum(date);
@@ -69,6 +70,7 @@ public final class TestDataBuilder {
         VerkoopDto verkoopDto = new VerkoopDto();
         LocalDate date = LocalDate.of(2023, 1, 8);
 
+        verkoopDto.setOrderType(OrderType.VERKOOPP);
         verkoopDto.setNaam(naam);
         verkoopDto.setOpmerkingen("Inclusief installatie op stuur");
         verkoopDto.setDatum(date);
@@ -82,6 +84,7 @@ public final class TestDataBuilder {
         LocalDate date = LocalDate.of(2023, 1, 8);
 
         verkoopJpaEntity.setUuid(randomUUID());
+        verkoopJpaEntity.setOrderType(OrderType.VERKOOPP);
         verkoopJpaEntity.setNaam(naam);
         verkoopJpaEntity.setOpmerkingen("Super kwaliteit");
         verkoopJpaEntity.setDatum(date);
@@ -94,6 +97,7 @@ public final class TestDataBuilder {
         LocalDate date = LocalDate.of(2023, 1, 8);
 
         verkoopJpaEntity.setUuid(randomUUID());
+        verkoopJpaEntity.setOrderType(OrderType.VERKOOPP);
         verkoopJpaEntity.setNaam(naam);
         verkoopJpaEntity.setOpmerkingen("Super kwaliteit");
         verkoopJpaEntity.setDatum(date);

@@ -51,6 +51,7 @@ public class VerkoopDBAdapter implements LoadVerkopenPort, CreateVerkoopPort, Up
         VerkoopJpaEntity verkoopJpaEntity = new VerkoopJpaEntity();
 
         verkoopJpaEntity.setUuid(verkoop.getVerkoopId());
+        verkoopJpaEntity.setOrderType(verkoop.getOrderType());
         verkoopJpaEntity.setNaam(verkoop.getNaam());
         verkoopJpaEntity.setOpmerkingen(verkoop.getOpmerkingen());
         verkoopJpaEntity.setDatum(verkoop.getDatum());
@@ -61,7 +62,7 @@ public class VerkoopDBAdapter implements LoadVerkopenPort, CreateVerkoopPort, Up
     @Override
     public void updateVerkoop(Verkoop verkoop) {
         VerkoopJpaEntity verkoopJpaEntity = getVerkoopJpaEntityById(verkoop.getVerkoopId());
-
+        verkoopJpaEntity.setOrderType(verkoop.getOrderType());
         verkoopJpaEntity.setNaam(verkoop.getNaam());
         verkoopJpaEntity.setOpmerkingen(verkoop.getOpmerkingen());
         verkoopJpaEntity.setDatum(verkoop.getDatum());

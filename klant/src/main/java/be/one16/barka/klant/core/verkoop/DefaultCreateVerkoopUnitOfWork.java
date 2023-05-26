@@ -43,6 +43,7 @@ public class DefaultCreateVerkoopUnitOfWork implements CreateVerkoopUnitOfWork {
 
         Verkoop verkoop = Verkoop.builder()
                 .verkoopId(UUID.randomUUID())
+                .orderType(createVerkoopCommand.orderType())
                 .naam(createVerkoopCommand.naam())
                 .opmerkingen(createVerkoopCommand.opmerkingen())
                 .datum(createVerkoopCommand.datum())
