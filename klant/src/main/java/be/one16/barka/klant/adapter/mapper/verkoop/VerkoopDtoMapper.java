@@ -3,8 +3,8 @@ package be.one16.barka.klant.adapter.mapper.verkoop;
 
 import be.one16.barka.klant.adapter.in.verkoop.VerkoopDto;
 import be.one16.barka.klant.domain.Verkoop;
-import be.one16.barka.klant.port.in.verkoop.CreateVerkoopCommand;
-import be.one16.barka.klant.port.in.verkoop.UpdateVerkoopCommand;
+import be.one16.barka.klant.ports.in.verkoop.CreateVerkoopCommand;
+import be.one16.barka.klant.ports.in.verkoop.UpdateVerkoopCommand;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 

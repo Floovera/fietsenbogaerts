@@ -5,11 +5,10 @@ import be.one16.barka.domain.exceptions.EntityNotFoundException;
 import be.one16.barka.klant.common.exceptions.KlantNotFoundException;
 import be.one16.barka.klant.domain.Klant;
 import be.one16.barka.klant.domain.Verkoop;
-import be.one16.barka.klant.port.in.klant.KlantenQuery;
-import be.one16.barka.klant.port.in.verkoop.UpdateVerkoopCommand;
-import be.one16.barka.klant.port.in.verkoop.UpdateVerkoopUnitOfWork;
-import be.one16.barka.klant.port.out.verkoop.UpdateVerkoopPort;
-import org.apache.commons.lang3.StringUtils;
+import be.one16.barka.klant.ports.in.klant.KlantenQuery;
+import be.one16.barka.klant.ports.in.verkoop.UpdateVerkoopCommand;
+import be.one16.barka.klant.ports.in.verkoop.UpdateVerkoopUnitOfWork;
+import be.one16.barka.klant.ports.out.verkoop.UpdateVerkoopPort;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;

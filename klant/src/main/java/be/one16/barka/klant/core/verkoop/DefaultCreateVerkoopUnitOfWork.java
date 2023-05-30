@@ -8,15 +8,14 @@ import be.one16.barka.klant.common.OrderType;
 import be.one16.barka.klant.common.exceptions.KlantNotFoundException;
 import be.one16.barka.klant.domain.Klant;
 import be.one16.barka.klant.domain.Verkoop;
-import be.one16.barka.klant.port.in.klant.KlantenQuery;
-import be.one16.barka.klant.port.in.verkoop.CreateVerkoopCommand;
-import be.one16.barka.klant.port.in.verkoop.CreateVerkoopUnitOfWork;
-import be.one16.barka.klant.port.out.verkoop.CreateVerkoopPort;
+import be.one16.barka.klant.ports.in.klant.KlantenQuery;
+import be.one16.barka.klant.ports.in.verkoop.CreateVerkoopCommand;
+import be.one16.barka.klant.ports.in.verkoop.CreateVerkoopUnitOfWork;
+import be.one16.barka.klant.ports.out.verkoop.CreateVerkoopPort;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.OffsetDateTime;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @UnitOfWork

@@ -2,9 +2,9 @@ package be.one16.barka.klant.core.klant;
 
 import be.one16.barka.domain.annotations.UnitOfWork;
 import be.one16.barka.klant.domain.Klant;
-import be.one16.barka.klant.port.in.klant.CreateKlantCommand;
-import be.one16.barka.klant.port.in.klant.CreateKlantUnitOfWork;
-import be.one16.barka.klant.port.out.klant.CreateKlantPort;
+import be.one16.barka.klant.ports.in.klant.CreateKlantCommand;
+import be.one16.barka.klant.ports.in.klant.CreateKlantUnitOfWork;
+import be.one16.barka.klant.ports.out.klant.CreateKlantPort;
 
 import java.util.List;
 import java.util.UUID;

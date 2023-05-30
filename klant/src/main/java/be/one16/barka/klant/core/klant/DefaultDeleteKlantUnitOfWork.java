@@ -1,8 +1,8 @@
 package be.one16.barka.klant.core.klant;
 
 import be.one16.barka.domain.annotations.UnitOfWork;
-import be.one16.barka.klant.port.in.klant.DeleteKlantUnitOfWork;
-import be.one16.barka.klant.port.out.klant.DeleteKlantPort;
+import be.one16.barka.klant.ports.in.klant.DeleteKlantUnitOfWork;
+import be.one16.barka.klant.ports.out.klant.DeleteKlantPort;
 
 import java.util.List;
 import java.util.UUID;
