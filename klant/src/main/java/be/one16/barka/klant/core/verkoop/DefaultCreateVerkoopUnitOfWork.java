@@ -16,6 +16,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.UUID;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @UnitOfWork
 public class DefaultCreateVerkoopUnitOfWork implements CreateVerkoopUnitOfWork {
@@ -25,6 +27,7 @@ public class DefaultCreateVerkoopUnitOfWork implements CreateVerkoopUnitOfWork {
     private final KlantenQuery klantenquery;
 
     private final VerkoopRepository verkoopRepository;
+    private static final String REPARATIENUMMER_REGEX = "^(\\d){6}$";
 
     public DefaultCreateVerkoopUnitOfWork(List<CreateVerkoopPort> createVerkoopPorts, KlantenQuery klantenquery, VerkoopRepository verkoopRepository) {
         this.createVerkoopPorts = createVerkoopPorts;
@@ -36,6 +39,11 @@ public class DefaultCreateVerkoopUnitOfWork implements CreateVerkoopUnitOfWork {
     @Transactional
     public UUID createVerkoop(CreateVerkoopCommand createVerkoopCommand) throws KlantNotFoundException {
         UUID calculatedKlantId = null;
+        String orderNummer = createOrderNummer();
+
+        if(!createVerkoopCommand.reparatieNummer().matches(REPARATIENUMMER_REGEX)){
+            throw new IllegalArgumentException("Value for 'ReparatieNummer' must be 6 digits");
+        }
 
         if (createVerkoopCommand.klantId() != null) {
             try {
@@ -45,8 +53,6 @@ public class DefaultCreateVerkoopUnitOfWork implements CreateVerkoopUnitOfWork {
                 throw new KlantNotFoundException(String.format("Did not find the klant for the provided UUID: %s", createVerkoopCommand.klantId()));
             }
         }
-
-        String orderNummer = createOrderNummer();
 
         Verkoop verkoop = Verkoop.builder()
                 .verkoopId(UUID.randomUUID())
