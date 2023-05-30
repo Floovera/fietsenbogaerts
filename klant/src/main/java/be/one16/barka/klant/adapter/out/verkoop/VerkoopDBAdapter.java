@@ -84,4 +84,6 @@ public class VerkoopDBAdapter implements LoadVerkopenPort, CreateVerkoopPort, Up
     private VerkoopJpaEntity getVerkoopJpaEntityById(UUID id) {
         return verkoopRepository.findByUuid(id).orElseThrow(() -> new EntityNotFoundException(String.format("Verkoop with uuid %s doesn't exist", id)));
     }
+
+
 }
