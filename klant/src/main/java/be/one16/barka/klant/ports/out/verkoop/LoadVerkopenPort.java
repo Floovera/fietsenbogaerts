@@ -12,4 +12,5 @@ public interface LoadVerkopenPort {
 
     Verkoop retrieveVerkoopById(UUID id);
 
+
 }

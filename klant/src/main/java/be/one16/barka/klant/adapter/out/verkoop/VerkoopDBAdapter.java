@@ -50,19 +50,26 @@ public class VerkoopDBAdapter implements LoadVerkopenPort, CreateVerkoopPort, Up
         VerkoopJpaEntity verkoopJpaEntity = new VerkoopJpaEntity();
 
         verkoopJpaEntity.setUuid(verkoop.getVerkoopId());
+        verkoopJpaEntity.setOrderType(verkoop.getOrderType());
         verkoopJpaEntity.setNaam(verkoop.getNaam());
         verkoopJpaEntity.setOpmerkingen(verkoop.getOpmerkingen());
+        verkoopJpaEntity.setDatum(verkoop.getDatum());
         verkoopJpaEntity.setKlantId(verkoop.getKlantId());
+        verkoopJpaEntity.setReparatieNummer(verkoop.getReparatieNummer());
+        verkoopJpaEntity.setOrderNummer(verkoop.getOrderNummer());
         verkoopRepository.save(verkoopJpaEntity);
     }
 
     @Override
     public void updateVerkoop(Verkoop verkoop) {
         VerkoopJpaEntity verkoopJpaEntity = getVerkoopJpaEntityById(verkoop.getVerkoopId());
-
+        verkoopJpaEntity.setOrderType(verkoop.getOrderType());
         verkoopJpaEntity.setNaam(verkoop.getNaam());
         verkoopJpaEntity.setOpmerkingen(verkoop.getOpmerkingen());
+        verkoopJpaEntity.setDatum(verkoop.getDatum());
         verkoopJpaEntity.setKlantId(verkoop.getKlantId());
+        verkoopJpaEntity.setReparatieNummer(verkoop.getReparatieNummer());
+        verkoopJpaEntity.setOrderNummer(verkoop.getOrderNummer());
 
         verkoopRepository.save(verkoopJpaEntity);
     }
@@ -76,4 +83,6 @@ public class VerkoopDBAdapter implements LoadVerkopenPort, CreateVerkoopPort, Up
     private VerkoopJpaEntity getVerkoopJpaEntityById(UUID id) {
         return verkoopRepository.findByUuid(id).orElseThrow(() -> new EntityNotFoundException(String.format("Verkoop with uuid %s doesn't exist", id)));
     }
+
+
 }

@@ -42,9 +42,13 @@ public class DefaultUpdateVerkoopUnitOfWork implements UpdateVerkoopUnitOfWork {
 
         Verkoop verkoop = Verkoop.builder()
                 .verkoopId(updateVerkoopCommand.verkoopId())
+                .orderType(updateVerkoopCommand.orderType())
                 .naam(updateVerkoopCommand.naam())
                 .opmerkingen(updateVerkoopCommand.opmerkingen())
+                .datum(updateVerkoopCommand.datum())
                 .klantId(calculatedKlantId)
+                .reparatieNummer(updateVerkoopCommand.reparatieNummer())
+                .orderNummer(updateVerkoopCommand.orderNummer())
                 .build();
 
         updateVerkoopPorts.forEach(port -> port.updateVerkoop(verkoop));

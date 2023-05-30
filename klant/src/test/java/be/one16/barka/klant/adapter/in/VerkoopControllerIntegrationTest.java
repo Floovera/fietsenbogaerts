@@ -4,13 +4,12 @@ import be.one16.barka.klant.BarkaKlantenApplication;
 import be.one16.barka.klant.BaseIntegrationTesting;
 import be.one16.barka.klant.adapter.in.klant.KlantDto;
 import be.one16.barka.klant.adapter.in.verkoop.VerkoopDto;
-import be.one16.barka.klant.adapter.out.klant.KlantJpaEntity;
-import be.one16.barka.klant.adapter.out.repository.KlantRepository;
 import be.one16.barka.klant.adapter.out.repository.VerkoopRepository;
 import be.one16.barka.klant.adapter.out.verkoop.VerkoopJpaEntity;
 import be.one16.barka.klant.common.TestDataBuilder;
-import com.google.gson.Gson;
+import com.google.gson.*;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -23,6 +22,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
+import java.time.LocalDate;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -49,7 +49,15 @@ public class VerkoopControllerIntegrationTest extends BaseIntegrationTesting {
     @Autowired
     private MockMvc mockMvc;
 
-    private final Gson GSON = new Gson();
+    private Gson GSON;
+
+    @BeforeEach
+    void setUp() {
+        GSON = new Gson().newBuilder()
+                .setPrettyPrinting()
+                .registerTypeAdapter(LocalDate.class, new GsonLocalDateAdapter())
+                .create();
+    }
 
     @Test
     public void testGetVerkoopById() throws Exception {
@@ -167,7 +175,7 @@ public class VerkoopControllerIntegrationTest extends BaseIntegrationTesting {
                 .andExpect(MockMvcResultMatchers.status().isBadRequest());
 
         verkoopToCreate.setNaam("");
-        mockMvc.perform(MockMvcRequestBuilders.post(BASE_URL).contentType(APPLICATION_JSON).content(GSON.toJson(verkoopToCreate )))
+        mockMvc.perform(MockMvcRequestBuilders.post(BASE_URL).contentType(APPLICATION_JSON).content(GSON.toJson(verkoopToCreate)))
                 .andDo(print())
                 .andExpect(MockMvcResultMatchers.status().isBadRequest());
     }
