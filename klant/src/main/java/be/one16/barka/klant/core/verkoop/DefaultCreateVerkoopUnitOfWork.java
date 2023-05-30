@@ -4,6 +4,7 @@ import be.one16.barka.domain.annotations.UnitOfWork;
 import be.one16.barka.domain.exceptions.EntityNotFoundException;
 import be.one16.barka.klant.adapter.out.repository.VerkoopRepository;
 import be.one16.barka.klant.adapter.out.verkoop.VerkoopJpaEntity;
+import be.one16.barka.klant.common.OrderType;
 import be.one16.barka.klant.common.exceptions.KlantNotFoundException;
 import be.one16.barka.klant.domain.Klant;
 import be.one16.barka.klant.domain.Verkoop;
@@ -15,9 +16,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.OffsetDateTime;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 @UnitOfWork
 public class DefaultCreateVerkoopUnitOfWork implements CreateVerkoopUnitOfWork {
@@ -39,7 +39,8 @@ public class DefaultCreateVerkoopUnitOfWork implements CreateVerkoopUnitOfWork {
     @Transactional
     public UUID createVerkoop(CreateVerkoopCommand createVerkoopCommand) throws KlantNotFoundException {
         UUID calculatedKlantId = null;
-        String orderNummer = createOrderNummer();
+        String orderNummer = createVerkoopCommand.orderNummer();
+        if(createVerkoopCommand.orderType().equals(OrderType.FACTUUR)){orderNummer = createOrderNummer();}
 
         if(!createVerkoopCommand.reparatieNummer().matches(REPARATIENUMMER_REGEX)){
             throw new IllegalArgumentException("Value for 'ReparatieNummer' must be 6 digits");
@@ -75,14 +76,20 @@ public class DefaultCreateVerkoopUnitOfWork implements CreateVerkoopUnitOfWork {
     }
 
     private Long retrieveLastVerkoop(){
-        VerkoopJpaEntity verkoopJpaEntity =  verkoopRepository.findTopByOrderByIdDesc();
-        return verkoopJpaEntity.getId();
+        Optional<VerkoopJpaEntity> verkoopJpaEntity =  verkoopRepository.findTopByOrderByIdDesc();
+        if(verkoopJpaEntity.isEmpty()){
+            return null;
+        }else{
+            return verkoopJpaEntity.get().getId();}
+
     }
 
     private String createOrderNummer(){
         OffsetDateTime offsetDateTime = OffsetDateTime.now();
         int year = offsetDateTime.getYear();
-        int lastVerkoopPlusOne = retrieveLastVerkoop().intValue() + 1;
+        int lastVerkoopPlusOne = 1;
+        if(retrieveLastVerkoop()!= null){lastVerkoopPlusOne = retrieveLastVerkoop().intValue() + 1; }
+
         String orderNummer = Integer.toString(year) + "/" + Integer.toString(lastVerkoopPlusOne) ;
         return orderNummer;
     }

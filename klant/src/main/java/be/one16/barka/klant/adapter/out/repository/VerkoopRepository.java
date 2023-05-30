@@ -13,6 +13,6 @@ import java.util.UUID;
 public interface VerkoopRepository extends JpaRepository<VerkoopJpaEntity, Long>, JpaSpecificationExecutor<VerkoopJpaEntity> {
 
     Optional<VerkoopJpaEntity> findByUuid(UUID uuid);
-    VerkoopJpaEntity findTopByOrderByIdDesc();
+    Optional <VerkoopJpaEntity> findTopByOrderByIdDesc();
 
 }
