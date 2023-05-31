@@ -13,6 +13,6 @@ public interface MateriaalRepository extends JpaRepository<MateriaalJpaEntity, L
 
     Optional<MateriaalJpaEntity> findByUuid(UUID uuid);
 
-    List<MateriaalJpaEntity> findAllByVerkoopuuid(UUID verkoopUuid);
+    List<MateriaalJpaEntity> findAllByOrderuuid(UUID orderUuid);
 
 }

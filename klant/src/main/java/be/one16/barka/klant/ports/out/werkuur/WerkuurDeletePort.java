@@ -4,6 +4,6 @@ import java.util.UUID;
 
 public interface WerkuurDeletePort {
 
-    void deleteWerkuur(UUID werkuurId, UUID verkoopId);
+    void deleteWerkuur(UUID werkuurId, UUID orderId);
 
 }

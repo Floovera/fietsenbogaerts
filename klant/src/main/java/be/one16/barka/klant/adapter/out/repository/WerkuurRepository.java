@@ -14,6 +14,6 @@ public interface WerkuurRepository extends JpaRepository<WerkuurJpaEntity, Long>
 
     Optional<WerkuurJpaEntity> findByUuid(UUID uuid);
 
-    List<WerkuurJpaEntity> findAllByVerkoopuuid(UUID leverancierUuid);
+    List<WerkuurJpaEntity> findAllByOrderuuid(UUID orderUuid);
 
 }

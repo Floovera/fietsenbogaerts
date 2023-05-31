@@ -3,6 +3,6 @@ import java.util.UUID;
 
 public interface MateriaalDeletePort {
 
-    void deleteMateriaal(UUID materiaalId, UUID verkoopId);
+    void deleteMateriaal(UUID materiaalId, UUID orderId);
 
 }

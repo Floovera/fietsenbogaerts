@@ -2,7 +2,7 @@ package be.one16.barka.klant.ports.in.materiaal;
 import org.apache.commons.lang3.StringUtils;
 import java.util.UUID;
 
-public record UpdateMateriaalCommand(UUID materiaalId,UUID artikelId, String artikelMerk, String artikelCode, String artikelOmschrijving, int aantalArtikels, double verkoopPrijsArtikel, int korting, int btwPerc, UUID verkoopId) {
+public record UpdateMateriaalCommand(UUID materiaalId,UUID artikelId, String artikelMerk, String artikelCode, String artikelOmschrijving, int aantalArtikels, double verkoopPrijsArtikel, int korting, int btwPerc, UUID orderId) {
 
     public UpdateMateriaalCommand {
         if (StringUtils.isEmpty(artikelMerk)) {

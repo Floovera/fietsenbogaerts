@@ -44,7 +44,7 @@ public class DefaultCreateMateriaalUnitOfWork implements CreateMateriaalUnitOfWo
                 .totaalExclusBtw(totaalExclusBtw)
                 .totaalInclusBtw(totaalInclusBtw)
                 .btwBedrag(btwBedrag)
-                .verkoopId(createMateriaalCommand.verkoopId())
+                .orderId(createMateriaalCommand.orderId())
                 .build();
 
         materiaalCreatePorts.forEach(port -> port.createMateriaal(materiaal));

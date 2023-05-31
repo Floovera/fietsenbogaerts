@@ -21,6 +21,6 @@ public class Werkuur {
     private double totaalExclusBtw;
     private double totaalInclusBtw;
     private double btwBedrag;
-    private UUID verkoopId;
+    private UUID orderId;
 
 }

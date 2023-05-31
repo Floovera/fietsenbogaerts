@@ -10,9 +10,9 @@ create table klant_werkuren
     totaal_inclus_btw double       not null,
     uuid              varchar(255) null,
     uur_tarief        double       not null,
-    verkoopuuid       varchar(255) null,
+    orderuuid       varchar(255) null,
     constraint UK_537jhb3kjei3bmnwbyn37e9iu
         unique (uuid),
-    constraint klant_werkuren_klant_verkopen_uuid_fk
-        foreign key (verkoopuuid) references klant_verkopen (uuid)
+    constraint klant_werkuren_klant_orders_uuid_fk
+        foreign key (orderuuid) references klant_orders (uuid)
 );

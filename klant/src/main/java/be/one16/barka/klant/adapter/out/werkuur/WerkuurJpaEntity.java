@@ -31,6 +31,6 @@ public class WerkuurJpaEntity {
     private double totaalInclusBtw;
     private double btwBedrag;
     @Type(type = "uuid-char")
-    private UUID verkoopuuid;
+    private UUID orderuuid;
 
 }

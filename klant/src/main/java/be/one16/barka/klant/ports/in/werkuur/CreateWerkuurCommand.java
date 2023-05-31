@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.util.Date;
 import java.util.UUID;
 
-public record CreateWerkuurCommand(LocalDate datum, double aantalUren, double uurTarief, int btwPerc,UUID verkoopId){
+public record CreateWerkuurCommand(LocalDate datum, double aantalUren, double uurTarief, int btwPerc,UUID orderId){
 
     public CreateWerkuurCommand {
 

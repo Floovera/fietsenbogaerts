@@ -1,9 +1,9 @@
 package be.one16.barka.klant.common;
 
 import be.one16.barka.klant.adapter.in.klant.KlantDto;
-import be.one16.barka.klant.adapter.in.verkoop.VerkoopDto;
+import be.one16.barka.klant.adapter.in.order.OrderDto;
 import be.one16.barka.klant.adapter.out.klant.KlantJpaEntity;
-import be.one16.barka.klant.adapter.out.verkoop.VerkoopJpaEntity;
+import be.one16.barka.klant.adapter.out.order.OrderJpaEntity;
 
 import java.time.LocalDate;
 import java.util.UUID;
@@ -54,56 +54,56 @@ public final class TestDataBuilder {
 
         return klantJpaEntity;
     }
-    public static VerkoopDto generateTestVerkoopDto(String naam) {
-        VerkoopDto verkoopDto = new VerkoopDto();
+    public static OrderDto generateTestOrderDto(String naam) {
+        OrderDto orderDto = new OrderDto();
         LocalDate date = LocalDate.of(2023, 1, 8);
 
-        verkoopDto.setOrderType(OrderType.VERKOOPP);
-        verkoopDto.setNaam(naam);
-        verkoopDto.setOpmerkingen("Inclusief installatie op stuur");
-        verkoopDto.setDatum(date);
+        orderDto.setOrderType(OrderType.VERKOOPP);
+        orderDto.setNaam(naam);
+        orderDto.setOpmerkingen("Inclusief installatie op stuur");
+        orderDto.setDatum(date);
 
-        return verkoopDto;
+        return orderDto;
     }
 
-    public static VerkoopDto generateTestVerkoopWithClientDto(String naam, UUID klant) {
-        VerkoopDto verkoopDto = new VerkoopDto();
+    public static OrderDto generateTestOrderWithClientDto(String naam, UUID klant) {
+        OrderDto orderDto = new OrderDto();
         LocalDate date = LocalDate.of(2023, 1, 8);
 
-        verkoopDto.setOrderType(OrderType.VERKOOPP);
-        verkoopDto.setNaam(naam);
-        verkoopDto.setOpmerkingen("Inclusief installatie op stuur");
-        verkoopDto.setDatum(date);
-        verkoopDto.setKlantId(klant);
+        orderDto.setOrderType(OrderType.VERKOOPP);
+        orderDto.setNaam(naam);
+        orderDto.setOpmerkingen("Inclusief installatie op stuur");
+        orderDto.setDatum(date);
+        orderDto.setKlantId(klant);
 
-        return verkoopDto;
+        return orderDto;
     }
 
-    public static VerkoopJpaEntity generateTestVerkoopJpaEntity(String naam) {
-        VerkoopJpaEntity verkoopJpaEntity = new VerkoopJpaEntity();
+    public static OrderJpaEntity generateTestOrderJpaEntity(String naam) {
+        OrderJpaEntity orderJpaEntity = new OrderJpaEntity();
         LocalDate date = LocalDate.of(2023, 1, 8);
 
-        verkoopJpaEntity.setUuid(randomUUID());
-        verkoopJpaEntity.setOrderType(OrderType.VERKOOPP);
-        verkoopJpaEntity.setNaam(naam);
-        verkoopJpaEntity.setOpmerkingen("Super kwaliteit");
-        verkoopJpaEntity.setDatum(date);
+        orderJpaEntity.setUuid(randomUUID());
+        orderJpaEntity.setOrderType(OrderType.VERKOOPP);
+        orderJpaEntity.setNaam(naam);
+        orderJpaEntity.setOpmerkingen("Super kwaliteit");
+        orderJpaEntity.setDatum(date);
 
-        return verkoopJpaEntity;
+        return orderJpaEntity;
     }
 
-    public static VerkoopJpaEntity generateTestVerkoopWithClientJpaEntity(String naam, UUID klant){
-        VerkoopJpaEntity verkoopJpaEntity = new VerkoopJpaEntity();
+    public static OrderJpaEntity generateTestOrderWithClientJpaEntity(String naam, UUID klant){
+        OrderJpaEntity orderJpaEntity = new OrderJpaEntity();
         LocalDate date = LocalDate.of(2023, 1, 8);
 
-        verkoopJpaEntity.setUuid(randomUUID());
-        verkoopJpaEntity.setOrderType(OrderType.VERKOOPP);
-        verkoopJpaEntity.setNaam(naam);
-        verkoopJpaEntity.setOpmerkingen("Super kwaliteit");
-        verkoopJpaEntity.setDatum(date);
-        verkoopJpaEntity.setKlantId(klant);
+        orderJpaEntity.setUuid(randomUUID());
+        orderJpaEntity.setOrderType(OrderType.VERKOOPP);
+        orderJpaEntity.setNaam(naam);
+        orderJpaEntity.setOpmerkingen("Super kwaliteit");
+        orderJpaEntity.setDatum(date);
+        orderJpaEntity.setKlantId(klant);
 
-        return verkoopJpaEntity;
+        return orderJpaEntity;
     }
 
 

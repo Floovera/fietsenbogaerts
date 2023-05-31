@@ -41,7 +41,7 @@ public class DefaultCreateWerkuurUnitOfWork implements CreateWerkuurUnitOfWork {
                 .totaalExclusBtw(totaalExclusBtw)
                 .totaalInclusBtw(totaalInclusBtw)
                 .btwBedrag(btwBedrag)
-                .verkoopId(createWerkuurCommand.verkoopId())
+                .orderId(createWerkuurCommand.orderId())
                 .build();
 
         werkuurCreatePorts.forEach(port -> port.createWerkuur(werkuur));

@@ -8,7 +8,7 @@ import org.mapstruct.Mapping;
 public interface MateriaalJpaEntityMapper {
 
     @Mapping(source = "uuid", target = "materiaalId")
-    @Mapping(source = "verkoopuuid", target = "verkoopId")
+    @Mapping(source = "orderuuid", target = "orderId")
     @Mapping(source = "artikeluuid", target = "artikelId")
     Materiaal mapJpaEntityToMateriaal(MateriaalJpaEntity materiaalJpaEntity);
 

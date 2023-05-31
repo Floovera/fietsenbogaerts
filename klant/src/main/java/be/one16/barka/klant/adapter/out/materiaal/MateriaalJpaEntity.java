@@ -34,6 +34,6 @@ public class MateriaalJpaEntity {
     private double totaalInclusBtw;
     private double btwBedrag;
     @Type(type = "uuid-char")
-    private UUID verkoopuuid;
+    private UUID orderuuid;
 
 }

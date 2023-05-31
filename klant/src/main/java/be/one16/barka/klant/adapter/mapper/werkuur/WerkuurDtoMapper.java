@@ -12,11 +12,11 @@ import java.util.UUID;
 @Mapper(componentModel = "spring")
 public interface WerkuurDtoMapper {
 
-    @Mapping(source = "verkoopId", target = "verkoopId")
-    CreateWerkuurCommand mapDtoToCreateWerkuurCommand(WerkuurDto werkuurDto, UUID verkoopId);
+    @Mapping(source = "orderId", target = "orderId")
+    CreateWerkuurCommand mapDtoToCreateWerkuurCommand(WerkuurDto werkuurDto, UUID orderId);
     @Mapping(source = "werkuurId", target = "werkuurId")
-    @Mapping(source = "verkoopId", target = "verkoopId")
-    UpdateWerkuurCommand mapDtoToUpdateWerkuurCommand(WerkuurDto werkuurDto, UUID werkuurId, UUID verkoopId);
+    @Mapping(source = "orderId", target = "orderId")
+    UpdateWerkuurCommand mapDtoToUpdateWerkuurCommand(WerkuurDto werkuurDto, UUID werkuurId, UUID orderId);
 
     WerkuurDto mapWerkuurToDto(Werkuur werkuur);
 

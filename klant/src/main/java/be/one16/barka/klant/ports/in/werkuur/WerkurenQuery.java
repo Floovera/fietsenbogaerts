@@ -10,9 +10,9 @@ import java.util.UUID;
 public interface WerkurenQuery {
 
     @Transactional(readOnly = true)
-    Werkuur retrieveWerkuurById(UUID id, UUID verkoopId);
+    Werkuur retrieveWerkuurById(UUID id, UUID orderId);
 
     @Transactional(readOnly = true)
-    List<Werkuur> retrieveWerkurenOfVerkoop(UUID verkoopId);
+    List<Werkuur> retrieveWerkurenOfOrder(UUID orderId);
 
 }

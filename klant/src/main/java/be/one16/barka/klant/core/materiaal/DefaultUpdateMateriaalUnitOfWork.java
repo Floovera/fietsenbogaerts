@@ -43,7 +43,7 @@ public class DefaultUpdateMateriaalUnitOfWork implements UpdateMateriaalUnitOfWo
                 .totaalExclusBtw(totaalExclusBtw)
                 .totaalInclusBtw(totaalInclusBtw)
                 .btwBedrag(btwBedrag)
-                .verkoopId(updateMateriaalCommand.verkoopId())
+                .orderId(updateMateriaalCommand.orderId())
                 .build();
 
         materiaalUpdatePorts.forEach(port -> port.updateMateriaal(materiaal));

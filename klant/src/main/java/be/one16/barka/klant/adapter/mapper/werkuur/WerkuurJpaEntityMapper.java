@@ -9,7 +9,7 @@ import org.mapstruct.Mapping;
 public interface WerkuurJpaEntityMapper {
 
     @Mapping(source = "uuid", target = "werkuurId")
-    @Mapping(source = "verkoopuuid", target = "verkoopId")
+    @Mapping(source = "orderuuid", target = "orderId")
     Werkuur mapJpaEntityToWerkuur(WerkuurJpaEntity werkuurJpaEntity);
 
 }

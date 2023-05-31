@@ -17,13 +17,13 @@ public class DefaultMaterialenQuery implements MaterialenQuery {
     }
 
     @Override
-    public Materiaal retrieveMateriaalById(UUID id, UUID verkoopId) {
-        return loadMaterialenPort.retrieveMateriaalOfVerkoop(id,verkoopId);
+    public Materiaal retrieveMateriaalById(UUID id, UUID orderId) {
+        return loadMaterialenPort.retrieveMateriaalOfOrder(id,orderId);
     }
 
     @Override
-    public List<Materiaal> retrieveMaterialenOfVerkoop(UUID verkoopId) {
-        return loadMaterialenPort.retrieveMaterialenOfVerkoop(verkoopId);
+    public List<Materiaal> retrieveMaterialenOfOrder(UUID orderId) {
+        return loadMaterialenPort.retrieveMaterialenOfOrder(orderId);
     }
 
 }

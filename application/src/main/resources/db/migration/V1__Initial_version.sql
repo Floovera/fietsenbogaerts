@@ -20,7 +20,7 @@ create table klant_klanten
         unique (uuid)
 );
 
-create table klant_verkopen
+create table klant_orders
 (
     id          bigint auto_increment
         primary key,
@@ -30,12 +30,12 @@ create table klant_verkopen
     uuid        varchar(255) null,
     constraint UK_pomc4bk4twnrp5r9wmd3jbfym
         unique (uuid),
-    constraint klant_verkopen_ibfk_1
+    constraint klant_orders_ibfk_1
         foreign key (klant_id) references klant_klanten (uuid)
 );
 
 create index klant_id
-    on klant_verkopen (klant_id);
+    on klant_orders (klant_id);
 
 create table leverancier_leveranciers
 (

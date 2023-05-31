@@ -2,7 +2,7 @@ package be.one16.barka.klant.adapter.out.werkuur;
 
 import be.one16.barka.domain.exceptions.EntityNotFoundException;
 import be.one16.barka.klant.adapter.mapper.werkuur.WerkuurJpaEntityMapper;
-import be.one16.barka.klant.adapter.out.repository.VerkoopRepository;
+import be.one16.barka.klant.adapter.out.repository.OrderRepository;
 import be.one16.barka.klant.adapter.out.repository.WerkuurRepository;
 import be.one16.barka.klant.domain.Werkuur;
 import be.one16.barka.klant.ports.out.werkuur.LoadWerkurenPort;
@@ -13,7 +13,6 @@ import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
-import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -22,12 +21,12 @@ import java.util.UUID;
 public class WerkuurDBAdapter implements LoadWerkurenPort, WerkuurCreatePort, WerkuurUpdatePort, WerkuurDeletePort {
 
     private final WerkuurRepository werkuurRepository;
-    private final VerkoopRepository verkoopRepository;
+    private final OrderRepository orderRepository;
     private final WerkuurJpaEntityMapper werkuurJpaEntityMapper;
 
-    public WerkuurDBAdapter(WerkuurRepository werkuurRepository, VerkoopRepository verkoopRepository, WerkuurJpaEntityMapper werkuurJpaEntityMapper) {
+    public WerkuurDBAdapter(WerkuurRepository werkuurRepository, OrderRepository orderRepository, WerkuurJpaEntityMapper werkuurJpaEntityMapper) {
         this.werkuurRepository = werkuurRepository;
-        this.verkoopRepository = verkoopRepository;
+        this.orderRepository = orderRepository;
         this.werkuurJpaEntityMapper = werkuurJpaEntityMapper;
     }
 
@@ -37,19 +36,19 @@ public class WerkuurDBAdapter implements LoadWerkurenPort, WerkuurCreatePort, We
     }
 
     @Override
-    public Werkuur retrieveWerkuurOfVerkoop(UUID id, UUID verkoopId) {
+    public Werkuur retrieveWerkuurOfOrder(UUID id, UUID orderId) {
         WerkuurJpaEntity werkuurJpaEntity = getWerkuurJpaEntityById(id);
 
-        if (!werkuurJpaEntity.getVerkoopuuid().equals(verkoopId)) {
-            throw new IllegalArgumentException(String.format("Werkuur with uuid %s doesn't belong to the verkoop with uuid %s", id, verkoopId));
+        if (!werkuurJpaEntity.getOrderuuid().equals(orderId)) {
+            throw new IllegalArgumentException(String.format("Werkuur with uuid %s doesn't belong to the order with uuid %s", id, orderId));
         }
 
         return werkuurJpaEntityMapper.mapJpaEntityToWerkuur(werkuurJpaEntity);
     }
 
     @Override
-    public List<Werkuur> retrieveWerkurenOfVerkoop(UUID verkoopId) {
-        return werkuurRepository.findAllByVerkoopuuid(verkoopId).stream().map(werkuurJpaEntityMapper::mapJpaEntityToWerkuur).toList();
+    public List<Werkuur> retrieveWerkurenOfOrder(UUID orderId) {
+        return werkuurRepository.findAllByOrderuuid(orderId).stream().map(werkuurJpaEntityMapper::mapJpaEntityToWerkuur).toList();
     }
 
     private void fillJpaEntityWithWerkuurData(WerkuurJpaEntity werkuurJpaEntity, Werkuur werkuur) {
@@ -67,7 +66,7 @@ public class WerkuurDBAdapter implements LoadWerkurenPort, WerkuurCreatePort, We
         WerkuurJpaEntity werkuurJpaEntity = new WerkuurJpaEntity();
 
         werkuurJpaEntity.setUuid(werkuur.getWerkuurId());
-        werkuurJpaEntity.setVerkoopuuid(werkuur.getVerkoopId());
+        werkuurJpaEntity.setOrderuuid(werkuur.getOrderId());
         fillJpaEntityWithWerkuurData(werkuurJpaEntity, werkuur);
 
         werkuurRepository.save(werkuurJpaEntity);
@@ -77,8 +76,8 @@ public class WerkuurDBAdapter implements LoadWerkurenPort, WerkuurCreatePort, We
     public void updateWerkuur(Werkuur werkuur) {
         WerkuurJpaEntity werkuurJpaEntity = getWerkuurJpaEntityById(werkuur.getWerkuurId());
 
-        if (!werkuurJpaEntity.getVerkoopuuid().equals(werkuur.getVerkoopId())) {
-            throw new IllegalArgumentException(String.format("Werkuur with uuid %s doesn't belong to the Verkoop with uuid %s", werkuur.getWerkuurId(), werkuur.getVerkoopId()));
+        if (!werkuurJpaEntity.getOrderuuid().equals(werkuur.getOrderId())) {
+            throw new IllegalArgumentException(String.format("Werkuur with uuid %s doesn't belong to the order with uuid %s", werkuur.getWerkuurId(), werkuur.getOrderId()));
         }
 
         fillJpaEntityWithWerkuurData(werkuurJpaEntity,werkuur);
@@ -86,11 +85,11 @@ public class WerkuurDBAdapter implements LoadWerkurenPort, WerkuurCreatePort, We
     }
 
     @Override
-    public void deleteWerkuur(UUID werkuurId, UUID verkoopId) {
+    public void deleteWerkuur(UUID werkuurId, UUID orderId) {
         WerkuurJpaEntity werkuurJpaEntity = getWerkuurJpaEntityById(werkuurId);
 
-        if (!werkuurJpaEntity.getVerkoopuuid().equals(verkoopId)) {
-            throw new IllegalArgumentException(String.format("Werkuur with uuid %s doesn't belong to the Verkoop with uuid %s", werkuurJpaEntity.getUuid(), verkoopId));
+        if (!werkuurJpaEntity.getOrderuuid().equals(orderId)) {
+            throw new IllegalArgumentException(String.format("Werkuur with uuid %s doesn't belong to the order with uuid %s", werkuurJpaEntity.getUuid(), orderId));
         }
 
         werkuurRepository.delete(werkuurJpaEntity);

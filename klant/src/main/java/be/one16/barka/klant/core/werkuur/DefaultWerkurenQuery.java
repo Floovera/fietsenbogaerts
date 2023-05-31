@@ -18,13 +18,13 @@ public class DefaultWerkurenQuery implements WerkurenQuery {
     }
 
     @Override
-    public Werkuur retrieveWerkuurById(UUID id, UUID verkoopId) {
-        return loadWerkurenPort.retrieveWerkuurOfVerkoop(id, verkoopId);
+    public Werkuur retrieveWerkuurById(UUID id, UUID orderId) {
+        return loadWerkurenPort.retrieveWerkuurOfOrder(id, orderId);
     }
 
     @Override
-    public List<Werkuur> retrieveWerkurenOfVerkoop(UUID verkoopId) {
-        return loadWerkurenPort.retrieveWerkurenOfVerkoop(verkoopId);
+    public List<Werkuur> retrieveWerkurenOfOrder(UUID orderId) {
+        return loadWerkurenPort.retrieveWerkurenOfOrder(orderId);
     }
 
 }

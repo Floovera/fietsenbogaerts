@@ -6,8 +6,8 @@ import java.util.UUID;
 
 public interface LoadWerkurenPort {
 
-    Werkuur retrieveWerkuurOfVerkoop(UUID id, UUID verkoopId);
+    Werkuur retrieveWerkuurOfOrder(UUID id, UUID orderId);
 
-    List<Werkuur> retrieveWerkurenOfVerkoop(UUID verkoopId);
+    List<Werkuur> retrieveWerkurenOfOrder(UUID orderId);
 
 }

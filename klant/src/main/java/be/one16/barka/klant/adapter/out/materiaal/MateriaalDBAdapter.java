@@ -3,7 +3,6 @@ package be.one16.barka.klant.adapter.out.materiaal;
 import be.one16.barka.domain.exceptions.EntityNotFoundException;
 import be.one16.barka.klant.adapter.mapper.materiaal.MateriaalJpaEntityMapper;
 import be.one16.barka.klant.adapter.out.repository.MateriaalRepository;
-import be.one16.barka.klant.adapter.out.repository.VerkoopRepository;
 import be.one16.barka.klant.domain.Materiaal;
 import be.one16.barka.klant.ports.out.materiaal.LoadMaterialenPort;
 import be.one16.barka.klant.ports.out.materiaal.MateriaalCreatePort;
@@ -35,19 +34,19 @@ public class MateriaalDBAdapter implements LoadMaterialenPort, MateriaalCreatePo
     }
 
     @Override
-    public Materiaal retrieveMateriaalOfVerkoop(UUID id, UUID verkoopId) {
+    public Materiaal retrieveMateriaalOfOrder(UUID id, UUID orderId) {
         MateriaalJpaEntity materiaalJpaEntity = getMateriaalJpaEntityById(id);
 
-        if (!materiaalJpaEntity.getVerkoopuuid().equals(verkoopId)) {
-            throw new IllegalArgumentException(String.format("Materiaal with uuid %s doesn't belong to the Verkoop with uuid %s", id, verkoopId));
+        if (!materiaalJpaEntity.getOrderuuid().equals(orderId)) {
+            throw new IllegalArgumentException(String.format("Materiaal with uuid %s doesn't belong to the order with uuid %s", id, orderId));
         }
 
         return materiaalJpaEntityMapper.mapJpaEntityToMateriaal(materiaalJpaEntity);
     }
 
     @Override
-    public List<Materiaal> retrieveMaterialenOfVerkoop(UUID verkoopId) {
-        return materiaalRepository.findAllByVerkoopuuid(verkoopId).stream().map(materiaalJpaEntityMapper::mapJpaEntityToMateriaal).toList();
+    public List<Materiaal> retrieveMaterialenOfOrder(UUID orderId) {
+        return materiaalRepository.findAllByOrderuuid(orderId).stream().map(materiaalJpaEntityMapper::mapJpaEntityToMateriaal).toList();
     }
 
     private void fillJpaEntityWithMateriaalData(MateriaalJpaEntity materiaalJpaEntity, Materiaal materiaal) {
@@ -70,7 +69,7 @@ public class MateriaalDBAdapter implements LoadMaterialenPort, MateriaalCreatePo
         MateriaalJpaEntity materiaalJpaEntity = new MateriaalJpaEntity();
 
         materiaalJpaEntity.setUuid(materiaal.getMateriaalId());
-        materiaalJpaEntity.setVerkoopuuid(materiaal.getVerkoopId());
+        materiaalJpaEntity.setOrderuuid(materiaal.getOrderId());
         fillJpaEntityWithMateriaalData(materiaalJpaEntity, materiaal);
 
         materiaalRepository.save(materiaalJpaEntity);
@@ -80,8 +79,8 @@ public class MateriaalDBAdapter implements LoadMaterialenPort, MateriaalCreatePo
     public void updateMateriaal(Materiaal materiaal) {
         MateriaalJpaEntity materiaalJpaEntity = getMateriaalJpaEntityById(materiaal.getMateriaalId());
 
-        if (!materiaalJpaEntity.getVerkoopuuid().equals(materiaal.getVerkoopId())) {
-            throw new IllegalArgumentException(String.format("Materiaal with uuid %s doesn't belong to the Verkoop with uuid %s", materiaal.getMateriaalId(), materiaal.getVerkoopId()));
+        if (!materiaalJpaEntity.getOrderuuid().equals(materiaal.getOrderId())) {
+            throw new IllegalArgumentException(String.format("Materiaal with uuid %s doesn't belong to the order with uuid %s", materiaal.getMateriaalId(), materiaal.getOrderId()));
         }
 
         fillJpaEntityWithMateriaalData(materiaalJpaEntity, materiaal);
@@ -90,11 +89,11 @@ public class MateriaalDBAdapter implements LoadMaterialenPort, MateriaalCreatePo
     }
 
     @Override
-    public void deleteMateriaal(UUID materiaalId, UUID verkoopId) {
+    public void deleteMateriaal(UUID materiaalId, UUID orderId) {
         MateriaalJpaEntity materiaalJpaEntity = getMateriaalJpaEntityById(materiaalId);
 
-        if (!materiaalJpaEntity.getVerkoopuuid().equals(verkoopId)) {
-            throw new IllegalArgumentException(String.format("Materiaal with uuid %s doesn't belong to the Verkoop with uuid %s", materiaalJpaEntity.getUuid(), verkoopId));
+        if (!materiaalJpaEntity.getOrderuuid().equals(orderId)) {
+            throw new IllegalArgumentException(String.format("Materiaal with uuid %s doesn't belong to the order with uuid %s", materiaalJpaEntity.getUuid(), orderId));
         }
 
         materiaalRepository.delete(materiaalJpaEntity);

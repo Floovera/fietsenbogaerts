@@ -17,7 +17,7 @@ public class DefaultDeleteWerkuurUnitOfWork implements DeleteWerkuurUnitOfWork {
 
     @Override
     public void deleteWerkuur(DeleteWerkuurCommand deleteWerkuurCommand) {
-        werkuurDeletePorts.forEach(port -> port.deleteWerkuur(deleteWerkuurCommand.werkuurId(), deleteWerkuurCommand.verkoopId()));
+        werkuurDeletePorts.forEach(port -> port.deleteWerkuur(deleteWerkuurCommand.werkuurId(), deleteWerkuurCommand.orderId()));
     }
 
 }

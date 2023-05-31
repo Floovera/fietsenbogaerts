@@ -17,7 +17,7 @@ public class DefaultDeleteMateriaalUnitOfWork implements DeleteMateriaalUnitOfWo
 
     @Override
     public void deleteMateriaal(DeleteMateriaalCommand deleteMateriaalCommand) {
-        materiaalDeletePorts.forEach(port -> port.deleteMateriaal(deleteMateriaalCommand.materiaalId(), deleteMateriaalCommand.verkoopId()));
+        materiaalDeletePorts.forEach(port -> port.deleteMateriaal(deleteMateriaalCommand.materiaalId(), deleteMateriaalCommand.orderId()));
     }
 
 }

@@ -20,6 +20,6 @@ public class Materiaal {
     private double totaalExclusBtw;
     private double totaalInclusBtw;
     private double btwBedrag;
-    private UUID verkoopId;
+    private UUID orderId;
 
 }

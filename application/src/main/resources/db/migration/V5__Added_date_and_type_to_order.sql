@@ -1,4 +1,4 @@
-alter table klant_verkopen
+alter table klant_orders
     add datum       date         null,
     add order_type  varchar(255) null,
     add order_nummer     varchar(255) null,

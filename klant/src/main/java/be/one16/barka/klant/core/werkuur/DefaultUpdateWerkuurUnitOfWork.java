@@ -37,7 +37,7 @@ public class DefaultUpdateWerkuurUnitOfWork implements UpdateWerkuurUnitOfWork {
                 .totaalExclusBtw(totaalExclusBtw)
                 .totaalInclusBtw(totaalInclusBtw)
                 .btwBedrag(btwBedrag)
-                .verkoopId(updateWerkuurCommand.verkoopId())
+                .orderId(updateWerkuurCommand.orderId())
                 .build();
 
         werkuurUpdatePorts.forEach(port -> port.updateWerkuur(werkuur));

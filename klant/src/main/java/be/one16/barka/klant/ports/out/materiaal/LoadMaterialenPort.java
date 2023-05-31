@@ -5,8 +5,8 @@ import java.util.UUID;
 
 public interface LoadMaterialenPort {
 
-    Materiaal retrieveMateriaalOfVerkoop(UUID id, UUID verkoopId);
+    Materiaal retrieveMateriaalOfOrder(UUID id, UUID orderId);
 
-    List<Materiaal> retrieveMaterialenOfVerkoop(UUID verkoopId);
+    List<Materiaal> retrieveMaterialenOfOrder(UUID orderId);
 
 }
