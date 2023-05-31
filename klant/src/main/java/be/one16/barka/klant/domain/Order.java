@@ -23,4 +23,8 @@ public class Order {
     private String reparatieNummer;
     private String orderNummer;
 
+    private double totaalExclusBtw;
+    private double totaalInclusBtw;
+    private double btwBedrag;
+
 }
