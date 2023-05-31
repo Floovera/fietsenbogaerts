@@ -30,6 +30,17 @@ public class DefaultOrderQuery implements OrderQuery {
     @Override
     public Order retrieveOrderById(UUID id) {
         Order order = loadOrdersPort.retrieveOrderById(id);
+        return populateCalculatedFields(order);
+    }
+
+    @Override
+    public Page<Order> retrieveOrdersByFilterAndSort(RetrieveOrderFilterAndSortCommand retrieveOrderFilterAndSortCommand) {
+        Page<Order> orders = loadOrdersPort.retrieveOrdersByFilterAndSort(retrieveOrderFilterAndSortCommand.naam(), retrieveOrderFilterAndSortCommand.pageable());
+        return orders.map(this::populateCalculatedFields);
+    }
+
+    private Order populateCalculatedFields(Order order) {
+        UUID id = order.getOrderId();
         List<Materiaal> materialen = materialenQuery.retrieveMaterialenOfOrder(id);
         List<Werkuur> werkuren = werkurenQuery.retrieveWerkurenOfOrder(id);
 
@@ -42,12 +53,6 @@ public class DefaultOrderQuery implements OrderQuery {
         order.setBtwBedrag(btwBedrag);
 
         return order;
-        }
-
-
-    @Override
-    public Page<Order> retrieveOrdersByFilterAndSort(RetrieveOrderFilterAndSortCommand retrieveOrderFilterAndSortCommand) {
-        return loadOrdersPort.retrieveOrdersByFilterAndSort(retrieveOrderFilterAndSortCommand.naam(), retrieveOrderFilterAndSortCommand.pageable());
     }
 
 
