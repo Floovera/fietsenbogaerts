@@ -48,6 +48,8 @@ public class OrderDBAdapter implements LoadOrdersPort, CreateOrderPort, UpdateOr
 
     @Override
     public void createOrder(Order order) {
+        int year = order.getDatum().getYear();
+
         OrderJpaEntity orderJpaEntity = new OrderJpaEntity();
 
         orderJpaEntity.setUuid(order.getOrderId());
@@ -55,6 +57,7 @@ public class OrderDBAdapter implements LoadOrdersPort, CreateOrderPort, UpdateOr
         orderJpaEntity.setNaam(order.getNaam());
         orderJpaEntity.setOpmerkingen(order.getOpmerkingen());
         orderJpaEntity.setDatum(order.getDatum());
+        orderJpaEntity.setJaar(year);
         orderJpaEntity.setKlantId(order.getKlantId());
         orderJpaEntity.setReparatieNummer(order.getReparatieNummer());
         orderJpaEntity.setOrderNummer(order.getOrderNummer());
@@ -64,11 +67,14 @@ public class OrderDBAdapter implements LoadOrdersPort, CreateOrderPort, UpdateOr
 
     @Override
     public void updateOrder(Order order) {
+        int year = order.getDatum().getYear();
+
         OrderJpaEntity orderJpaEntity = getOrderJpaEntityById(order.getOrderId());
         orderJpaEntity.setOrderType(order.getOrderType());
         orderJpaEntity.setNaam(order.getNaam());
         orderJpaEntity.setOpmerkingen(order.getOpmerkingen());
         orderJpaEntity.setDatum(order.getDatum());
+        orderJpaEntity.setJaar(year);
         orderJpaEntity.setKlantId(order.getKlantId());
         orderJpaEntity.setReparatieNummer(order.getReparatieNummer());
         orderJpaEntity.setOrderNummer(order.getOrderNummer());
@@ -87,13 +93,14 @@ public class OrderDBAdapter implements LoadOrdersPort, CreateOrderPort, UpdateOr
     }
 
     private int decideOnSequence(Order order){
+        int year = order.getDatum().getYear();
         int sequence = 0;
         OrderType orderType = order.getOrderType();
         //Enkel voor facturen, anders 0
         if(orderType==OrderType.FACTUUR){
             //Enkel wanneer er nog geen orderNummer bestaat, maken we een nieuwe sequence aan
             if(order.getOrderNummer()!=null) {
-                Optional<OrderJpaEntity> factuur = orderRepository.findTopByOrderBySequenceDesc();
+                Optional<OrderJpaEntity> factuur = orderRepository.findTopByJaarOrderBySequenceDesc(year);
                 int sequenceLastFactuur = 0;
                 if (!factuur.isEmpty()) {
                     sequenceLastFactuur = factuur.get().getSequence();

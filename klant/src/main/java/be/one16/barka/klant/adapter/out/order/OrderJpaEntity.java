@@ -7,6 +7,7 @@ import org.hibernate.annotations.NaturalId;
 import org.hibernate.annotations.Type;
 import java.time.LocalDate;
 import javax.persistence.*;
+import java.time.Year;
 import java.util.UUID;
 
 @Entity
@@ -27,6 +28,7 @@ public class OrderJpaEntity {
     private String naam;
     private String opmerkingen;
     private LocalDate datum;
+    private int jaar;
     @Type(type = "uuid-char")
     private UUID klantId;
 

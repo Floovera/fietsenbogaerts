@@ -70,7 +70,7 @@ public class DefaultCreateOrderUnitOfWork implements CreateOrderUnitOfWork {
 
         //OrderNummer wordt aangemaakt voor een order met type factuur
         if(createOrderCommand.orderType().equals(OrderType.FACTUUR)){
-            order.setOrderNummer(retrieveLastSequence());}
+            order.setOrderNummer(retrieveLastSequence(order.getDatum().getYear()));}
 
         createOrderPorts.forEach(port -> port.createOrder(order));
 
@@ -81,8 +81,8 @@ public class DefaultCreateOrderUnitOfWork implements CreateOrderUnitOfWork {
         return klantenquery.retrieveKlantById(klantID);
     }
 
-    private int retrieveLastSequence(){
-        Optional<OrderJpaEntity> factuur = orderRepository.findTopByOrderBySequenceDesc();
+    private int retrieveLastSequence(int year){
+        Optional<OrderJpaEntity> factuur = orderRepository.findTopByJaarOrderBySequenceDesc(year);
         int sequence = 0;
         if (!factuur.isEmpty()) {
             sequence = factuur.get().getSequence();

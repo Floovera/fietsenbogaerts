@@ -81,7 +81,7 @@ public class DefaultUpdateOrderUnitOfWork implements UpdateOrderUnitOfWork {
         //OrderNummer wordt aangemaakt voor een order met type factuur
         if(newOrderType != initalOrderType){
             if(newOrderType == OrderType.FACTUUR){
-                order.setOrderNummer(retrieveLastSequence());}
+                order.setOrderNummer(retrieveLastSequence(order.getDatum().getYear()));}
             }
         updateOrderPorts.forEach(port -> port.updateOrder(order));
 
@@ -91,8 +91,8 @@ public class DefaultUpdateOrderUnitOfWork implements UpdateOrderUnitOfWork {
         return klantenquery.retrieveKlantById(klantID);
     }
 
-    private int retrieveLastSequence(){
-        Optional<OrderJpaEntity> factuur = orderRepository.findTopByOrderBySequenceDesc();
+    private int retrieveLastSequence(int year){
+        Optional<OrderJpaEntity> factuur = orderRepository.findTopByJaarOrderBySequenceDesc(year);
         int sequence = 0;
         if (!factuur.isEmpty()) {
             sequence = factuur.get().getSequence();

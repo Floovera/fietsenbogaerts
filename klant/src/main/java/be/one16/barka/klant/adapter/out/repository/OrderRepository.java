@@ -12,8 +12,7 @@ import java.util.UUID;
 public interface OrderRepository extends JpaRepository<OrderJpaEntity, Long>, JpaSpecificationExecutor<OrderJpaEntity> {
 
     Optional<OrderJpaEntity> findByUuid(UUID uuid);
-    Optional <OrderJpaEntity> findTopByOrderByIdDesc();
-
     Optional <OrderJpaEntity> findTopByOrderBySequenceDesc();
+    Optional <OrderJpaEntity> findTopByJaarOrderBySequenceDesc(int jaar);
 
 }
