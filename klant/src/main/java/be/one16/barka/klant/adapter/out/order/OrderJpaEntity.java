@@ -33,4 +33,6 @@ public class OrderJpaEntity {
     private String reparatieNummer;
     private String orderNummer;
 
+    private int sequence;
+
 }

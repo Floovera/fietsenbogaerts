@@ -3,6 +3,7 @@ package be.one16.barka.klant.adapter.out.order;
 import be.one16.barka.domain.exceptions.EntityNotFoundException;
 import be.one16.barka.klant.adapter.mapper.order.OrderJpaEntityMapper;
 import be.one16.barka.klant.adapter.out.repository.OrderRepository;
+import be.one16.barka.klant.common.OrderType;
 import be.one16.barka.klant.domain.Order;
 import be.one16.barka.klant.ports.out.order.CreateOrderPort;
 import be.one16.barka.klant.ports.out.order.DeleteOrderPort;
@@ -15,6 +16,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Component;
 
+import java.util.Optional;
 import java.util.UUID;
 
 @Component
@@ -56,6 +58,7 @@ public class OrderDBAdapter implements LoadOrdersPort, CreateOrderPort, UpdateOr
         orderJpaEntity.setKlantId(order.getKlantId());
         orderJpaEntity.setReparatieNummer(order.getReparatieNummer());
         orderJpaEntity.setOrderNummer(order.getOrderNummer());
+        orderJpaEntity.setSequence(decideOnSequence(order));
         orderRepository.save(orderJpaEntity);
     }
 
@@ -69,7 +72,7 @@ public class OrderDBAdapter implements LoadOrdersPort, CreateOrderPort, UpdateOr
         orderJpaEntity.setKlantId(order.getKlantId());
         orderJpaEntity.setReparatieNummer(order.getReparatieNummer());
         orderJpaEntity.setOrderNummer(order.getOrderNummer());
-
+        orderJpaEntity.setSequence(decideOnSequence(order));
         orderRepository.save(orderJpaEntity);
     }
 
@@ -81,6 +84,32 @@ public class OrderDBAdapter implements LoadOrdersPort, CreateOrderPort, UpdateOr
 
     private OrderJpaEntity getOrderJpaEntityById(UUID id) {
         return orderRepository.findByUuid(id).orElseThrow(() -> new EntityNotFoundException(String.format("Order with uuid %s doesn't exist", id)));
+    }
+
+    private int decideOnSequence(Order order){
+        int sequence = 0;
+        OrderType orderType = order.getOrderType();
+        //Enkel voor facturen, anders 0
+        if(orderType==OrderType.FACTUUR){
+            //Enkel wanneer er nog geen orderNummer bestaat, maken we een nieuwe sequence aan
+            if(order.getOrderNummer()!=null) {
+                Optional<OrderJpaEntity> factuur = orderRepository.findTopByOrderBySequenceDesc();
+                int sequenceLastFactuur = 0;
+                if (!factuur.isEmpty()) {
+                    sequenceLastFactuur = factuur.get().getSequence();
+                    sequence = sequenceLastFactuur + 1;
+                }else{
+                    //Wanneer er geen factuur gevonden wordt, is dit de eerste factuur
+                    sequence = 1;
+                }
+            }else{
+                //Anders blijft de sequence dezelfde
+                OrderJpaEntity orderJpaEntity = getOrderJpaEntityById(order.getOrderId());
+                sequence = orderJpaEntity.getSequence();
+            }
+        }
+
+        return sequence;
     }
 
 

@@ -14,4 +14,6 @@ public interface OrderRepository extends JpaRepository<OrderJpaEntity, Long>, Jp
     Optional<OrderJpaEntity> findByUuid(UUID uuid);
     Optional <OrderJpaEntity> findTopByOrderByIdDesc();
 
+    Optional <OrderJpaEntity> findTopByOrderBySequenceDesc();
+
 }
