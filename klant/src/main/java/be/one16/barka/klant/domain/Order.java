@@ -84,4 +84,26 @@ public class Order {
         double roundOff = Math.round(amountToRound * 100.0) / 100.0;
         return roundOff;
     }
+
+    public boolean checkSwitchType(OrderType newOrderType){
+        boolean switchOK = true;
+
+        if(newOrderType==OrderType.VERKOOPP){
+            switchOK = false;
+        }
+        if(orderType==OrderType.FACTUUR){
+            switchOK = false;
+        }
+        return switchOK;
+    }
+
+    public void switchOrderType(OrderType newOrderType){
+
+    }
+
+    public void setOrderNummer(int lastOrderNummer) {
+        int lastOrderPlusOne = lastOrderNummer + 1;
+        int year = datum.getYear();
+        orderNummer = Integer.toString(year) + "/" + Integer.toString(lastOrderPlusOne) ;
+    }
 }

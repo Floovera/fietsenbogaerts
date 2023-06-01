@@ -11,6 +11,7 @@ import be.one16.barka.klant.domain.Order;
 import be.one16.barka.klant.ports.in.klant.KlantenQuery;
 import be.one16.barka.klant.ports.in.order.CreateOrderCommand;
 import be.one16.barka.klant.ports.in.order.CreateOrderUnitOfWork;
+import be.one16.barka.klant.ports.in.order.OrderQuery;
 import be.one16.barka.klant.ports.out.order.CreateOrderPort;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -40,10 +41,6 @@ public class DefaultCreateOrderUnitOfWork implements CreateOrderUnitOfWork {
     public UUID createOrder(CreateOrderCommand createOrderCommand) throws KlantNotFoundException {
 
         UUID calculatedKlantId = null;
-        String orderNummer = createOrderCommand.orderNummer();
-
-        //OrderNummer wordt aangemaakt voor een order met type factuur
-        if(createOrderCommand.orderType().equals(OrderType.FACTUUR)){orderNummer = createOrderNummer();}
 
         //Regex reparatienummer wordt gecontroleerd voor een order van type factuur of reparatie
         if(!createOrderCommand.orderType().equals(OrderType.VERKOOPP) && !createOrderCommand.reparatieNummer().matches(REPARATIENUMMER_REGEX)){
@@ -68,8 +65,13 @@ public class DefaultCreateOrderUnitOfWork implements CreateOrderUnitOfWork {
                 .datum(createOrderCommand.datum())
                 .klantId(calculatedKlantId)
                 .reparatieNummer(createOrderCommand.reparatieNummer())
-                .orderNummer(orderNummer)
                 .build();
+
+
+        //OrderNummer wordt aangemaakt voor een order met type factuur
+        if(createOrderCommand.orderType().equals(OrderType.FACTUUR)){
+            int lastOrderNummer = retrieveLastOrderId() == null ? 0 : retrieveLastOrderId().intValue();
+            order.setOrderNummer(lastOrderNummer);}
 
         createOrderPorts.forEach(port -> port.createOrder(order));
 
@@ -80,22 +82,12 @@ public class DefaultCreateOrderUnitOfWork implements CreateOrderUnitOfWork {
         return klantenquery.retrieveKlantById(klantID);
     }
 
-    private Long retrieveLastOrder(){
+    private Long retrieveLastOrderId(){
         Optional<OrderJpaEntity> orderJpaEntity =  orderRepository.findTopByOrderByIdDesc();
         if(orderJpaEntity.isEmpty()){
             return null;
         }else{
             return orderJpaEntity.get().getId();}
-
     }
 
-    private String createOrderNummer(){
-        OffsetDateTime offsetDateTime = OffsetDateTime.now();
-        int year = offsetDateTime.getYear();
-        int lastOrderPlusOne = 1;
-        if(retrieveLastOrder()!= null){lastOrderPlusOne = retrieveLastOrder().intValue() + 1; }
-
-        String orderNummer = Integer.toString(year) + "/" + Integer.toString(lastOrderPlusOne) ;
-        return orderNummer;
-    }
 }

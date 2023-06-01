@@ -5,7 +5,7 @@ import org.apache.commons.lang3.StringUtils;
 import java.time.LocalDate;
 import java.util.UUID;
 
-public record UpdateOrderCommand(UUID orderId, OrderType orderType, String naam, String opmerkingen, LocalDate datum, UUID klantId, String reparatieNummer, String orderNummer) {
+public record UpdateOrderCommand(UUID orderId, OrderType orderType, String naam, String opmerkingen, LocalDate datum, UUID klantId, String reparatieNummer) {
 
     public UpdateOrderCommand {
 
@@ -23,10 +23,6 @@ public record UpdateOrderCommand(UUID orderId, OrderType orderType, String naam,
 
         if (orderType != OrderType.VERKOOPP && reparatieNummer == null) {
             throw new IllegalArgumentException("Value for 'reparatieNummer' can not be null");
-        }
-
-        if(orderType == OrderType.FACTUUR && orderNummer == null){
-            throw new IllegalArgumentException("Value for 'orderNummer' can not be null");
         }
     }
 }
