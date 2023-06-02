@@ -6,6 +6,8 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import lombok.Data;
+
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.UUID;
 
@@ -24,8 +26,8 @@ public class OrderDto {
     private String reparatieNummer;
     private String orderNummer;
 
-    private double totaalExclusBtw;
-    private double totaalInclusBtw;
-    private double btwBedrag;
+    private BigDecimal totaalExclusBtw;
+    private BigDecimal totaalInclusBtw;
+    private BigDecimal btwBedrag;
 
 }

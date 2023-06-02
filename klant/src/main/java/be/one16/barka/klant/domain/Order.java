@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
@@ -26,7 +27,30 @@ public class Order {
 
     private List<Werkuur> werkuren;
     private List<Materiaal> materialen;
-    public double getTotaalExclusBtw(){
+
+    public BigDecimal getTotaalExclusBtw(){
+        BigDecimal totaalExclusBtw = BigDecimal.valueOf(0);
+        BigDecimal materialenTotaalExclusBtw = BigDecimal.valueOf(0);
+        BigDecimal werkurenTotaalExclusBtw = BigDecimal.valueOf(0);
+
+        for (Materiaal materiaal : materialen) {
+            double totaalmateriaal = materiaal.getTotaalExclusBtw();
+            BigDecimal totalmaterial = BigDecimal.valueOf(totaalmateriaal);
+            materialenTotaalExclusBtw = materialenTotaalExclusBtw.add(totalmaterial);
+        }
+
+        for (Werkuur werkuur : werkuren) {
+            double totaalwerkuur= werkuur.getTotaalExclusBtw();
+            BigDecimal totallabour = BigDecimal.valueOf(totaalwerkuur);
+            werkurenTotaalExclusBtw = werkurenTotaalExclusBtw.add(totallabour);
+        }
+
+        totaalExclusBtw = materialenTotaalExclusBtw.add(werkurenTotaalExclusBtw);
+
+        return totaalExclusBtw;
+
+    }
+   /* public double getTotaalExclusBtw(){
         double totaalExclusBtw = 0;
         double materialenTotaalExclusBtw = 0;
         double werkurenTotaalExclusBtw = 0;
@@ -42,9 +66,30 @@ public class Order {
         totaalExclusBtw = materialenTotaalExclusBtw + werkurenTotaalExclusBtw;
 
         return  round(totaalExclusBtw);
-    }
+    }*/
 
-    public double getTotaalInclusBtw(){
+    public BigDecimal getTotaalInclusBtw(){
+        BigDecimal totaalInclusBtw = BigDecimal.valueOf(0);
+        BigDecimal materialenTotaalInclusBtw = BigDecimal.valueOf(0);
+        BigDecimal werkurenTotaalInclusBtw = BigDecimal.valueOf(0);
+
+        for (Materiaal materiaal : materialen) {
+            double totaalmateriaal = materiaal.getTotaalInclusBtw();
+            BigDecimal totalmaterial = BigDecimal.valueOf(totaalmateriaal);
+            materialenTotaalInclusBtw = materialenTotaalInclusBtw.add(totalmaterial);
+        }
+
+        for (Werkuur werkuur : werkuren) {
+            double totaalwerkuur = werkuur.getTotaalInclusBtw();
+            BigDecimal totallabour = BigDecimal.valueOf(totaalwerkuur);
+            werkurenTotaalInclusBtw = werkurenTotaalInclusBtw.add(totallabour);
+        }
+
+        totaalInclusBtw = materialenTotaalInclusBtw.add(werkurenTotaalInclusBtw);
+
+        return  totaalInclusBtw;
+    }
+    /*public double getTotaalInclusBtw(){
         double totaalInclusBtw = 0;
         double materialenTotaalInclusBtw = 0;
         double werkurenTotaalInclusBtw = 0;
@@ -61,8 +106,30 @@ public class Order {
 
         return  round(totaalInclusBtw);
     }
+*/
 
-    public double getBtwBedrag(){
+    public BigDecimal getBtwBedrag(){
+        BigDecimal totaalBtwBedrag = BigDecimal.valueOf(0);
+        BigDecimal materialenBtwBedrag = BigDecimal.valueOf(0);
+        BigDecimal werkurenBtwBedrag = BigDecimal.valueOf(0);
+
+        for (Materiaal materiaal : materialen) {
+            double btwBedrag = materiaal.getBtwBedrag();
+            BigDecimal vat = BigDecimal.valueOf(btwBedrag);
+            materialenBtwBedrag = materialenBtwBedrag.add(vat);
+        }
+
+        for (Werkuur werkuur : werkuren) {
+            double btwBedrag = werkuur.getBtwBedrag();
+            BigDecimal vat = BigDecimal.valueOf(btwBedrag);
+            werkurenBtwBedrag = werkurenBtwBedrag.add(vat);
+        }
+
+        totaalBtwBedrag = materialenBtwBedrag.add(werkurenBtwBedrag);
+
+        return totaalBtwBedrag;
+    }
+    /*public double getBtwBedrag(){
         double totaalBtwBedrag = 0;
         double materialenBtwBedrag = 0;
         double werkurenBtwBedrag = 0;
@@ -83,7 +150,7 @@ public class Order {
 
         double roundOff = Math.round(amountToRound * 100.0) / 100.0;
         return roundOff;
-    }
+    }*/
 
     public boolean checkSwitchType(OrderType newOrderType){
         boolean switchOK = true;
