@@ -88,7 +88,7 @@ public class Order {
     public boolean checkSwitchType(OrderType newOrderType){
         boolean switchOK = true;
 
-        if(newOrderType==OrderType.VERKOOPP){
+        if(newOrderType==OrderType.VERKOOP){
             switchOK = false;
         }
         if(orderType==OrderType.FACTUUR){

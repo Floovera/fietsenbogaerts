@@ -54,7 +54,7 @@ public class DefaultUpdateOrderUnitOfWork implements UpdateOrderUnitOfWork {
         }
 
         //Regex reparatienummer wordt gecontroleerd voor een order van type factuur of reparatie
-        if(!updateOrderCommand.orderType().equals(OrderType.VERKOOPP) && !updateOrderCommand.reparatieNummer().matches(REPARATIENUMMER_REGEX)){
+        if(!updateOrderCommand.orderType().equals(OrderType.VERKOOP) && !updateOrderCommand.reparatieNummer().matches(REPARATIENUMMER_REGEX)){
             throw new IllegalArgumentException("Value for 'ReparatieNummer' must be 6 digits");
         }
 

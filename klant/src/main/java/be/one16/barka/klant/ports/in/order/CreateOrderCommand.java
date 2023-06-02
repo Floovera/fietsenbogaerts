@@ -22,8 +22,12 @@ public record CreateOrderCommand(OrderType orderType, String naam, String opmerk
             throw new IllegalArgumentException("Value for 'naam' can not be null or empty");
         }
 
-        if (orderType != OrderType.VERKOOPP && reparatieNummer == null) {
+        if (orderType != OrderType.VERKOOP && reparatieNummer == null) {
             throw new IllegalArgumentException("Value for 'reparatieNummer' can not be null");
+        }
+
+        if (orderType == OrderType.FACTUUR && klantId == null) {
+            throw new IllegalArgumentException("Value for 'klantId' can not be null");
         }
     }
 }

@@ -43,7 +43,7 @@ public class DefaultCreateOrderUnitOfWork implements CreateOrderUnitOfWork {
         UUID calculatedKlantId = null;
 
         //Regex reparatienummer wordt gecontroleerd voor een order van type factuur of reparatie
-        if(!createOrderCommand.orderType().equals(OrderType.VERKOOPP) && !createOrderCommand.reparatieNummer().matches(REPARATIENUMMER_REGEX)){
+        if(!createOrderCommand.orderType().equals(OrderType.VERKOOP) && !createOrderCommand.reparatieNummer().matches(REPARATIENUMMER_REGEX)){
                 throw new IllegalArgumentException("Value for 'ReparatieNummer' must be 6 digits");
         }
 
