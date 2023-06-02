@@ -5,6 +5,8 @@ import be.one16.barka.klant.domain.Materiaal;
 import be.one16.barka.klant.ports.in.materiaal.UpdateMateriaalCommand;
 import be.one16.barka.klant.ports.in.materiaal.UpdateMateriaalUnitOfWork;
 import be.one16.barka.klant.ports.out.materiaal.MateriaalUpdatePort;
+
+import java.math.BigDecimal;
 import java.util.List;
 
 import static be.one16.barka.klant.core.materiaal.MateriaalUtil.*;
@@ -23,12 +25,12 @@ public class DefaultUpdateMateriaalUnitOfWork implements UpdateMateriaalUnitOfWo
     public void updateMateriaal(UpdateMateriaalCommand updateMateriaalCommand) {
 
         int aantalArtikels = updateMateriaalCommand.aantalArtikels();
-        double verkoopPrijsArtikel = updateMateriaalCommand.verkoopPrijsArtikel();
+        BigDecimal verkoopPrijsArtikel = updateMateriaalCommand.verkoopPrijsArtikel();
         int korting = updateMateriaalCommand.korting();
         int btwPerc = updateMateriaalCommand.btwPerc();
-        double totaalInclusBtw = calculateTotaalInclusBtwWithDiscount(aantalArtikels,verkoopPrijsArtikel,korting);
-        double totaalExclusBtw = calculateTotaalExclusBtw(totaalInclusBtw,btwPerc);
-        double btwBedrag = calculateBtwBedrag(totaalInclusBtw,totaalExclusBtw);
+        BigDecimal totaalInclusBtw = calculateTotaalInclusBtwWithDiscount(aantalArtikels,verkoopPrijsArtikel,korting);
+        BigDecimal totaalExclusBtw = calculateTotaalExclusBtw(totaalInclusBtw,btwPerc);
+        BigDecimal btwBedrag = calculateBtwBedrag(totaalInclusBtw,totaalExclusBtw);
 
         Materiaal materiaal = Materiaal.builder()
                 .materiaalId(updateMateriaalCommand.materiaalId())

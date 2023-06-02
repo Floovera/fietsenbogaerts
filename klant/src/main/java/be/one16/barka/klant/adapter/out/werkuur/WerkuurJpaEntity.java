@@ -6,8 +6,8 @@ import org.hibernate.annotations.NaturalId;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.UUID;
 
 @Entity
@@ -25,11 +25,11 @@ public class WerkuurJpaEntity {
     private UUID uuid;
     private LocalDate datum;
     private double aantalUren;
-    private double uurTarief;
+    private BigDecimal uurTarief;
     private int btwPerc;
-    private double totaalExclusBtw;
-    private double totaalInclusBtw;
-    private double btwBedrag;
+    private BigDecimal totaalExclusBtw;
+    private BigDecimal totaalInclusBtw;
+    private BigDecimal btwBedrag;
     @Type(type = "uuid-char")
     private UUID orderuuid;
 

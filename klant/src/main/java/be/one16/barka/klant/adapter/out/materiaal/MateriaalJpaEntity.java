@@ -6,6 +6,7 @@ import org.hibernate.annotations.NaturalId;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.UUID;
 
 @Entity
@@ -27,12 +28,12 @@ public class MateriaalJpaEntity {
     private String artikelCode;
     private String artikelOmschrijving;
     private int aantalArtikels;
-    private double verkoopPrijsArtikel;
+    private BigDecimal verkoopPrijsArtikel;
     private int korting;
     private int btwPerc;
-    private double totaalExclusBtw;
-    private double totaalInclusBtw;
-    private double btwBedrag;
+    private BigDecimal totaalExclusBtw;
+    private BigDecimal totaalInclusBtw;
+    private BigDecimal btwBedrag;
     @Type(type = "uuid-char")
     private UUID orderuuid;
 

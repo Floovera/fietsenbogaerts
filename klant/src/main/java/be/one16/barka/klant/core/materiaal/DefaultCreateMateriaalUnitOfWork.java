@@ -5,6 +5,8 @@ import be.one16.barka.klant.domain.Materiaal;
 import be.one16.barka.klant.ports.in.materiaal.CreateMateriaalCommand;
 import be.one16.barka.klant.ports.in.materiaal.CreateMateriaalUnitOfWork;
 import be.one16.barka.klant.ports.out.materiaal.MateriaalCreatePort;
+
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
 
@@ -24,12 +26,12 @@ public class DefaultCreateMateriaalUnitOfWork implements CreateMateriaalUnitOfWo
     public UUID createMateriaal(CreateMateriaalCommand createMateriaalCommand) {
 
         int aantalArtikels = createMateriaalCommand.aantalArtikels();
-        double verkoopPrijsArtikel = createMateriaalCommand.verkoopPrijsArtikel();
+        BigDecimal verkoopPrijsArtikel = createMateriaalCommand.verkoopPrijsArtikel();
         int korting = createMateriaalCommand.korting();
         int btwPerc = createMateriaalCommand.btwPerc();
-        double totaalInclusBtw = calculateTotaalInclusBtwWithDiscount(aantalArtikels,verkoopPrijsArtikel,korting);
-        double totaalExclusBtw = calculateTotaalExclusBtw(totaalInclusBtw,btwPerc);
-        double btwBedrag = calculateBtwBedrag(totaalInclusBtw,totaalExclusBtw);
+        BigDecimal totaalInclusBtw = calculateTotaalInclusBtwWithDiscount(aantalArtikels,verkoopPrijsArtikel,korting);
+        BigDecimal totaalExclusBtw = calculateTotaalExclusBtw(totaalInclusBtw,btwPerc);
+        BigDecimal btwBedrag = calculateBtwBedrag(totaalInclusBtw,totaalExclusBtw);
 
         Materiaal materiaal = Materiaal.builder()
                 .materiaalId(UUID.randomUUID())

@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
@@ -34,39 +35,20 @@ public class Order {
         BigDecimal werkurenTotaalExclusBtw = BigDecimal.valueOf(0);
 
         for (Materiaal materiaal : materialen) {
-            double totaalmateriaal = materiaal.getTotaalExclusBtw();
-            BigDecimal totalmaterial = BigDecimal.valueOf(totaalmateriaal);
+            BigDecimal totalmaterial = materiaal.getTotaalExclusBtw();
             materialenTotaalExclusBtw = materialenTotaalExclusBtw.add(totalmaterial);
         }
 
         for (Werkuur werkuur : werkuren) {
-            double totaalwerkuur= werkuur.getTotaalExclusBtw();
-            BigDecimal totallabour = BigDecimal.valueOf(totaalwerkuur);
+            BigDecimal totallabour = werkuur.getTotaalExclusBtw();
             werkurenTotaalExclusBtw = werkurenTotaalExclusBtw.add(totallabour);
         }
 
         totaalExclusBtw = materialenTotaalExclusBtw.add(werkurenTotaalExclusBtw);
-
-        return totaalExclusBtw;
+        BigDecimal rounded = totaalExclusBtw.setScale(2, RoundingMode.HALF_EVEN);
+        return rounded;
 
     }
-   /* public double getTotaalExclusBtw(){
-        double totaalExclusBtw = 0;
-        double materialenTotaalExclusBtw = 0;
-        double werkurenTotaalExclusBtw = 0;
-
-        for (Materiaal materiaal : materialen) {
-            materialenTotaalExclusBtw = materialenTotaalExclusBtw + materiaal.getTotaalExclusBtw();
-        }
-
-        for (Werkuur werkuur : werkuren) {
-            werkurenTotaalExclusBtw = werkurenTotaalExclusBtw + werkuur.getTotaalExclusBtw();
-        }
-
-        totaalExclusBtw = materialenTotaalExclusBtw + werkurenTotaalExclusBtw;
-
-        return  round(totaalExclusBtw);
-    }*/
 
     public BigDecimal getTotaalInclusBtw(){
         BigDecimal totaalInclusBtw = BigDecimal.valueOf(0);
@@ -74,39 +56,19 @@ public class Order {
         BigDecimal werkurenTotaalInclusBtw = BigDecimal.valueOf(0);
 
         for (Materiaal materiaal : materialen) {
-            double totaalmateriaal = materiaal.getTotaalInclusBtw();
-            BigDecimal totalmaterial = BigDecimal.valueOf(totaalmateriaal);
+            BigDecimal totalmaterial = materiaal.getTotaalInclusBtw();
             materialenTotaalInclusBtw = materialenTotaalInclusBtw.add(totalmaterial);
         }
 
         for (Werkuur werkuur : werkuren) {
-            double totaalwerkuur = werkuur.getTotaalInclusBtw();
-            BigDecimal totallabour = BigDecimal.valueOf(totaalwerkuur);
+            BigDecimal totallabour = werkuur.getTotaalInclusBtw();
             werkurenTotaalInclusBtw = werkurenTotaalInclusBtw.add(totallabour);
         }
 
         totaalInclusBtw = materialenTotaalInclusBtw.add(werkurenTotaalInclusBtw);
-
-        return  totaalInclusBtw;
+        BigDecimal rounded = totaalInclusBtw.setScale(2, RoundingMode.HALF_EVEN);
+        return  rounded;
     }
-    /*public double getTotaalInclusBtw(){
-        double totaalInclusBtw = 0;
-        double materialenTotaalInclusBtw = 0;
-        double werkurenTotaalInclusBtw = 0;
-
-        for (Materiaal materiaal : materialen) {
-            materialenTotaalInclusBtw = materialenTotaalInclusBtw + materiaal.getTotaalInclusBtw();
-        }
-
-        for (Werkuur werkuur : werkuren) {
-            werkurenTotaalInclusBtw = werkurenTotaalInclusBtw + werkuur.getTotaalInclusBtw();
-        }
-
-        totaalInclusBtw = materialenTotaalInclusBtw + werkurenTotaalInclusBtw;
-
-        return  round(totaalInclusBtw);
-    }
-*/
 
     public BigDecimal getBtwBedrag(){
         BigDecimal totaalBtwBedrag = BigDecimal.valueOf(0);
@@ -114,43 +76,19 @@ public class Order {
         BigDecimal werkurenBtwBedrag = BigDecimal.valueOf(0);
 
         for (Materiaal materiaal : materialen) {
-            double btwBedrag = materiaal.getBtwBedrag();
-            BigDecimal vat = BigDecimal.valueOf(btwBedrag);
+            BigDecimal vat = materiaal.getBtwBedrag();
             materialenBtwBedrag = materialenBtwBedrag.add(vat);
         }
 
         for (Werkuur werkuur : werkuren) {
-            double btwBedrag = werkuur.getBtwBedrag();
-            BigDecimal vat = BigDecimal.valueOf(btwBedrag);
+            BigDecimal vat = werkuur.getBtwBedrag();
             werkurenBtwBedrag = werkurenBtwBedrag.add(vat);
         }
 
         totaalBtwBedrag = materialenBtwBedrag.add(werkurenBtwBedrag);
-
-        return totaalBtwBedrag;
+        BigDecimal rounded = totaalBtwBedrag.setScale(2, RoundingMode.HALF_EVEN);
+        return rounded;
     }
-    /*public double getBtwBedrag(){
-        double totaalBtwBedrag = 0;
-        double materialenBtwBedrag = 0;
-        double werkurenBtwBedrag = 0;
-
-        for (Materiaal materiaal : materialen) {
-            materialenBtwBedrag = materialenBtwBedrag + materiaal.getBtwBedrag();
-        }
-
-        for (Werkuur werkuur : werkuren) {
-            werkurenBtwBedrag = werkurenBtwBedrag + werkuur.getBtwBedrag();
-        }
-
-        totaalBtwBedrag = materialenBtwBedrag + werkurenBtwBedrag;
-
-        return round(totaalBtwBedrag);}
-
-    public double round(double amountToRound){
-
-        double roundOff = Math.round(amountToRound * 100.0) / 100.0;
-        return roundOff;
-    }*/
 
     public boolean checkSwitchType(OrderType newOrderType){
         boolean switchOK = true;
@@ -162,10 +100,6 @@ public class Order {
             switchOK = false;
         }
         return switchOK;
-    }
-
-    public void switchOrderType(OrderType newOrderType){
-
     }
 
     public void setOrderNummer(int lastOrderNummer) {

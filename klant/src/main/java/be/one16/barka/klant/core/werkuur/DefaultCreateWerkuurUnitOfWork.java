@@ -6,6 +6,7 @@ import be.one16.barka.klant.ports.in.werkuur.CreateWerkuurCommand;
 import be.one16.barka.klant.ports.in.werkuur.CreateWerkuurUnitOfWork;
 import be.one16.barka.klant.ports.out.werkuur.WerkuurCreatePort;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
 
@@ -24,11 +25,11 @@ public class DefaultCreateWerkuurUnitOfWork implements CreateWerkuurUnitOfWork {
     public UUID createWerkuur(CreateWerkuurCommand createWerkuurCommand) {
 
         double aantalUren = createWerkuurCommand.aantalUren();
-        double uurTarief = createWerkuurCommand.uurTarief();
+        BigDecimal uurTarief = createWerkuurCommand.uurTarief();
         int btwPerc = createWerkuurCommand.btwPerc();
-        double totaalInclusBtw = calculateTotaalInclusBtw(aantalUren,uurTarief);
-        double totaalExclusBtw = calculateTotaalExclusBtw(totaalInclusBtw,btwPerc);
-        double btwBedrag = calculateBtwBedrag(totaalInclusBtw,totaalExclusBtw);
+        BigDecimal totaalInclusBtw = calculateTotaalInclusBtw(aantalUren,uurTarief);
+        BigDecimal totaalExclusBtw = calculateTotaalExclusBtw(totaalInclusBtw,btwPerc);
+        BigDecimal btwBedrag = calculateBtwBedrag(totaalInclusBtw,totaalExclusBtw);
 
 
 

@@ -5,6 +5,8 @@ import be.one16.barka.klant.domain.Werkuur;
 import be.one16.barka.klant.ports.in.werkuur.UpdateWerkuurCommand;
 import be.one16.barka.klant.ports.in.werkuur.UpdateWerkuurUnitOfWork;
 import be.one16.barka.klant.ports.out.werkuur.WerkuurUpdatePort;
+
+import java.math.BigDecimal;
 import java.util.List;
 
 import static be.one16.barka.klant.core.werkuur.WerkuurUtil.*;
@@ -22,11 +24,11 @@ public class DefaultUpdateWerkuurUnitOfWork implements UpdateWerkuurUnitOfWork {
     public void updateWerkuur(UpdateWerkuurCommand updateWerkuurCommand) {
 
         double aantalUren = updateWerkuurCommand.aantalUren();
-        double uurTarief = updateWerkuurCommand.uurTarief();
+        BigDecimal uurTarief = updateWerkuurCommand.uurTarief();
         int btwPerc = updateWerkuurCommand.btwPerc();
-        double totaalInclusBtw = calculateTotaalInclusBtw(aantalUren,uurTarief);
-        double totaalExclusBtw = calculateTotaalExclusBtw(totaalInclusBtw,btwPerc);
-        double btwBedrag = calculateBtwBedrag(totaalInclusBtw,totaalExclusBtw);
+        BigDecimal totaalInclusBtw = calculateTotaalInclusBtw(aantalUren,uurTarief);
+        BigDecimal totaalExclusBtw = calculateTotaalExclusBtw(totaalInclusBtw,btwPerc);
+        BigDecimal btwBedrag = calculateBtwBedrag(totaalInclusBtw,totaalExclusBtw);
 
         Werkuur werkuur = Werkuur.builder()
                 .werkuurId(updateWerkuurCommand.werkuurId())

@@ -1,10 +1,11 @@
 package be.one16.barka.klant.ports.in.werkuur;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.UUID;
 
-public record CreateWerkuurCommand(LocalDate datum, double aantalUren, double uurTarief, int btwPerc,UUID orderId){
+public record CreateWerkuurCommand(LocalDate datum, double aantalUren, BigDecimal uurTarief, int btwPerc, UUID orderId){
 
     public CreateWerkuurCommand {
 
@@ -16,7 +17,7 @@ public record CreateWerkuurCommand(LocalDate datum, double aantalUren, double uu
             throw new IllegalArgumentException("Value for 'aantal uren' can not be 0.0");
         }
 
-        if (uurTarief == 0.0) {
+        if (uurTarief.compareTo(new BigDecimal("0.00")) == 0) {
             throw new IllegalArgumentException("Value for 'uur tarief' can not be 0.0");
         }
 

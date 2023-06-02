@@ -1,5 +1,7 @@
 package be.one16.barka.klant.adapter.in.materiaal;
 import lombok.Data;
+
+import java.math.BigDecimal;
 import java.util.UUID;
 
 @Data
@@ -11,11 +13,11 @@ public class MateriaalDto {
     private String artikelCode;
     private String artikelOmschrijving;
     private int aantalArtikels;
-    private double verkoopPrijsArtikel;
+    private BigDecimal verkoopPrijsArtikel;
     private int korting;
     private int btwPerc;
-    private double totaalExclusBtw;
-    private double totaalInclusBtw;
-    private double btwBedrag;
+    private BigDecimal totaalExclusBtw;
+    private BigDecimal totaalInclusBtw;
+    private BigDecimal btwBedrag;
 
 }

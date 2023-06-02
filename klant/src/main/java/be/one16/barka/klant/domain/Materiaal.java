@@ -2,6 +2,8 @@ package be.one16.barka.klant.domain;
 
 import lombok.Builder;
 import lombok.Data;
+
+import java.math.BigDecimal;
 import java.util.UUID;
 
 @Data
@@ -14,12 +16,12 @@ public class Materiaal {
     private String artikelCode;
     private String artikelOmschrijving;
     private int aantalArtikels;
-    private double verkoopPrijsArtikel;
+    private BigDecimal verkoopPrijsArtikel;
     private int korting;
     private int btwPerc;
-    private double totaalExclusBtw;
-    private double totaalInclusBtw;
-    private double btwBedrag;
+    private BigDecimal totaalExclusBtw;
+    private BigDecimal totaalInclusBtw;
+    private BigDecimal btwBedrag;
     private UUID orderId;
 
 }

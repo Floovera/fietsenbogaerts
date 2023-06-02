@@ -4,8 +4,8 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import lombok.Data;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.UUID;
 
 @Data
@@ -16,11 +16,11 @@ public class WerkuurDto {
     @JsonDeserialize(using = LocalDateDeserializer.class)
     private LocalDate datum;
     private double aantalUren;
-    private double uurTarief;
+    private BigDecimal uurTarief;
     private int btwPerc;
-    private double totaalExclusBtw;
-    private double totaalInclusBtw;
-    private double btwBedrag;
+    private BigDecimal totaalExclusBtw;
+    private BigDecimal totaalInclusBtw;
+    private BigDecimal btwBedrag;
     private UUID orderId;
 
 }

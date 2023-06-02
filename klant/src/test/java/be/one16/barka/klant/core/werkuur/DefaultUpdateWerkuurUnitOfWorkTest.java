@@ -15,6 +15,9 @@ import org.mockito.Captor;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.math.BigDecimal;
+import java.math.MathContext;
+import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
@@ -30,13 +33,17 @@ class DefaultUpdateWerkuurUnitOfWorkTest {
 
     @ParameterizedTest
     @MethodSource("valuesForUpdateWerkuur")
-    void updateWerkuur(double aantalUren, double uurTarief, int btwPerc, double totaalInclusBtw, double totaalExclusBtw, double btwBedrag){
+    void updateWerkuur(double aantalUren, BigDecimal uurTarief, int btwPerc, BigDecimal totaalInclusBtw, BigDecimal totaalExclusBtw, BigDecimal btwBedrag){
 
         //Arrange
         WerkuurUpdatePort werkuurUpdatePort = Mockito.mock(WerkuurUpdatePort.class);
         DefaultUpdateWerkuurUnitOfWork updateWerkuurUnitOfWork = new DefaultUpdateWerkuurUnitOfWork(List.of(werkuurUpdatePort));
         LocalDate date = LocalDate.of(2023, 1, 8);
-        Werkuur werkuurToUpdate = new Werkuur(UUID.randomUUID(),date,0.3,50,21,15,12.4,2.6,UUID.randomUUID());
+        BigDecimal uurtarief = BigDecimal.valueOf(50);
+        BigDecimal inclus = BigDecimal.valueOf(15);
+        BigDecimal exclus = BigDecimal.valueOf(12.4);
+        BigDecimal btw = BigDecimal.valueOf(2.6);
+        Werkuur werkuurToUpdate = new Werkuur(UUID.randomUUID(),date,0.3,uurtarief,21,inclus,exclus,btw,UUID.randomUUID());
         UpdateWerkuurCommand updateWerkuurCommand = new UpdateWerkuurCommand(werkuurToUpdate.getWerkuurId(),date,aantalUren,uurTarief,btwPerc,werkuurToUpdate.getOrderId());
 
 
@@ -57,9 +64,17 @@ class DefaultUpdateWerkuurUnitOfWorkTest {
     }
 
     private static Stream<Arguments> valuesForUpdateWerkuur() {
+        BigDecimal uurtarief1 = BigDecimal.valueOf(50).setScale(2, RoundingMode.HALF_EVEN);
+        BigDecimal uurtarief2 = BigDecimal.valueOf(100).setScale(2, RoundingMode.HALF_EVEN);
+        BigDecimal inclus1 = BigDecimal.valueOf(15).setScale(2, RoundingMode.HALF_EVEN);
+        BigDecimal inclus2 = BigDecimal.valueOf(100).setScale(2, RoundingMode.HALF_EVEN);
+        BigDecimal exclus1 = BigDecimal.valueOf(12.4).setScale(2, RoundingMode.HALF_EVEN);
+        BigDecimal exclus2 = BigDecimal.valueOf(82.64).setScale(2, RoundingMode.HALF_EVEN);
+        BigDecimal btw1 = BigDecimal.valueOf(2.6).setScale(2, RoundingMode.HALF_EVEN);
+        BigDecimal btw2 = BigDecimal.valueOf(17.36).setScale(2, RoundingMode.HALF_EVEN);
         return Stream.of(
-                Arguments.of(0.3,50,21,15,12.4,2.6),
-                Arguments.of(1,100,21,100,82.64,17.36)
+                Arguments.of(0.3,uurtarief1,21,inclus1,exclus1,btw1),
+                Arguments.of(1,uurtarief2,21,inclus2,exclus2,btw2)
         );
     }
 
@@ -70,10 +85,14 @@ class DefaultUpdateWerkuurUnitOfWorkTest {
         WerkuurUpdatePort werkuurUpdatePort = Mockito.mock(WerkuurUpdatePort.class);
         DefaultUpdateWerkuurUnitOfWork updateWerkuurUnitOfWork = new DefaultUpdateWerkuurUnitOfWork(List.of(werkuurUpdatePort));
         LocalDate date = LocalDate.of(2023, 1, 8);
-        Werkuur werkuurToUpdate = new Werkuur(UUID.randomUUID(),date,0.3,50,21,15,12.4,2.6,UUID.randomUUID());
+        BigDecimal uurtarief = BigDecimal.valueOf(50);
+        BigDecimal inclus = BigDecimal.valueOf(15);
+        BigDecimal exclus = BigDecimal.valueOf(12.4);
+        BigDecimal btw = BigDecimal.valueOf(2.6);
+        Werkuur werkuurToUpdate = new Werkuur(UUID.randomUUID(),date,0.3,uurtarief,21,inclus,exclus,btw,UUID.randomUUID());
 
         //Act and assert
-        IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class, () -> updateWerkuurUnitOfWork.updateWerkuur(new UpdateWerkuurCommand(werkuurToUpdate.getWerkuurId(),date, 0.3, 50, 0, UUID.randomUUID())));
+        IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class, () -> updateWerkuurUnitOfWork.updateWerkuur(new UpdateWerkuurCommand(werkuurToUpdate.getWerkuurId(),date, 0.3, uurtarief, 0, UUID.randomUUID())));
         assertEquals("Value for 'btw perc' should be 6 or 21",illegalArgumentException.getMessage());
     }
 
@@ -84,10 +103,14 @@ class DefaultUpdateWerkuurUnitOfWorkTest {
         WerkuurUpdatePort werkuurUpdatePort = Mockito.mock(WerkuurUpdatePort.class);
         DefaultUpdateWerkuurUnitOfWork updateWerkuurUnitOfWork = new DefaultUpdateWerkuurUnitOfWork(List.of(werkuurUpdatePort));
         LocalDate date = LocalDate.of(2023, 1, 8);
-        Werkuur werkuurToUpdate = new Werkuur(UUID.randomUUID(),date,0.3,50,21,15,12.4,2.6,UUID.randomUUID());
+        BigDecimal uurtarief = BigDecimal.valueOf(50);
+        BigDecimal inclus = BigDecimal.valueOf(15);
+        BigDecimal exclus = BigDecimal.valueOf(12.4);
+        BigDecimal btw = BigDecimal.valueOf(2.6);
+        Werkuur werkuurToUpdate = new Werkuur(UUID.randomUUID(),date,0.3,uurtarief,21,inclus,exclus,btw,UUID.randomUUID());
 
         //Act and assert
-        IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class, () -> updateWerkuurUnitOfWork.updateWerkuur(new UpdateWerkuurCommand(werkuurToUpdate.getWerkuurId(),null, 0.3, 50, 6, UUID.randomUUID())));
+        IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class, () -> updateWerkuurUnitOfWork.updateWerkuur(new UpdateWerkuurCommand(werkuurToUpdate.getWerkuurId(),null, 0.3, uurtarief, 6, UUID.randomUUID())));
         assertEquals("Value for 'datum' can not be null",illegalArgumentException.getMessage());
     }
 
@@ -98,10 +121,15 @@ class DefaultUpdateWerkuurUnitOfWorkTest {
         WerkuurUpdatePort werkuurUpdatePort = Mockito.mock(WerkuurUpdatePort.class);
         DefaultUpdateWerkuurUnitOfWork updateWerkuurUnitOfWork = new DefaultUpdateWerkuurUnitOfWork(List.of(werkuurUpdatePort));
         LocalDate date = LocalDate.of(2023, 1, 8);
-        Werkuur werkuurToUpdate = new Werkuur(UUID.randomUUID(),date,0.3,50,21,15,12.4,2.6,UUID.randomUUID());
+        BigDecimal uurtarief = BigDecimal.valueOf(50);
+        BigDecimal nieuwuurtarief = BigDecimal.valueOf(0);
+        BigDecimal inclus = BigDecimal.valueOf(15);
+        BigDecimal exclus = BigDecimal.valueOf(12.4);
+        BigDecimal btw = BigDecimal.valueOf(2.6);
+        Werkuur werkuurToUpdate = new Werkuur(UUID.randomUUID(),date,0.3,uurtarief,21,inclus,exclus,btw,UUID.randomUUID());
 
         //Act and assert
-        IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class, () -> updateWerkuurUnitOfWork.updateWerkuur(new UpdateWerkuurCommand(werkuurToUpdate.getWerkuurId(),date, 0.3, 0, 21, UUID.randomUUID())));
+        IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class, () -> updateWerkuurUnitOfWork.updateWerkuur(new UpdateWerkuurCommand(werkuurToUpdate.getWerkuurId(),date, 0.3, nieuwuurtarief, 21, UUID.randomUUID())));
         assertEquals("Value for 'uur tarief' can not be 0.0",illegalArgumentException.getMessage());
     }
 
@@ -112,10 +140,14 @@ class DefaultUpdateWerkuurUnitOfWorkTest {
         WerkuurUpdatePort werkuurUpdatePort = Mockito.mock(WerkuurUpdatePort.class);
         DefaultUpdateWerkuurUnitOfWork updateWerkuurUnitOfWork = new DefaultUpdateWerkuurUnitOfWork(List.of(werkuurUpdatePort));
         LocalDate date = LocalDate.of(2023, 1, 8);
-        Werkuur werkuurToUpdate = new Werkuur(UUID.randomUUID(),date,0.3,50,21,15,12.4,2.6,UUID.randomUUID());
+        BigDecimal uurtarief = BigDecimal.valueOf(50);
+        BigDecimal inclus = BigDecimal.valueOf(15);
+        BigDecimal exclus = BigDecimal.valueOf(12.4);
+        BigDecimal btw = BigDecimal.valueOf(2.6);
+        Werkuur werkuurToUpdate = new Werkuur(UUID.randomUUID(),date,0.3,uurtarief,21,inclus,exclus,btw,UUID.randomUUID());
 
         //Act and assert
-        IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class, () -> updateWerkuurUnitOfWork.updateWerkuur(new UpdateWerkuurCommand(werkuurToUpdate.getWerkuurId(),date, 0, 50, 21, UUID.randomUUID())));
+        IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class, () -> updateWerkuurUnitOfWork.updateWerkuur(new UpdateWerkuurCommand(werkuurToUpdate.getWerkuurId(),date, 0, uurtarief, 21, UUID.randomUUID())));
         assertEquals("Value for 'aantal uren' can not be 0.0",illegalArgumentException.getMessage());
     }
 

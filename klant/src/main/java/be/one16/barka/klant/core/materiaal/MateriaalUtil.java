@@ -5,59 +5,39 @@ import java.math.RoundingMode;
 
 public class MateriaalUtil {
 
-    protected static double calculateTotaalInclusBtwWithDiscount(double aantalUren, double uurTarief,int korting){
+    protected static BigDecimal calculateTotaalInclusBtwWithDiscount(double aantalUren, BigDecimal uurTarief,int korting){
 
         BigDecimal hours = BigDecimal.valueOf(aantalUren);
-        BigDecimal price = BigDecimal.valueOf(uurTarief);
+        BigDecimal price = uurTarief;
         BigDecimal discount = BigDecimal.valueOf(korting);
         BigDecimal hundred = BigDecimal.valueOf(100);
         BigDecimal one = BigDecimal.valueOf(1);
         BigDecimal discountperc = discount.divide(hundred);
         BigDecimal  perctopay = one.subtract(discountperc);
         BigDecimal totalinclus = hours.multiply(price).multiply(perctopay);
-
-        double result = totalinclus.doubleValue();
-        return result;
-///*        double totaalInclus =  aantalUren * uurTarief * (1-(korting/100.0));
-//        double totaalInclusRounded = round(totaalInclus);
-//        return totaalInclusRounded;*/
-
-
+        BigDecimal rounded = totalinclus.setScale(2, RoundingMode.HALF_EVEN);
+        return rounded;
     }
 
-    protected static double calculateTotaalExclusBtw(double totaalInclusBtw, int btwPerc){
-        BigDecimal totalinclus = BigDecimal.valueOf(totaalInclusBtw);
+    protected static BigDecimal calculateTotaalExclusBtw(BigDecimal totaalInclusBtw, int btwPerc){
+        BigDecimal totalinclus = totaalInclusBtw;
         BigDecimal vat = BigDecimal.valueOf(btwPerc);
         BigDecimal hundred = BigDecimal.valueOf(100);
         BigDecimal one = BigDecimal.valueOf(1);
         BigDecimal vatperc = vat.divide(hundred);
         BigDecimal topay = one.add(vatperc);
-        BigDecimal totaalexclus = totalinclus.divide(topay,2, RoundingMode.HALF_UP);
-
-        double result = totaalexclus.doubleValue();
-        return result;
-//
-//        double totaalExclus =  totaalInclusBtw / (1+(btwPerc/100.0));
-//        double totaalExlcusRounded = round(totaalExclus);
-//        return totaalExlcusRounded;
+        BigDecimal totalexclus = totalinclus.divide(topay,2, RoundingMode.HALF_UP);
+        return totalexclus;
     }
 
-    protected static double calculateBtwBedrag(double totaalInclusBtw, double totaalExlcusBtw){
+    protected static BigDecimal calculateBtwBedrag(BigDecimal totaalInclusBtw, BigDecimal totaalExlcusBtw){
 
-        BigDecimal totalinclus = BigDecimal.valueOf(totaalInclusBtw);
-        BigDecimal totalexclus = BigDecimal.valueOf(totaalExlcusBtw);
+        BigDecimal totalinclus = totaalInclusBtw;
+        BigDecimal totalexclus = totaalExlcusBtw;
         BigDecimal vatamount = totalinclus.subtract(totalexclus);
-
-        double result = vatamount.doubleValue();
-        return result;
-//        double btwBedrag =  totaalInclusBtw - totaalExlcusBtw;
-//        double btwBedragRounded = round(btwBedrag);
-//        return btwBedragRounded;
+        BigDecimal rounded = vatamount.setScale(2, RoundingMode.HALF_EVEN);
+        return rounded;
     }
 
-    protected static double round(double amountToRound){
 
-        double roundOff = Math.round(amountToRound * 100.0) / 100.0;
-        return roundOff;
-    }
 }
