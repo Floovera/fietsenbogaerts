@@ -40,7 +40,7 @@ class DefaultOrderQueryTest {
         materialen.add(fietszak);
         materialen.add(fietsbel);
 
-        Order order = Order.builder().orderId(orderId).datum(date).naam("Fietszakken en fietsbel").orderType(OrderType.VERKOOPP).build();
+        Order order = Order.builder().orderId(orderId).datum(date).naam("Fietszakken en fietsbel").orderType(OrderType.VERKOOP).build();
 
         Mockito.when(loadOrdersPort.retrieveOrderById(orderId)).thenReturn(order);
         Mockito.when(materialenQuery.retrieveMaterialenOfOrder(orderId)).thenReturn(materialen);
